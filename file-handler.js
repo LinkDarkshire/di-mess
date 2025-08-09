@@ -1,10 +1,10 @@
-// file-handler.js - File Operation Handlers
+// file-handler.js - File Operation Handlers (Fixed)
 
 class FileHandlers {
     constructor() {
         this.autoRefreshInterval = null;
         this.autoRefreshDelay = 30000; // 30 seconds
-        
+
         this.currentData = {
             pendingVideos: [],
             pendingArchives: [],
@@ -14,6 +14,9 @@ class FileHandlers {
             targetFolders: [],
             config: null
         };
+
+        // Folder selection state
+        this.pendingFolderAction = null;
 
         console.log('File Handlers initialized');
     }
@@ -68,7 +71,7 @@ class FileHandlers {
     // Load pending items (videos and archives)
     async loadPendingItems() {
         window.ui.showLoading('pendingList');
-        
+
         try {
             const [videosResponse, archivesResponse] = await Promise.all([
                 window.api.getPendingVideos(),
@@ -83,8 +86,8 @@ class FileHandlers {
 
             // Combine and sort by detected_at
             const allItems = [
-                ...videos.map(v => ({...v, type: 'video'})),
-                ...archives.map(a => ({...a, type: 'archive'}))
+                ...videos.map(v => ({ ...v, type: 'video' })),
+                ...archives.map(a => ({ ...a, type: 'archive' }))
             ].sort((a, b) => b.detected_at - a.detected_at);
 
             // Render items
@@ -115,14 +118,14 @@ class FileHandlers {
         if (container) {
             container.innerHTML = html;
         }
-        
+
         window.ui.hideLoading('pendingList', items.length > 0);
     }
 
     // Load processing items
     async loadProcessingItems() {
         window.ui.showLoading('processingList');
-        
+
         try {
             const [videosResponse, archivesResponse] = await Promise.all([
                 window.api.getProcessingVideos(),
@@ -134,8 +137,8 @@ class FileHandlers {
 
             // Combine and sort
             const allItems = [
-                ...videos.map(v => ({...v, type: 'video'})),
-                ...archives.map(a => ({...a, type: 'archive'}))
+                ...videos.map(v => ({ ...v, type: 'video' })),
+                ...archives.map(a => ({ ...a, type: 'archive' }))
             ].sort((a, b) => b.detected_at - a.detected_at);
 
             this.currentData.processingItems = allItems;
@@ -168,14 +171,14 @@ class FileHandlers {
         if (container) {
             container.innerHTML = html;
         }
-        
+
         window.ui.hideLoading('processingList', items.length > 0);
     }
 
     // Load completed items
     async loadCompletedItems() {
         window.ui.showLoading('completedList');
-        
+
         try {
             const [videosResponse, archivesResponse] = await Promise.all([
                 window.api.getCompletedVideos(),
@@ -187,8 +190,8 @@ class FileHandlers {
 
             // Combine and sort
             const allItems = [
-                ...videos.map(v => ({...v, type: 'video'})),
-                ...archives.map(a => ({...a, type: 'archive'}))
+                ...videos.map(v => ({ ...v, type: 'video' })),
+                ...archives.map(a => ({ ...a, type: 'archive' }))
             ].sort((a, b) => b.detected_at - a.detected_at);
 
             this.currentData.completedItems = allItems;
@@ -221,14 +224,14 @@ class FileHandlers {
         if (container) {
             container.innerHTML = html;
         }
-        
+
         window.ui.hideLoading('completedList', items.length > 0);
     }
 
     // Load cleanup candidates
     async loadCleanupCandidates() {
         window.ui.showLoading('cleanupList');
-        
+
         try {
             const response = await window.api.getStartupCleanupCandidates();
             const candidates = response.success ? response.data : [];
@@ -251,7 +254,7 @@ class FileHandlers {
     }
 
     renderCleanupCandidates(candidates) {
-        const html = candidates.map(candidate => 
+        const html = candidates.map(candidate =>
             window.ui.renderCleanupItem(candidate)
         ).join('');
 
@@ -259,7 +262,7 @@ class FileHandlers {
         if (container) {
             container.innerHTML = html;
         }
-        
+
         window.ui.hideLoading('cleanupList', candidates.length > 0);
     }
 
@@ -282,10 +285,10 @@ class FileHandlers {
         selects.forEach(select => {
             // Keep current value
             const currentValue = select.value;
-            
+
             // Clear and repopulate
             select.innerHTML = '<option value="">Select target folder...</option>';
-            
+
             this.currentData.targetFolders.forEach(folder => {
                 if (folder.enabled) {
                     const option = document.createElement('option');
@@ -294,7 +297,7 @@ class FileHandlers {
                     select.appendChild(option);
                 }
             });
-            
+
             // Restore value if still valid
             if (currentValue) {
                 select.value = currentValue;
@@ -346,7 +349,7 @@ class FileHandlers {
         document.getElementById('editSeriesName').value = video.series_name || '';
         document.getElementById('editSeasonNumber').value = video.season_number || '';
         document.getElementById('editEpisodeNumber').value = video.episode_number || '';
-        
+
         // Set target folder if available
         const targetSelect = document.getElementById('editTargetFolder');
         if (video.target_folder) {
@@ -379,7 +382,7 @@ class FileHandlers {
             if (response.success) {
                 window.ui.showToast('Success', 'Video metadata updated', 'success');
                 window.ui.closeModal('editVideoModal');
-                
+
                 // If target folder is selected, approve with that folder
                 if (targetFolder) {
                     await this.approveVideoWithTarget(filepath, targetFolder);
@@ -554,80 +557,170 @@ class FileHandlers {
         }
     }
 
-    // Folder Management
+    // Folder Management - Updated to use proper dialogs
     async addWatchFolder() {
-        const path = await this.selectFolder();
-        if (!path) return;
+        // Set pending action
+        this.pendingFolderAction = 'addWatch';
 
-        const name = prompt('Enter a name for this watch folder:', path.split(/[/\\]/).pop());
-        if (!name) return;
-
-        try {
-            const response = await window.api.addWatchFolder({
-                path: path,
-                name: name,
-                watch_videos: true,
-                watch_archives: true,
-                enabled: true
-            });
-
-            if (response.success) {
-                window.ui.showToast('Success', 'Watch folder added', 'success');
-                await this.loadSettings();
-            } else {
-                window.ui.showToast('Error', response.error, 'error');
-            }
-        } catch (error) {
-            window.ui.showToast('Error', 'Failed to add watch folder', 'error');
-        }
-    }
-
-    async addTargetFolder() {
-        const path = await this.selectFolder();
-        if (!path) return;
-
-        const name = prompt('Enter a name for this target folder:', path.split(/[/\\]/).pop());
-        if (!name) return;
-
-        try {
-            const response = await window.api.addTargetFolder({
-                path: path,
-                name: name,
-                priority: 1,
-                enabled: true
-            });
-
-            if (response.success) {
-                window.ui.showToast('Success', 'Target folder added', 'success');
-                await this.loadSettings();
-                await this.loadTargetFolders();
-            } else {
-                window.ui.showToast('Error', response.error, 'error');
-            }
-        } catch (error) {
-            window.ui.showToast('Error', 'Failed to add target folder', 'error');
-        }
-    }
-
-    async selectFolder() {
         // Use Electron dialog if available
         if (window.electronAPI) {
             try {
                 const result = await window.electronAPI.showOpenDialog({
                     properties: ['openDirectory'],
-                    title: 'Select Folder'
+                    title: 'Select Watch Folder'
                 });
 
                 if (!result.canceled && result.filePaths.length > 0) {
-                    return result.filePaths[0];
+                    const path = result.filePaths[0];
+                    await this.showFolderNameDialog(path, 'watch');
                 }
             } catch (error) {
                 console.error('Electron dialog failed:', error);
+                this.showFolderBrowserModal('watch');
             }
+        } else {
+            // Fallback to custom modal
+            this.showFolderBrowserModal('watch');
+        }
+    }
+
+    async addTargetFolder() {
+        // Set pending action
+        this.pendingFolderAction = 'addTarget';
+
+        // Use Electron dialog if available
+        if (window.electronAPI) {
+            try {
+                const result = await window.electronAPI.showOpenDialog({
+                    properties: ['openDirectory'],
+                    title: 'Select Target Folder'
+                });
+
+                if (!result.canceled && result.filePaths.length > 0) {
+                    const path = result.filePaths[0];
+                    await this.showFolderNameDialog(path, 'target');
+                }
+            } catch (error) {
+                console.error('Electron dialog failed:', error);
+                this.showFolderBrowserModal('target');
+            }
+        } else {
+            // Fallback to custom modal
+            this.showFolderBrowserModal('target');
+        }
+    }
+
+    showFolderBrowserModal(type) {
+        // Store type for later use
+        this.folderType = type;
+
+        // Clear path input
+        document.getElementById('folderPath').value = '';
+
+        // Update modal title
+        const modalTitle = document.querySelector('#folderBrowserModal .modal-header h3');
+        if (modalTitle) {
+            modalTitle.textContent = type === 'watch' ? 'Select Watch Folder' : 'Select Target Folder';
         }
 
-        // Fallback to prompt
-        return prompt('Enter folder path:');
+        // Setup browse button for manual entry (fallback)
+        const browseBtn = document.getElementById('browseFolderBtn');
+        if (browseBtn) {
+            browseBtn.onclick = () => {
+                // This is a fallback - user would need to type path manually
+                const path = document.getElementById('folderPath').value.trim();
+                if (path) {
+                    this.showFolderNameDialog(path, type);
+                } else {
+                    window.ui.showToast('Error', 'Please enter a folder path', 'error');
+                }
+            };
+        }
+
+        // Open modal
+        window.ui.openModal('folderBrowserModal');
+    }
+
+    async showFolderNameDialog(path, type) {
+        // Close folder browser modal
+        window.ui.closeModal('folderBrowserModal');
+
+        // Create a simple input dialog using Electron if available
+        if (window.electronAPI) {
+            try {
+                const defaultName = path.split(/[/\\]/).pop();
+                const result = await window.electronAPI.showMessageBox({
+                    type: 'question',
+                    buttons: ['OK', 'Cancel'],
+                    defaultId: 0,
+                    title: 'Folder Name',
+                    message: `Enter a name for this ${type} folder:`,
+                    detail: `Path: ${path}\nDefault name: ${defaultName}`
+                });
+
+                if (result.response === 0) {
+                    // User clicked OK - use default name for now
+                    // In a full implementation, you'd want a proper input dialog
+                    await this.processFolderAddition(path, defaultName, type);
+                }
+            } catch (error) {
+                console.error('Dialog failed:', error);
+                // Fallback to default name
+                const defaultName = path.split(/[/\\]/).pop();
+                await this.processFolderAddition(path, defaultName, type);
+            }
+        } else {
+            // Browser fallback - use default name
+            const defaultName = path.split(/[/\\]/).pop();
+            await this.processFolderAddition(path, defaultName, type);
+        }
+    }
+
+    async processFolderAddition(path, name, type) {
+        try {
+            let response;
+            if (type === 'watch') {
+                response = await window.api.addWatchFolder({
+                    // Entferne 'path' aus dem Objekt, da es bereits als separater Parameter gesendet wird
+                    name: name,
+                    watch_videos: true,
+                    watch_archives: true,
+                    enabled: true,
+                    recursive: true,
+                    video_search_depth: 1
+                });
+            } else {
+                response = await window.api.addTargetFolder({
+                    // Entferne 'path' aus dem Objekt
+                    name: name,
+                    priority: 1,
+                    enabled: true
+                });
+            }
+
+            if (response.success) {
+                window.ui.showToast('Success', `${type === 'watch' ? 'Watch' : 'Target'} folder added`, 'success');
+                await this.loadSettings();
+                if (type === 'target') {
+                    await this.loadTargetFolders();
+                }
+            } else {
+                window.ui.showToast('Error', response.error, 'error');
+            }
+        } catch (error) {
+            window.ui.showToast('Error', `Failed to add ${type} folder`, 'error');
+        }
+    }
+
+    confirmFolderSelection() {
+        const path = document.getElementById('folderPath').value.trim();
+        if (!path) {
+            window.ui.showToast('Error', 'Please enter a folder path', 'error');
+            return;
+        }
+
+        const type = this.folderType || 'watch';
+        this.showFolderNameDialog(path, type);
     }
 
     removeWatchFolder(index) {
@@ -713,6 +806,22 @@ const folderCSS = `
 
 .setting-item {
     margin-bottom: var(--spacing-md);
+}
+
+.folder-browser {
+    display: flex;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-md);
+}
+
+.folder-browser input {
+    flex: 1;
+}
+
+.help-text {
+    color: var(--text-secondary);
+    font-size: 0.875rem;
+    margin: 0;
 }
 `;
 

@@ -233,7 +233,18 @@ class Config:
             if folder.path == path:
                 return False
         
-        self.watch_folders.append(WatchFolder(path=path, name=name, **kwargs))
+        # Erstelle WatchFolder mit expliziten Argumenten
+        folder_data = {
+            'path': path,
+            'name': name,
+            'watch_videos': kwargs.get('watch_videos', True),
+            'watch_archives': kwargs.get('watch_archives', True),
+            'recursive': kwargs.get('recursive', True),
+            'video_search_depth': kwargs.get('video_search_depth', 1),
+            'enabled': kwargs.get('enabled', True)
+        }
+        
+        self.watch_folders.append(WatchFolder(**folder_data))
         self.save_config()
         return True
     
@@ -247,7 +258,15 @@ class Config:
             if folder.path == path:
                 return False
         
-        self.target_folders.append(TargetFolder(path=path, name=name, **kwargs))
+        # Erstelle TargetFolder mit expliziten Argumenten
+        folder_data = {
+            'path': path,
+            'name': name,
+            'priority': kwargs.get('priority', 0),
+            'enabled': kwargs.get('enabled', True)
+        }
+        
+        self.target_folders.append(TargetFolder(**folder_data))
         self.save_config()
         return True
     

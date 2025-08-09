@@ -69,3 +69,68 @@
 2025-08-09 16:10:33,187 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:10:33] "GET /api/status HTTP/1.1" 200 -
 2025-08-09 16:10:36,156 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:10:36] "GET /api/videos/pending HTTP/1.1" 200 -
 2025-08-09 16:10:36,474 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:10:36] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 16:14:57,870 - __main__ - INFO - File Manager initialisiert
+2025-08-09 16:14:57,874 - file_monitor - INFO - Download Monitor gestartet
+2025-08-09 16:14:57,874 - file_monitor - INFO - Starte initialen Ordner-Scan...
+2025-08-09 16:14:57,874 - file_monitor - INFO - Initialer Ordner-Scan abgeschlossen
+2025-08-09 16:14:57,874 - file_monitor - INFO - File Monitor gestartet
+2025-08-09 16:14:57,875 - archive_handler - INFO - Archive-Worker gestartet
+2025-08-09 16:14:57,875 - video_handler - INFO - Video-Worker gestartet
+2025-08-09 16:14:57,875 - __main__ - INFO - Starting Archive Startup-Cleanup...
+2025-08-09 16:14:57,875 - archive_handler - INFO - Starte Archive Startup-Cleanup...
+2025-08-09 16:14:57,875 - archive_handler - INFO - Starte Startup Archive-Cleanup Scan...
+2025-08-09 16:14:57,875 - archive_handler - INFO - Archive-Cleanup Scan abgeschlossen: 0 Archive gefunden, 0 Cleanup-Kandidaten, 0 automatisch bereinigt
+2025-08-09 16:14:57,875 - __main__ - INFO - File Manager gestartet
+2025-08-09 16:14:57,876 - __main__ - INFO - Starte API-Server auf 127.0.0.1:8080
+2025-08-09 16:14:57,895 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8080
+2025-08-09 16:14:57,895 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-09 16:15:03,024 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:15:03] "GET /api/status HTTP/1.1" 200 -
+2025-08-09 16:15:03,290 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:15:03] "GET /api/config HTTP/1.1" 200 -
+2025-08-09 16:15:03,507 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:15:03] "GET /api/videos/pending HTTP/1.1" 200 -
+2025-08-09 16:15:03,617 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:15:03] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 16:15:03,710 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:15:03] "GET /api/archives/startup-cleanup/status HTTP/1.1" 200 -
+2025-08-09 16:15:07,250 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:15:07] "GET /api/videos/pending HTTP/1.1" 200 -
+2025-08-09 16:15:07,250 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:15:07] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 16:15:09,604 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:15:09] "GET /api/config HTTP/1.1" 200 -
+2025-08-09 16:15:14,299 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:15:14] "GET /api/videos/pending HTTP/1.1" 200 -
+2025-08-09 16:15:14,299 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:15:14] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 16:15:18,286 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:15:18] "GET /api/videos/pending HTTP/1.1" 200 -
+2025-08-09 16:15:18,601 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:15:18] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 16:15:18,602 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:15:18] "[35m[1mPOST /api/config/folders/watch HTTP/1.1[0m" 500 -
+2025-08-09 16:15:30,270 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:15:30] "GET /api/config HTTP/1.1" 200 -
+2025-08-09 16:15:32,931 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:15:32] "GET /api/videos/pending HTTP/1.1" 200 -
+2025-08-09 16:15:33,241 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:15:33] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 16:15:34,029 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:15:34] "GET /api/status HTTP/1.1" 200 -
+2025-08-09 16:15:34,301 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:15:34] "GET /api/videos/pending HTTP/1.1" 200 -
+2025-08-09 16:15:34,351 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:15:34] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 16:15:34,352 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:15:34] "[35m[1mPOST /api/config/folders/watch HTTP/1.1[0m" 500 -
+2025-08-09 16:16:03,724 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:16:03] "GET /api/status HTTP/1.1" 200 -
+2025-08-09 16:16:15,637 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:16:15] "GET /api/videos/pending HTTP/1.1" 200 -
+2025-08-09 16:16:15,638 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:16:15] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 16:18:42,724 - __main__ - INFO - File Manager initialisiert
+2025-08-09 16:18:42,727 - file_monitor - INFO - Download Monitor gestartet
+2025-08-09 16:18:42,727 - file_monitor - INFO - Starte initialen Ordner-Scan...
+2025-08-09 16:18:42,727 - file_monitor - INFO - Initialer Ordner-Scan abgeschlossen
+2025-08-09 16:18:42,728 - file_monitor - INFO - File Monitor gestartet
+2025-08-09 16:18:42,728 - archive_handler - INFO - Archive-Worker gestartet
+2025-08-09 16:18:42,728 - video_handler - INFO - Video-Worker gestartet
+2025-08-09 16:18:42,728 - __main__ - INFO - Starting Archive Startup-Cleanup...
+2025-08-09 16:18:42,728 - archive_handler - INFO - Starte Archive Startup-Cleanup...
+2025-08-09 16:18:42,729 - archive_handler - INFO - Starte Startup Archive-Cleanup Scan...
+2025-08-09 16:18:42,729 - archive_handler - INFO - Archive-Cleanup Scan abgeschlossen: 0 Archive gefunden, 0 Cleanup-Kandidaten, 0 automatisch bereinigt
+2025-08-09 16:18:42,729 - __main__ - INFO - File Manager gestartet
+2025-08-09 16:18:42,729 - __main__ - INFO - Starte API-Server auf 127.0.0.1:8080
+2025-08-09 16:18:42,749 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8080
+2025-08-09 16:18:42,749 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-09 16:18:48,038 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:18:48] "GET /api/status HTTP/1.1" 200 -
+2025-08-09 16:18:48,304 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:18:48] "GET /api/config HTTP/1.1" 200 -
+2025-08-09 16:18:48,505 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:18:48] "GET /api/videos/pending HTTP/1.1" 200 -
+2025-08-09 16:18:48,632 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:18:48] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 16:18:48,744 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:18:48] "GET /api/archives/startup-cleanup/status HTTP/1.1" 200 -
+2025-08-09 16:18:56,658 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:18:56] "GET /api/videos/pending HTTP/1.1" 200 -
+2025-08-09 16:18:56,659 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:18:56] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 16:18:58,217 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:18:58] "GET /api/videos/pending HTTP/1.1" 200 -
+2025-08-09 16:18:58,523 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:18:58] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 16:18:58,539 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:18:58] "[35m[1mPOST /api/config/folders/watch HTTP/1.1[0m" 500 -
