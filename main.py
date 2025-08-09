@@ -178,10 +178,34 @@ class FileManagerAPI:
         """Fügt neuen Überwachungsordner hinzu"""
         try:
             data = request.get_json()
-            path = data.get('path')
-            name = data.get('name', Path(path).name)
             
-            success = self.file_manager.config.add_watch_folder(path, name, **data)
+            # Debug-Ausgabe
+            self.logger.debug(f"Received watch folder data: {data}")
+            
+            # Validierung der erforderlichen Felder
+            if not data:
+                return self._error_response('No data provided', 400)
+            
+            path = data.get('path')
+            name = data.get('name')
+            
+            if not path:
+                return self._error_response('path is required', 400)
+            
+            if not name:
+                # Automatisch Namen aus Pfad generieren
+                name = Path(path).name or 'Unnamed Folder'
+            
+            # Weitere Parameter mit Standardwerten
+            folder_config = {
+                'watch_videos': data.get('watch_videos', True),
+                'watch_archives': data.get('watch_archives', True),
+                'recursive': data.get('recursive', True),
+                'video_search_depth': data.get('video_search_depth', 1),
+                'enabled': data.get('enabled', True)
+            }
+            
+            success = self.file_manager.config.add_watch_folder(path, name, **folder_config)
             
             if success:
                 # Monitoring neu starten um neuen Ordner zu überwachen
@@ -189,32 +213,55 @@ class FileManagerAPI:
                 
                 return jsonify({
                     'success': True,
-                    'message': f'Überwachungsordner hinzugefügt: {name}'
+                    'message': f'Watch folder added: {name}'
                 })
             else:
-                return self._error_response('Ordner konnte nicht hinzugefügt werden', 400)
+                return self._error_response('Could not add folder (already exists or path invalid)', 400)
                 
         except Exception as e:
+            self.logger.error(f"Error adding watch folder: {e}")
             return self._error_response(str(e), 500)
-    
+
     def add_target_folder(self):
         """Fügt neuen Zielordner hinzu"""
         try:
             data = request.get_json()
-            path = data.get('path')
-            name = data.get('name', Path(path).name)
             
-            success = self.file_manager.config.add_target_folder(path, name, **data)
+            # Debug-Ausgabe
+            self.logger.debug(f"Received target folder data: {data}")
+            
+            # Validierung der erforderlichen Felder
+            if not data:
+                return self._error_response('No data provided', 400)
+            
+            path = data.get('path')
+            name = data.get('name')
+            
+            if not path:
+                return self._error_response('path is required', 400)
+            
+            if not name:
+                # Automatisch Namen aus Pfad generieren
+                name = Path(path).name or 'Unnamed Folder'
+            
+            # Weitere Parameter mit Standardwerten
+            folder_config = {
+                'priority': data.get('priority', 0),
+                'enabled': data.get('enabled', True)
+            }
+            
+            success = self.file_manager.config.add_target_folder(path, name, **folder_config)
             
             if success:
                 return jsonify({
                     'success': True,
-                    'message': f'Zielordner hinzugefügt: {name}'
+                    'message': f'Target folder added: {name}'
                 })
             else:
-                return self._error_response('Ordner konnte nicht hinzugefügt werden', 400)
+                return self._error_response('Could not add folder (already exists or path invalid)', 400)
                 
         except Exception as e:
+            self.logger.error(f"Error adding target folder: {e}")
             return self._error_response(str(e), 500)
     
     # Video-Management Endpunkte
@@ -832,12 +879,36 @@ class FileManager:
     
     def restart_monitoring(self) -> None:
         """Startet Überwachung neu (nach Konfigurationsänderung)"""
-        if self.running:
-            self.file_monitor.stop()
-            time.sleep(1)
-            self.file_monitor.start()
-            self.logger.info("Monitoring restarted")
-    
+        if not self.running:
+            self.logger.warning("Cannot restart monitoring - system is not running")
+            return
+        
+        try:
+            self.logger.info("Restarting file monitoring due to configuration change...")
+            
+            # Option 1: Nur File Monitor neu starten (empfohlen)
+            if hasattr(self.file_monitor, 'update_config'):
+                self.file_monitor.update_config(self.config)
+            else:
+                # Fallback: Komplett neu starten
+                self.file_monitor.restart()
+            
+            self.logger.info("File monitoring restarted successfully")
+            
+        except Exception as e:
+            self.logger.error(f"Error restarting monitoring: {e}")
+            # Bei Fehler versuchen File Monitor komplett neu zu erstellen
+            try:
+                self.file_monitor = FileMonitor(self.config, self.video_analyzer)
+                self.file_monitor.set_callbacks(
+                    video_callback=self._on_video_found,
+                    archive_callback=self._on_archive_found
+                )
+                self.file_monitor.start()
+                self.logger.info("File monitoring recreated and started")
+            except Exception as e2:
+                self.logger.error(f"Failed to recreate file monitor: {e2}")
+        
     def get_system_status(self) -> Dict:
         """Gibt aktuellen System-Status zurück"""
         uptime = time.time() - self.start_time if self.start_time else 0

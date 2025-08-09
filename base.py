@@ -225,50 +225,106 @@ class Config:
     
     def add_watch_folder(self, path: str, name: str, **kwargs) -> bool:
         """Fügt neuen Überwachungsordner hinzu"""
-        if not os.path.exists(path):
-            return False
-        
-        # Prüfen ob bereits vorhanden
-        for folder in self.watch_folders:
-            if folder.path == path:
+        try:
+            # Validierung
+            if not path:
+                logging.error("add_watch_folder: path is None or empty")
                 return False
-        
-        # Erstelle WatchFolder mit expliziten Argumenten
-        folder_data = {
-            'path': path,
-            'name': name,
-            'watch_videos': kwargs.get('watch_videos', True),
-            'watch_archives': kwargs.get('watch_archives', True),
-            'recursive': kwargs.get('recursive', True),
-            'video_search_depth': kwargs.get('video_search_depth', 1),
-            'enabled': kwargs.get('enabled', True)
-        }
-        
-        self.watch_folders.append(WatchFolder(**folder_data))
-        self.save_config()
-        return True
-    
+            
+            if not isinstance(path, (str, os.PathLike)):
+                logging.error(f"add_watch_folder: path is not string or PathLike: {type(path)}")
+                return False
+            
+            # Pfad normalisieren
+            path = str(path).strip()
+            if not path:
+                logging.error("add_watch_folder: path is empty after strip")
+                return False
+            
+            # Existenz prüfen
+            if not os.path.exists(path):
+                logging.error(f"add_watch_folder: path does not exist: {path}")
+                return False
+            
+            # Prüfen ob bereits vorhanden
+            for folder in self.watch_folders:
+                if folder.path == path:
+                    logging.warning(f"add_watch_folder: path already exists: {path}")
+                    return False
+            
+            # Name validieren
+            if not name:
+                name = Path(path).name or "Unnamed Folder"
+            
+            # Erstelle WatchFolder mit expliziten Argumenten
+            folder_data = {
+                'path': path,
+                'name': str(name).strip(),
+                'watch_videos': kwargs.get('watch_videos', True),
+                'watch_archives': kwargs.get('watch_archives', True),
+                'recursive': kwargs.get('recursive', True),
+                'video_search_depth': kwargs.get('video_search_depth', 1),
+                'enabled': kwargs.get('enabled', True)
+            }
+            
+            logging.info(f"Adding watch folder: {folder_data}")
+            self.watch_folders.append(WatchFolder(**folder_data))
+            self.save_config()
+            return True
+            
+        except Exception as e:
+            logging.error(f"Error in add_watch_folder: {e}")
+            return False
+
     def add_target_folder(self, path: str, name: str, **kwargs) -> bool:
         """Fügt neuen Zielordner hinzu"""
-        if not os.path.exists(path):
-            return False
-        
-        # Prüfen ob bereits vorhanden
-        for folder in self.target_folders:
-            if folder.path == path:
+        try:
+            # Validierung
+            if not path:
+                logging.error("add_target_folder: path is None or empty")
                 return False
-        
-        # Erstelle TargetFolder mit expliziten Argumenten
-        folder_data = {
-            'path': path,
-            'name': name,
-            'priority': kwargs.get('priority', 0),
-            'enabled': kwargs.get('enabled', True)
-        }
-        
-        self.target_folders.append(TargetFolder(**folder_data))
-        self.save_config()
-        return True
+            
+            if not isinstance(path, (str, os.PathLike)):
+                logging.error(f"add_target_folder: path is not string or PathLike: {type(path)}")
+                return False
+            
+            # Pfad normalisieren
+            path = str(path).strip()
+            if not path:
+                logging.error("add_target_folder: path is empty after strip")
+                return False
+            
+            # Existenz prüfen
+            if not os.path.exists(path):
+                logging.error(f"add_target_folder: path does not exist: {path}")
+                return False
+            
+            # Prüfen ob bereits vorhanden
+            for folder in self.target_folders:
+                if folder.path == path:
+                    logging.warning(f"add_target_folder: path already exists: {path}")
+                    return False
+            
+            # Name validieren
+            if not name:
+                name = Path(path).name or "Unnamed Folder"
+            
+            # Erstelle TargetFolder mit expliziten Argumenten
+            folder_data = {
+                'path': path,
+                'name': str(name).strip(),
+                'priority': kwargs.get('priority', 0),
+                'enabled': kwargs.get('enabled', True)
+            }
+            
+            logging.info(f"Adding target folder: {folder_data}")
+            self.target_folders.append(TargetFolder(**folder_data))
+            self.save_config()
+            return True
+            
+        except Exception as e:
+            logging.error(f"Error in add_target_folder: {e}")
+            return False
     
     def get_file_type(self, filepath: str) -> FileType:
         """Bestimmt Dateityp basierend auf Erweiterung"""

@@ -1,0 +1,50 @@
+{
+  "watch_folders": [
+    {
+      "path": "K:\\Download\\Mega",
+      "name": "Mega",
+      "watch_videos": true,
+      "watch_archives": true,
+      "recursive": true,
+      "video_search_depth": 1,
+      "enabled": true
+    }
+  ],
+  "target_folders": [],
+  "video_extensions": [
+    ".mov",
+    ".mpeg",
+    ".mp4",
+    ".divx",
+    ".avi",
+    ".rm",
+    ".webm",
+    ".flv",
+    ".ogv",
+    ".3gp",
+    ".ts",
+    ".xvid",
+    ".rmvb",
+    ".mkv",
+    ".wmv",
+    ".mpg",
+    ".m4v"
+  ],
+  "archive_extensions": [
+    ".tar",
+    ".xz",
+    ".7z",
+    ".rar",
+    ".zip",
+    ".gz",
+    ".bz2"
+  ],
+  "min_file_size_mb": 10,
+  "download_stability_seconds": 30,
+  "enable_notifications": true,
+  "auto_extract_archives": true,
+  "delete_archives_after_extract": true,
+  "auto_cleanup_extracted_archives": false,
+  "cleanup_extracted_archives_on_startup": true,
+  "log_level": "INFO"
+}

@@ -27,21 +27,40 @@ class DownloadMonitor:
         self.logger = logging.getLogger(__name__)
         self.lock = threading.Lock()
         
-        # Background-Thread für periodische Checks
-        self.monitor_thread = threading.Thread(target=self._monitor_loop, daemon=True)
+        # Thread-Verwaltung
+        self.monitor_thread = None
         self.running = False
         
     def start(self) -> None:
         """Startet die Download-Überwachung"""
-        if not self.running:
-            self.running = True
+        if self.running:
+            return
+            
+        self.running = True
+        # Neuen Thread erstellen falls nötig
+        if self.monitor_thread is None or not self.monitor_thread.is_alive():
+            self.monitor_thread = threading.Thread(target=self._monitor_loop, daemon=True)
             self.monitor_thread.start()
-            self.logger.info("Download Monitor gestartet")
+            self.logger.info("Download Monitor started")
     
     def stop(self) -> None:
         """Stoppt die Download-Überwachung"""
+        if not self.running:
+            return
+            
         self.running = False
-        self.logger.info("Download Monitor gestoppt")
+        
+        # Warten bis Thread beendet ist
+        if self.monitor_thread and self.monitor_thread.is_alive():
+            self.monitor_thread.join(timeout=5)
+        
+        self.logger.info("Download Monitor stopped")
+    
+    def restart(self) -> None:
+        """Startet Download Monitor neu"""
+        self.stop()
+        time.sleep(1)
+        self.start()
     
     def add_file(self, filepath: str, callback: Callable[[str], None]) -> None:
         """
@@ -198,41 +217,90 @@ class FileMonitor:
     def start(self) -> None:
         """Startet die Ordner-Überwachung"""
         if self.running:
+            self.logger.warning("File Monitor is already running")
             return
         
-        self.running = True
-        self.download_monitor.start()
-        
-        # Alle konfigurierten Ordner überwachen
-        for watch_folder in self.config.watch_folders:
-            if not watch_folder.enabled or not os.path.exists(watch_folder.path):
-                continue
+        try:
+            self.running = True
             
-            self.observer.schedule(
-                self.event_handler,
-                watch_folder.path,
-                recursive=watch_folder.recursive
-            )
-            self.logger.info(f"Überwache Ordner: {watch_folder.path} (rekursiv: {watch_folder.recursive})")
-        
-        self.observer.start()
-        
-        # Initial Scan aller Ordner
-        self._initial_scan()
-        
-        self.logger.info("File Monitor gestartet")
-    
+            # Download Monitor starten
+            self.download_monitor.start()
+            
+            # Observer nur erstellen wenn noch nicht vorhanden oder gestoppt
+            if not hasattr(self, 'observer') or not self.observer.is_alive():
+                self.observer = Observer()
+                self.event_handler = FileSystemEventHandler(self)
+            
+            # Alle konfigurierten Ordner überwachen
+            for watch_folder in self.config.watch_folders:
+                if not watch_folder.enabled or not os.path.exists(watch_folder.path):
+                    continue
+                
+                self.observer.schedule(
+                    self.event_handler,
+                    watch_folder.path,
+                    recursive=watch_folder.recursive
+                )
+                self.logger.info(f"Watching folder: {watch_folder.path} (recursive: {watch_folder.recursive})")
+            
+            self.observer.start()
+            
+            # Initial Scan aller Ordner
+            self._initial_scan()
+            
+            self.logger.info("File Monitor started")
+            
+        except Exception as e:
+            self.logger.error(f"Error starting File Monitor: {e}")
+            self.running = False
+            raise
+
     def stop(self) -> None:
         """Stoppt die Ordner-Überwachung"""
         if not self.running:
             return
         
-        self.running = False
-        self.observer.stop()
-        self.observer.join()
-        self.download_monitor.stop()
+        try:
+            self.running = False
+            
+            # Observer stoppen
+            if hasattr(self, 'observer') and self.observer.is_alive():
+                self.observer.stop()
+                self.observer.join(timeout=5)
+            
+            # Download Monitor stoppen
+            self.download_monitor.stop()
+            
+            self.logger.info("File Monitor stopped")
+            
+        except Exception as e:
+            self.logger.error(f"Error stopping File Monitor: {e}")
+
+    def restart(self) -> None:
+        """Startet File Monitor komplett neu"""
+        self.logger.info("Restarting File Monitor...")
+        self.stop()
+        time.sleep(2)  # Kurz warten damit alles sauber gestoppt ist
+        self.start()
+        self.logger.info("File Monitor restarted")
+
+    def update_config(self, new_config: Config) -> None:
+        """Aktualisiert Konfiguration ohne kompletten Restart"""
+        self.logger.info("Updating File Monitor configuration...")
         
-        self.logger.info("File Monitor gestoppt")
+        old_running = self.running
+        
+        if old_running:
+            self.stop()
+        
+        # Konfiguration aktualisieren
+        self.config = new_config
+        self.download_monitor.stability_seconds = new_config.download_stability_seconds
+        
+        if old_running:
+            self.start()
+        
+        self.logger.info("File Monitor configuration updated")
     
     def _initial_scan(self) -> None:
         """Scannt alle Überwachungsordner initial nach existierenden Dateien"""
@@ -438,7 +506,7 @@ class FileMonitor:
             file_size = os.path.getsize(filepath)
             
             # ArchiveFile-Objekt erstellen
-            from filemanager_backend_p1 import ArchiveFile, FileStatus
+            from archive_handler import ArchiveFile, FileStatus
             archive_file = ArchiveFile(
                 filepath=filepath,
                 filename=Path(filepath).name,
@@ -500,8 +568,8 @@ class FileMonitor:
 if __name__ == "__main__":
     import sys
     import json
-    from filemanager_backend_p1 import Config, setup_logging
-    from filemanager_backend_p2 import VideoPatternAnalyzer
+    from base import Config, setup_logging
+    from video_pattern_analyzer import VideoPatternAnalyzer
     
     # Logging setup
     config = Config()

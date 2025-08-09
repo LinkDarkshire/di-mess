@@ -677,26 +677,48 @@ class FileHandlers {
     }
 
     async processFolderAddition(path, name, type) {
+        console.log('processFolderAddition called with:', { path, name, type });
+
         try {
+            // Validierung
+            if (!path || typeof path !== 'string') {
+                console.error('Invalid path:', path);
+                window.ui.showToast('Error', 'Invalid folder path', 'error');
+                return;
+            }
+
+            if (!name || typeof name !== 'string') {
+                console.error('Invalid name:', name);
+                window.ui.showToast('Error', 'Invalid folder name', 'error');
+                return;
+            }
+
+            const folderData = {
+                path: path.trim(),
+                name: name.trim()
+            };
+
+            if (type === 'watch') {
+                folderData.watch_videos = true;
+                folderData.watch_archives = true;
+                folderData.enabled = true;
+                folderData.recursive = true;
+                folderData.video_search_depth = 1;
+            } else {
+                folderData.priority = 1;
+                folderData.enabled = true;
+            }
+
+            console.log('Sending folder data:', folderData);
+
             let response;
             if (type === 'watch') {
-                response = await window.api.addWatchFolder({
-                    // Entferne 'path' aus dem Objekt, da es bereits als separater Parameter gesendet wird
-                    name: name,
-                    watch_videos: true,
-                    watch_archives: true,
-                    enabled: true,
-                    recursive: true,
-                    video_search_depth: 1
-                });
+                response = await window.api.addWatchFolder(folderData);
             } else {
-                response = await window.api.addTargetFolder({
-                    // Entferne 'path' aus dem Objekt
-                    name: name,
-                    priority: 1,
-                    enabled: true
-                });
+                response = await window.api.addTargetFolder(folderData);
             }
+
+            console.log('API response:', response);
 
             if (response.success) {
                 window.ui.showToast('Success', `${type === 'watch' ? 'Watch' : 'Target'} folder added`, 'success');
@@ -705,10 +727,12 @@ class FileHandlers {
                     await this.loadTargetFolders();
                 }
             } else {
+                console.error('API error:', response.error);
                 window.ui.showToast('Error', response.error, 'error');
             }
         } catch (error) {
-            window.ui.showToast('Error', `Failed to add ${type} folder`, 'error');
+            console.error('Error adding folder:', error);
+            window.ui.showToast('Error', `Failed to add ${type} folder: ${error.message}`, 'error');
         }
     }
 
