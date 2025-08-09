@@ -8,10 +8,11 @@ import shutil
 import zipfile
 import logging
 import threading
+import time
 from typing import Optional, List, Dict, Callable
 from pathlib import Path
 from dataclasses import asdict
-from base import Config, FileType, FileStatus
+from base import Config, FileType, FileStatus, ArchiveFile
 
 try:
     import rarfile  # pip install rarfile
@@ -28,13 +29,217 @@ except ImportError:
     logging.warning("py7zr nicht verfügbar - 7z-Archive können nicht entpackt werden")
 
 
-class ArchiveHandler:
+class ArchiveExtractor:
     """
     Klasse zum Entpacken verschiedener Archive-Formate
     Unterstützt ZIP, RAR, 7Z und andere Formate
     """
     
-    def __init__(self):
+    def get_startup_cleanup_candidates(self) -> List[Dict]:
+        """Gibt Archive zurück die Benutzer-Bestätigung für Cleanup brauchen"""
+        return self.cleanup_candidates
+    
+    def approve_cleanup_candidate(self, archive_path: str, action: str) -> Dict:
+        """
+        Genehmigt Cleanup-Aktion für ein Archive
+        
+        Args:
+            archive_path: Pfad zum Archive
+            action: 'delete' oder 'extract'
+        """
+        try:
+            result = self.startup_cleanup.cleanup_archive_by_user_choice(archive_path, action)
+            
+            # Aus Cleanup-Kandidaten entfernen
+            self.cleanup_candidates = [
+                c for c in self.cleanup_candidates 
+                if c['archive_path'] != archive_path
+            ]
+            
+            return result
+            
+        except Exception as e:
+            return {
+                'success': False,
+                'error': str(e)
+            }
+    
+    def approve_all_cleanup_candidates(self, action: str) -> Dict:
+        """
+        Führt Aktion für alle Cleanup-Kandidaten aus
+        
+        Args:
+            action: 'delete' (alle löschen) oder 'extract' (alle entpacken)
+        """
+        results = {
+            'total_processed': 0,
+            'successful': 0,
+            'failed': 0,
+            'details': []
+        }
+        
+        candidates_copy = self.cleanup_candidates.copy()
+        
+        for candidate in candidates_copy:
+            archive_path = candidate['archive_path']
+            result = self.approve_cleanup_candidate(archive_path, action)
+            
+            results['total_processed'] += 1
+            if result['success']:
+                results['successful'] += 1
+            else:
+                results['failed'] += 1
+            
+            results['details'].append({
+                'archive_path': archive_path,
+                'archive_name': candidate['archive_name'],
+                'result': result
+            })
+        
+        return results
+    
+    def add_archive(self, archive_file: ArchiveFile) -> None:
+        """Erweiterte Archive-Hinzufügung mit Smart-Check"""
+        
+        # Prüfen ob bereits entpackt
+        if self._is_already_extracted(archive_file):
+            self.logger.info(f"Archive bereits entpackt, überspringe: {archive_file.filename}")
+            
+            # Direkt als completed markieren
+            archive_file.status = FileStatus.COMPLETED
+            with self.lock:
+                self.completed_archives[archive_file.filepath] = {
+                    **archive_file.to_dict(),
+                    'processing_result': {
+                        'success': True,
+                        'already_extracted': True,
+                        'message': 'Archive war bereits entpackt'
+                    }
+                }
+            
+            # Optional: Archive löschen wenn konfiguriert
+            if self.config.delete_archives_after_extract:
+                self._safe_delete_archive(archive_file.filepath)
+            
+            self._notify_status_change(archive_file)
+            return
+        
+        # Normal zur Queue hinzufügen
+        super().add_archive(archive_file)
+    
+    def _is_already_extracted(self, archive_file: ArchiveFile) -> bool:
+        """Prüft ob Archive bereits entpackt wurde"""
+        archive_path = archive_file.filepath
+        
+        # Cache prüfen
+        if archive_path in self.archive_cache:
+            cache_entry = self.archive_cache[archive_path]
+            # Cache ist noch gültig wenn Archive nicht geändert wurde
+            if cache_entry['modified_time'] == archive_file.last_modified:
+                return cache_entry['is_extracted']
+        
+        # Erwarteter Entpack-Ordner
+        extract_path = os.path.splitext(archive_path)[0]
+        
+        is_extracted = False
+        
+        # Prüfen ob Ordner existiert und Dateien enthält
+        if os.path.exists(extract_path) and os.path.isdir(extract_path):
+            try:
+                # Prüfen ob Ordner nicht leer ist
+                files_in_dir = list(os.listdir(extract_path))
+                if files_in_dir:
+                    # Erweiterte Prüfung: Mindestens eine Datei mit sinnvoller Größe
+                    for filename in files_in_dir:
+                        filepath = os.path.join(extract_path, filename)
+                        if os.path.isfile(filepath) and os.path.getsize(filepath) > 0:
+                            is_extracted = True
+                            break
+            except (OSError, PermissionError):
+                pass
+        
+        # Alternative Ordner-Namen prüfen (häufige Varianten)
+        if not is_extracted:
+            base_name = Path(archive_path).stem
+            parent_dir = Path(archive_path).parent
+            
+            # Varianten: "Archive Name", "Archive_Name", etc.
+            name_variants = [
+                base_name,
+                base_name.replace('_', ' '),
+                base_name.replace('-', ' '),
+                base_name.replace('.', ' ')
+            ]
+            
+            for variant in name_variants:
+                variant_path = parent_dir / variant
+                if variant_path.exists() and variant_path.is_dir():
+                    try:
+                        files_in_dir = list(variant_path.iterdir())
+                        if any(f.is_file() and f.stat().st_size > 0 for f in files_in_dir):
+                            is_extracted = True
+                            extract_path = str(variant_path)
+                            break
+                    except (OSError, PermissionError):
+                        continue
+        
+        # Cache aktualisieren
+        self.archive_cache[archive_path] = {
+            'modified_time': archive_file.last_modified,
+            'is_extracted': is_extracted,
+            'extract_path': extract_path if is_extracted else None
+        }
+        
+        return is_extracted
+    
+    def _safe_delete_archive(self, archive_path: str) -> bool:
+        """Sicher Archive löschen mit Backup-Option"""
+        try:
+            # Optional: Backup erstellen (konfigurierbar)
+            if hasattr(self.config, 'create_archive_backup') and self.config.create_archive_backup:
+                backup_dir = Path(archive_path).parent / '.archive_backup'
+                backup_dir.mkdir(exist_ok=True)
+                backup_path = backup_dir / Path(archive_path).name
+                shutil.move(archive_path, backup_path)
+                self.logger.info(f"Archive in Backup verschoben: {backup_path}")
+            else:
+                os.remove(archive_path)
+                self.logger.info(f"Archive gelöscht: {Path(archive_path).name}")
+            
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"Fehler beim Löschen des Archives {archive_path}: {e}")
+            return False
+    
+    def get_statistics(self) -> Dict:
+        """Gibt detaillierte Statistiken zurück"""
+        with self.lock:
+            stats = {
+                'pending': len(self.pending_archives),
+                'processing': len(self.processing_archives),
+                'completed': len(self.completed_archives),
+                'cache_entries': len(self.archive_cache),
+                'worker_running': self.worker_running
+            }
+            
+            # Status-Verteilung der pending Archives
+            status_count = {}
+            for archive in self.pending_archives.values():
+                status = archive.status.value
+                status_count[status] = status_count.get(status, 0) + 1
+            
+            stats['pending_by_status'] = status_count
+            
+            # Erfolgs-Rate der completed Archives
+            if self.completed_archives:
+                successful = sum(1 for data in self.completed_archives.values() 
+                               if data.get('processing_result', {}).get('success', False))
+                stats['success_rate'] = successful / len(self.completed_archives)
+            else:
+                stats['success_rate'] = 0.0
+        
+        return stats __init__(self):
         self.logger = logging.getLogger(__name__)
         
         # Mapping von Dateierweiterungen zu Extraktions-Methoden
@@ -237,7 +442,7 @@ class StartupArchiveCleanup:
     Prüft beim Start alle Archive-Dateien und bereinigt bereits entpackte
     """
     
-    def __init__(self, config: 'Config', extractor: ArchiveHandler):
+    def __init__(self, config: Config, extractor: ArchiveExtractor):
         self.config = config
         self.extractor = extractor
         self.logger = logging.getLogger(__name__)
@@ -416,7 +621,7 @@ class StartupArchiveCleanup:
                 }
             
             elif action == 'extract':
-                # Archive entpacken über ArchiveHandler
+                # Archive entpacken über ArchiveExtractor
                 result = self.extractor.extract(archive_path)
                 
                 if result['success']:
@@ -449,36 +654,22 @@ class StartupArchiveCleanup:
                 'success': False,
                 'error': str(e)
             }
-    
-    def get_cleanup_summary(self) -> Dict:
-        """Gibt Zusammenfassung der Cleanup-Kandidaten zurück"""
-        if not self.cleanup_candidates:
-            return {
-                'has_candidates': False,
-                'total_candidates': 0
-            }
-        
-        total_size_mb = sum(c['archive_size_mb'] for c in self.cleanup_candidates)
-        
-        return {
-            'has_candidates': True,
-            'total_candidates': len(self.cleanup_candidates),
-            'total_size_mb': total_size_mb,
-            'candidates': self.cleanup_candidates
-        }
+
+
+class ArchiveHandler:
     """
     Hauptklasse für Archive-Verarbeitung
     Verwaltet die Warteschlange und führt Aktionen aus
     """
     
-    def __init__(self, config: 'Config'):
+    def __init__(self, config: Config):
         self.config = config
         self.extractor = ArchiveExtractor()
         self.logger = logging.getLogger(__name__)
         
         # Warteschlange für Archive-Verarbeitung
-        self.pending_archives: Dict[str, 'ArchiveFile'] = {}
-        self.processing_archives: Dict[str, 'ArchiveFile'] = {}
+        self.pending_archives: Dict[str, ArchiveFile] = {}
+        self.processing_archives: Dict[str, ArchiveFile] = {}
         self.completed_archives: Dict[str, Dict] = {}
         
         # Callback für Status-Updates
@@ -495,7 +686,7 @@ class StartupArchiveCleanup:
         """Setzt Callback für Status-Updates"""
         self.status_callback = callback
     
-    def add_archive(self, archive_file: 'ArchiveFile') -> None:
+    def add_archive(self, archive_file: ArchiveFile) -> None:
         """Fügt Archive zur Verarbeitungsqueue hinzu"""
         with self.lock:
             self.pending_archives[archive_file.filepath] = archive_file
@@ -587,7 +778,7 @@ class StartupArchiveCleanup:
                 self.logger.error(f"Fehler im Archive-Worker: {e}")
                 threading.Event().wait(5)
     
-    def _process_archive(self, archive_file: 'ArchiveFile') -> None:
+    def _process_archive(self, archive_file: ArchiveFile) -> None:
         """Verarbeitet ein einzelnes Archive"""
         filepath = archive_file.filepath
         
@@ -652,13 +843,64 @@ class StartupArchiveCleanup:
             
             self._notify_status_change(archive_file)
     
-    def _notify_status_change(self, archive_file: 'ArchiveFile') -> None:
+    def _notify_status_change(self, archive_file: ArchiveFile) -> None:
         """Benachrichtigt über Status-Änderungen"""
         if self.status_callback:
             try:
                 self.status_callback(archive_file)
             except Exception as e:
                 self.logger.error(f"Fehler in Status-Callback: {e}")
+    
+    def cleanup_old_completed(self, max_age_hours: int = 24) -> int:
+        """Räumt alte completed Archive aus dem Speicher auf"""
+        current_time = time.time()
+        cutoff_time = current_time - (max_age_hours * 3600)
+        
+        removed_count = 0
+        
+        with self.lock:
+            to_remove = []
+            for filepath, completed_data in self.completed_archives.items():
+                detected_at = completed_data.get('detected_at', current_time)
+                if detected_at < cutoff_time:
+                    to_remove.append(filepath)
+            
+            for filepath in to_remove:
+                del self.completed_archives[filepath]
+                removed_count += 1
+        
+        if removed_count > 0:
+            self.logger.info(f"Aufgeräumt: {removed_count} alte Archive-Einträge entfernt")
+        
+        return removed_count
+    
+    def get_statistics(self) -> Dict:
+        """Gibt detaillierte Statistiken zurück"""
+        with self.lock:
+            stats = {
+                'pending': len(self.pending_archives),
+                'processing': len(self.processing_archives),
+                'completed': len(self.completed_archives),
+                'worker_running': self.worker_running
+            }
+            
+            # Status-Verteilung der pending Archives
+            status_count = {}
+            for archive in self.pending_archives.values():
+                status = archive.status.value
+                status_count[status] = status_count.get(status, 0) + 1
+            
+            stats['pending_by_status'] = status_count
+            
+            # Erfolgs-Rate der completed Archives
+            if self.completed_archives:
+                successful = sum(1 for data in self.completed_archives.values() 
+                               if data.get('processing_result', {}).get('success', False))
+                stats['success_rate'] = successful / len(self.completed_archives)
+            else:
+                stats['success_rate'] = 0.0
+        
+        return stats
 
 
 class SmartArchiveHandler(ArchiveHandler):
@@ -670,7 +912,7 @@ class SmartArchiveHandler(ArchiveHandler):
     - Startup-Cleanup für bereits entpackte Archive
     """
     
-    def __init__(self, config: 'Config'):
+    def __init__(self, config: Config):
         super().__init__(config)
         
         # Cache für bereits geprüfte Archive
@@ -718,317 +960,4 @@ class SmartArchiveHandler(ArchiveHandler):
                 'error': str(e)
             }
     
-    def get_startup_cleanup_candidates(self) -> List[Dict]:
-        """Gibt Archive zurück die Benutzer-Bestätigung für Cleanup brauchen"""
-        return self.cleanup_candidates
-    
-    def approve_cleanup_candidate(self, archive_path: str, action: str) -> Dict:
-        """
-        Genehmigt Cleanup-Aktion für ein Archive
-        
-        Args:
-            archive_path: Pfad zum Archive
-            action: 'delete' oder 'extract'
-        """
-        try:
-            result = self.startup_cleanup.cleanup_archive_by_user_choice(archive_path, action)
-            
-            # Aus Cleanup-Kandidaten entfernen
-            self.cleanup_candidates = [
-                c for c in self.cleanup_candidates 
-                if c['archive_path'] != archive_path
-            ]
-            
-            return result
-            
-        except Exception as e:
-            return {
-                'success': False,
-                'error': str(e)
-            }
-    
-    def approve_all_cleanup_candidates(self, action: str) -> Dict:
-        """
-        Führt Aktion für alle Cleanup-Kandidaten aus
-        
-        Args:
-            action: 'delete' (alle löschen) oder 'extract' (alle entpacken)
-        """
-        results = {
-            'total_processed': 0,
-            'successful': 0,
-            'failed': 0,
-            'details': []
-        }
-        
-        candidates_copy = self.cleanup_candidates.copy()
-        
-        for candidate in candidates_copy:
-            archive_path = candidate['archive_path']
-            result = self.approve_cleanup_candidate(archive_path, action)
-            
-            results['total_processed'] += 1
-            if result['success']:
-                results['successful'] += 1
-            else:
-                results['failed'] += 1
-            
-            results['details'].append({
-                'archive_path': archive_path,
-                'archive_name': candidate['archive_name'],
-                'result': result
-            })
-        
-        return results
-    
-    def add_archive(self, archive_file: 'ArchiveFile') -> None:
-        """Erweiterte Archive-Hinzufügung mit Smart-Check"""
-        
-        # Prüfen ob bereits entpackt
-        if self._is_already_extracted(archive_file):
-            self.logger.info(f"Archive bereits entpackt, überspringe: {archive_file.filename}")
-            
-            # Direkt als completed markieren
-            archive_file.status = FileStatus.COMPLETED
-            with self.lock:
-                self.completed_archives[archive_file.filepath] = {
-                    **archive_file.to_dict(),
-                    'processing_result': {
-                        'success': True,
-                        'already_extracted': True,
-                        'message': 'Archive war bereits entpackt'
-                    }
-                }
-            
-            # Optional: Archive löschen wenn konfiguriert
-            if self.config.delete_archives_after_extract:
-                self._safe_delete_archive(archive_file.filepath)
-            
-            self._notify_status_change(archive_file)
-            return
-        
-        # Normal zur Queue hinzufügen
-        super().add_archive(archive_file)
-    
-    def _is_already_extracted(self, archive_file: 'ArchiveFile') -> bool:
-        """Prüft ob Archive bereits entpackt wurde"""
-        archive_path = archive_file.filepath
-        
-        # Cache prüfen
-        if archive_path in self.archive_cache:
-            cache_entry = self.archive_cache[archive_path]
-            # Cache ist noch gültig wenn Archive nicht geändert wurde
-            if cache_entry['modified_time'] == archive_file.last_modified:
-                return cache_entry['is_extracted']
-        
-        # Erwarteter Entpack-Ordner
-        extract_path = os.path.splitext(archive_path)[0]
-        
-        is_extracted = False
-        
-        # Prüfen ob Ordner existiert und Dateien enthält
-        if os.path.exists(extract_path) and os.path.isdir(extract_path):
-            try:
-                # Prüfen ob Ordner nicht leer ist
-                files_in_dir = list(os.listdir(extract_path))
-                if files_in_dir:
-                    # Erweiterte Prüfung: Mindestens eine Datei mit sinnvoller Größe
-                    for filename in files_in_dir:
-                        filepath = os.path.join(extract_path, filename)
-                        if os.path.isfile(filepath) and os.path.getsize(filepath) > 0:
-                            is_extracted = True
-                            break
-            except (OSError, PermissionError):
-                pass
-        
-        # Alternative Ordner-Namen prüfen (häufige Varianten)
-        if not is_extracted:
-            base_name = Path(archive_path).stem
-            parent_dir = Path(archive_path).parent
-            
-            # Varianten: "Archive Name", "Archive_Name", etc.
-            name_variants = [
-                base_name,
-                base_name.replace('_', ' '),
-                base_name.replace('-', ' '),
-                base_name.replace('.', ' ')
-            ]
-            
-            for variant in name_variants:
-                variant_path = parent_dir / variant
-                if variant_path.exists() and variant_path.is_dir():
-                    try:
-                        files_in_dir = list(variant_path.iterdir())
-                        if any(f.is_file() and f.stat().st_size > 0 for f in files_in_dir):
-                            is_extracted = True
-                            extract_path = str(variant_path)
-                            break
-                    except (OSError, PermissionError):
-                        continue
-        
-        # Cache aktualisieren
-        self.archive_cache[archive_path] = {
-            'modified_time': archive_file.last_modified,
-            'is_extracted': is_extracted,
-            'extract_path': extract_path if is_extracted else None
-        }
-        
-        return is_extracted
-    
-    def _safe_delete_archive(self, archive_path: str) -> bool:
-        """Sicher Archive löschen mit Backup-Option"""
-        try:
-            # Optional: Backup erstellen (konfigurierbar)
-            if hasattr(self.config, 'create_archive_backup') and self.config.create_archive_backup:
-                backup_dir = Path(archive_path).parent / '.archive_backup'
-                backup_dir.mkdir(exist_ok=True)
-                backup_path = backup_dir / Path(archive_path).name
-                shutil.move(archive_path, backup_path)
-                self.logger.info(f"Archive in Backup verschoben: {backup_path}")
-            else:
-                os.remove(archive_path)
-                self.logger.info(f"Archive gelöscht: {Path(archive_path).name}")
-            
-            return True
-            
-        except Exception as e:
-            self.logger.error(f"Fehler beim Löschen des Archives {archive_path}: {e}")
-            return False
-    
-    def cleanup_old_completed(self, max_age_hours: int = 24) -> int:
-        """Räumt alte completed Archive aus dem Speicher auf"""
-        import time
-        
-        current_time = time.time()
-        cutoff_time = current_time - (max_age_hours * 3600)
-        
-        removed_count = 0
-        
-        with self.lock:
-            to_remove = []
-            for filepath, completed_data in self.completed_archives.items():
-                detected_at = completed_data.get('detected_at', current_time)
-                if detected_at < cutoff_time:
-                    to_remove.append(filepath)
-            
-            for filepath in to_remove:
-                del self.completed_archives[filepath]
-                removed_count += 1
-        
-        if removed_count > 0:
-            self.logger.info(f"Aufgeräumt: {removed_count} alte Archive-Einträge entfernt")
-        
-        return removed_count
-    
-    def get_statistics(self) -> Dict:
-        """Gibt detaillierte Statistiken zurück"""
-        with self.lock:
-            stats = {
-                'pending': len(self.pending_archives),
-                'processing': len(self.processing_archives),
-                'completed': len(self.completed_archives),
-                'cache_entries': len(self.archive_cache),
-                'worker_running': self.worker_running
-            }
-            
-            # Status-Verteilung der pending Archives
-            status_count = {}
-            for archive in self.pending_archives.values():
-                status = archive.status.value
-                status_count[status] = status_count.get(status, 0) + 1
-            
-            stats['pending_by_status'] = status_count
-            
-            # Erfolgs-Rate der completed Archives
-            if self.completed_archives:
-                successful = sum(1 for data in self.completed_archives.values() 
-                               if data.get('processing_result', {}).get('success', False))
-                stats['success_rate'] = successful / len(self.completed_archives)
-            else:
-                stats['success_rate'] = 0.0
-        
-        return stats
-
-
-# Test und Demo
-if __name__ == "__main__":
-    import json
-    from filemanager_backend_p1 import Config, setup_logging, ArchiveFile, FileStatus
-    
-    # Setup
-    config = Config()
-    setup_logging(config)
-    logger = logging.getLogger(__name__)
-    
-    # Test-Callback
-    def archive_status_callback(archive_file):
-        print(f"\n📦 Archive Status Update:")
-        print(f"   Datei: {archive_file.filename}")
-        print(f"   Status: {archive_file.status.value}")
-        if archive_file.extract_path:
-            print(f"   Entpackt nach: {archive_file.extract_path}")
-    
-    # Handler erstellen
-    handler = SmartArchiveHandler(config)
-    handler.set_status_callback(archive_status_callback)
-    
-    print("=== Archive Handler Test ===")
-    print("Erstelle Test-Archive...")
-    
-    # Test-ZIP erstellen
-    test_dir = Path("test_archives")
-    test_dir.mkdir(exist_ok=True)
-    
-    # Einfache Test-ZIP
-    test_zip = test_dir / "test_archive.zip"
-    with zipfile.ZipFile(test_zip, 'w') as zf:
-        zf.writestr("test_file.txt", "Dies ist eine Test-Datei")
-        zf.writestr("subfolder/another_file.txt", "Noch eine Test-Datei")
-    
-    print(f"Test-ZIP erstellt: {test_zip}")
-    
-    # ArchiveFile-Objekt erstellen
-    archive_file = ArchiveFile(
-        filepath=str(test_zip),
-        filename=test_zip.name,
-        file_size=test_zip.stat().st_size,
-        status=FileStatus.PENDING,
-        detected_at=time.time(),
-        last_modified=test_zip.stat().st_mtime
-    )
-    
-    # Zu Handler hinzufügen
-    handler.add_archive(archive_file)
-    
-    print("\nArchive zur Verarbeitung hinzugefügt")
-    print("Statistiken:")
-    print(json.dumps(handler.get_statistics(), indent=2))
-    
-    # Archive genehmigen
-    print(f"\nGenehmige Archive: {archive_file.filepath}")
-    handler.approve_archive(archive_file.filepath)
-    
-    # Warten bis Verarbeitung abgeschlossen
-    print("Warte auf Verarbeitung...")
-    import time
-    while handler.get_processing_archives():
-        time.sleep(1)
-        print(".", end="", flush=True)
-    
-    print("\nVerarbeitung abgeschlossen!")
-    print("Finale Statistiken:")
-    print(json.dumps(handler.get_statistics(), indent=2))
-    
-    print("\nCompleted Archives:")
-    for completed in handler.get_completed_archives():
-        print(json.dumps(completed, indent=2))
-    
-    # Aufräumen
-    handler.stop_worker()
-    
-    # Test-Dateien aufräumen
-    try:
-        shutil.rmtree(test_dir)
-        print(f"\nTest-Verzeichnis aufgeräumt: {test_dir}")
-    except:
-        pass
+    def
