@@ -3,12 +3,22 @@ File Manager Backend - Teil 1: Basis-Strukturen und Konfiguration
 """
 
 import os
+import sys
 import json
 import logging
+import codecs
 from typing import List, Dict, Optional, Set
 from dataclasses import dataclass, asdict
 from pathlib import Path
 from enum import Enum
+
+# Unicode-Encoding fix für Windows
+if sys.platform == 'win32':
+    try:
+        sys.stdout = codecs.getwriter('utf-8')(sys.stdout.detach())
+        sys.stderr = codecs.getwriter('utf-8')(sys.stderr.detach())
+    except Exception:
+        pass  # Fallback if already configured
 
 
 class FileStatus(Enum):
@@ -157,7 +167,7 @@ class Config:
                 self.log_level = data.get('log_level', 'INFO')
                 
         except Exception as e:
-            logging.error(f"Fehler beim Laden der Konfiguration: {e}")
+            logging.error(f"Error loading configuration: {e}")
             self._create_default_config()
     
     def save_config(self) -> None:
@@ -182,7 +192,7 @@ class Config:
                 json.dump(data, f, indent=2, ensure_ascii=False)
                 
         except Exception as e:
-            logging.error(f"Fehler beim Speichern der Konfiguration: {e}")
+            logging.error(f"Error saving configuration: {e}")
     
     def _create_default_config(self) -> None:
         """Erstellt Standard-Konfiguration"""
@@ -252,19 +262,39 @@ class Config:
             return FileType.OTHER
 
 
-# Logging Setup
+# Logging Setup - Jetzt außerhalb der Config-Klasse definiert
 def setup_logging(config: Config) -> None:
-    """Initialisiert Logging-System"""
+    """Initialisiert Logging-System mit Unicode-Support"""
     log_format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
     log_level = getattr(logging, config.log_level.upper(), logging.INFO)
     
+    # Clear existing handlers
+    for handler in logging.root.handlers[:]:
+        logging.root.removeHandler(handler)
+    
+    # File handler with UTF-8 encoding
+    try:
+        file_handler = logging.FileHandler('filemanager.log', encoding='utf-8')
+        file_handler.setFormatter(logging.Formatter(log_format))
+    except Exception:
+        # Fallback if UTF-8 encoding fails
+        file_handler = logging.FileHandler('filemanager.log')
+        file_handler.setFormatter(logging.Formatter(log_format))
+    
+    # Console handler with UTF-8 encoding
+    try:
+        console_handler = logging.StreamHandler(sys.stdout)
+        console_handler.setFormatter(logging.Formatter(log_format))
+    except Exception:
+        # Fallback
+        console_handler = logging.StreamHandler()
+        console_handler.setFormatter(logging.Formatter(log_format))
+    
+    # Configure root logger
     logging.basicConfig(
         level=log_level,
-        format=log_format,
-        handlers=[
-            logging.FileHandler('filemanager.log'),
-            logging.StreamHandler()
-        ]
+        handlers=[file_handler, console_handler],
+        force=True
     )
 
 
@@ -273,7 +303,7 @@ if __name__ == "__main__":
     config = Config()
     setup_logging(config)
     
-    print("Konfiguration geladen:")
+    print("Configuration loaded:")
     print(f"Watch Folders: {len(config.watch_folders)}")
     print(f"Target Folders: {len(config.target_folders)}")
     

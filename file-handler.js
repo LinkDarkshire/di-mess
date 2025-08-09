@@ -1,584 +1,727 @@
-// ui.js - UI Components and Helpers
-const { ipcRenderer } = require('electron');
+// file-handler.js - File Operation Handlers
 
-class UIManager {
+class FileHandlers {
     constructor() {
-        this.currentTab = 'pending';
-        this.loadingStates = new Set();
-        this.toastCounter = 0;
+        this.autoRefreshInterval = null;
+        this.autoRefreshDelay = 30000; // 30 seconds
         
-        this.init();
-    }
-
-    init() {
-        this.setupTabNavigation();
-        this.setupModals();
-        this.setupToasts();
-        this.setupElectronHandlers();
-        
-        console.log('UI Manager initialized');
-    }
-
-    // ===== TAB NAVIGATION =====
-
-    setupTabNavigation() {
-        const tabButtons = document.querySelectorAll('.nav-tab');
-        const tabContents = document.querySelectorAll('.tab-content');
-
-        tabButtons.forEach(button => {
-            button.addEventListener('click', () => {
-                const tabId = button.dataset.tab;
-                this.switchTab(tabId);
-            });
-        });
-    }
-
-    switchTab(tabId) {
-        // Remove active class from all tabs and contents
-        document.querySelectorAll('.nav-tab').forEach(tab => tab.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
-        // Add active class to selected tab and content
-        document.querySelector(`[data-tab="${tabId}"]`).classList.add('active');
-        document.getElementById(`${tabId}Tab`).classList.add('active');
-
-        this.currentTab = tabId;
-        
-        // Trigger tab-specific updates
-        this.onTabChanged(tabId);
-    }
-
-    onTabChanged(tabId) {
-        // Clear any existing intervals/timeouts for previous tab
-        
-        // Load data for the new tab
-        switch(tabId) {
-            case 'pending':
-                fileHandlers.loadPendingItems();
-                break;
-            case 'processing':
-                fileHandlers.loadProcessingItems();
-                break;
-            case 'completed':
-                fileHandlers.loadCompletedItems();
-                break;
-            case 'cleanup':
-                fileHandlers.loadCleanupCandidates();
-                break;
-        }
-    }
-
-    // ===== LOADING STATES =====
-
-    showLoading(context = 'global') {
-        this.loadingStates.add(context);
-        
-        if (context === 'global') {
-            document.getElementById('loadingOverlay').classList.remove('hidden');
-        } else {
-            // Show loading in specific areas
-            const element = document.getElementById(`${context}FileList`);
-            if (element) {
-                element.innerHTML = `
-                    <div class="empty-state">
-                        <i class="fas fa-spinner fa-spin"></i>
-                        <h3>Loading...</h3>
-                        <p>Please wait while we fetch the data.</p>
-                    </div>
-                `;
-            }
-        }
-    }
-
-    hideLoading(context = 'global') {
-        this.loadingStates.delete(context);
-        
-        if (context === 'global') {
-            document.getElementById('loadingOverlay').classList.add('hidden');
-        }
-    }
-
-    isLoading(context = 'global') {
-        return this.loadingStates.has(context);
-    }
-
-    // ===== MODAL MANAGEMENT =====
-
-    setupModals() {
-        // Close modal when clicking outside
-        document.addEventListener('click', (e) => {
-            if (e.target.classList.contains('modal')) {
-                this.closeModal(e.target.id);
-            }
-        });
-
-        // Close button handlers
-        document.querySelectorAll('.modal-close').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const modal = e.target.closest('.modal');
-                if (modal) {
-                    this.closeModal(modal.id);
-                }
-            });
-        });
-
-        // Escape key to close modals
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                const activeModal = document.querySelector('.modal.active');
-                if (activeModal) {
-                    this.closeModal(activeModal.id);
-                }
-            }
-        });
-    }
-
-    openModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.classList.add('active');
-            
-            // Focus first input
-            const firstInput = modal.querySelector('input:not([type="hidden"]), select, textarea');
-            if (firstInput) {
-                setTimeout(() => firstInput.focus(), 100);
-            }
-        }
-    }
-
-    closeModal(modalId) {
-        const modal = document.getElementById(modalId);
-        if (modal) {
-            modal.classList.remove('active');
-            
-            // Reset form if exists
-            const form = modal.querySelector('form');
-            if (form) {
-                form.reset();
-            }
-        }
-    }
-
-    // ===== TOAST NOTIFICATIONS =====
-
-    setupToasts() {
-        // Auto-remove toasts after 5 seconds
-        setInterval(() => {
-            const oldToasts = document.querySelectorAll('.toast:not(.removing)');
-            oldToasts.forEach(toast => {
-                const created = parseInt(toast.dataset.created || 0);
-                if (Date.now() - created > 5000) {
-                    this.removeToast(toast);
-                }
-            });
-        }, 1000);
-    }
-
-    showToast(title, message, type = 'info') {
-        const container = document.getElementById('toastContainer');
-        const toastId = `toast-${++this.toastCounter}`;
-        
-        const toast = document.createElement('div');
-        toast.className = `toast toast-${type}`;
-        toast.id = toastId;
-        toast.dataset.created = Date.now();
-        
-        toast.innerHTML = `
-            <div class="toast-header">
-                <span class="toast-title">${title}</span>
-                <button class="toast-close" onclick="ui.removeToast('${toastId}')">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
-            <div class="toast-body">${message}</div>
-        `;
-
-        container.appendChild(toast);
-        
-        // Auto-remove after 5 seconds
-        setTimeout(() => {
-            this.removeToast(toastId);
-        }, 5000);
-
-        return toastId;
-    }
-
-    removeToast(toastIdOrElement) {
-        let toast;
-        
-        if (typeof toastIdOrElement === 'string') {
-            toast = document.getElementById(toastIdOrElement);
-        } else {
-            toast = toastIdOrElement;
-        }
-        
-        if (toast && !toast.classList.contains('removing')) {
-            toast.classList.add('removing');
-            setTimeout(() => {
-                if (toast.parentNode) {
-                    toast.parentNode.removeChild(toast);
-                }
-            }, 300);
-        }
-    }
-
-    // ===== CONFIRMATION DIALOGS =====
-
-    showConfirmation(title, message, onConfirm, onCancel = null) {
-        const modal = document.getElementById('confirmationModal');
-        const titleEl = document.getElementById('confirmTitle');
-        const messageEl = document.getElementById('confirmMessage');
-        const okBtn = document.getElementById('confirmOk');
-        const cancelBtn = document.getElementById('confirmCancel');
-
-        titleEl.textContent = title;
-        messageEl.textContent = message;
-
-        // Remove existing handlers
-        const newOkBtn = okBtn.cloneNode(true);
-        const newCancelBtn = cancelBtn.cloneNode(true);
-        okBtn.parentNode.replaceChild(newOkBtn, okBtn);
-        cancelBtn.parentNode.replaceChild(newCancelBtn, cancelBtn);
-
-        // Add new handlers
-        newOkBtn.addEventListener('click', () => {
-            this.closeModal('confirmationModal');
-            if (onConfirm) onConfirm();
-        });
-
-        newCancelBtn.addEventListener('click', () => {
-            this.closeModal('confirmationModal');
-            if (onCancel) onCancel();
-        });
-
-        this.openModal('confirmationModal');
-    }
-
-    // ===== BADGE UPDATES =====
-
-    updateBadges(counts) {
-        const badges = {
-            pending: document.getElementById('pendingBadge'),
-            processing: document.getElementById('processingBadge'),
-            completed: document.getElementById('completedBadge'),
-            cleanup: document.getElementById('cleanupBadge')
+        this.currentData = {
+            pendingVideos: [],
+            pendingArchives: [],
+            processingItems: [],
+            completedItems: [],
+            cleanupCandidates: [],
+            targetFolders: [],
+            config: null
         };
 
-        Object.keys(badges).forEach(key => {
-            const badge = badges[key];
-            const count = counts[key] || 0;
+        console.log('File Handlers initialized');
+    }
+
+    // Auto-refresh functionality
+    startAutoRefresh() {
+        if (this.autoRefreshInterval) {
+            clearInterval(this.autoRefreshInterval);
+        }
+
+        this.autoRefreshInterval = setInterval(() => {
+            this.refreshCurrentTabData();
+        }, this.autoRefreshDelay);
+
+        console.log('Auto-refresh started');
+    }
+
+    stopAutoRefresh() {
+        if (this.autoRefreshInterval) {
+            clearInterval(this.autoRefreshInterval);
+            this.autoRefreshInterval = null;
+        }
+        console.log('Auto-refresh stopped');
+    }
+
+    async refreshCurrentTabData() {
+        try {
+            const currentTab = window.ui.currentTab;
+            await this.loadTabData(currentTab);
+        } catch (error) {
+            console.error('Auto-refresh failed:', error);
+        }
+    }
+
+    async loadTabData(tabName) {
+        switch (tabName) {
+            case 'pending':
+                await this.loadPendingItems();
+                break;
+            case 'processing':
+                await this.loadProcessingItems();
+                break;
+            case 'completed':
+                await this.loadCompletedItems();
+                break;
+            case 'cleanup':
+                await this.loadCleanupCandidates();
+                break;
+        }
+    }
+
+    // Load pending items (videos and archives)
+    async loadPendingItems() {
+        window.ui.showLoading('pendingList');
+        
+        try {
+            const [videosResponse, archivesResponse] = await Promise.all([
+                window.api.getPendingVideos(),
+                window.api.getPendingArchives()
+            ]);
+
+            const videos = videosResponse.success ? videosResponse.data : [];
+            const archives = archivesResponse.success ? archivesResponse.data : [];
+
+            this.currentData.pendingVideos = videos;
+            this.currentData.pendingArchives = archives;
+
+            // Combine and sort by detected_at
+            const allItems = [
+                ...videos.map(v => ({...v, type: 'video'})),
+                ...archives.map(a => ({...a, type: 'archive'}))
+            ].sort((a, b) => b.detected_at - a.detected_at);
+
+            // Render items
+            this.renderPendingItems(allItems);
+
+            // Update badges
+            window.ui.updateBadges({
+                pending: videos.length + archives.length
+            });
+
+        } catch (error) {
+            console.error('Failed to load pending items:', error);
+            window.ui.hideLoading('pendingList', false);
+            window.ui.showToast('Error', 'Failed to load pending items', 'error');
+        }
+    }
+
+    renderPendingItems(items) {
+        const html = items.map(item => {
+            if (item.type === 'video') {
+                return window.ui.renderVideoItem(item);
+            } else {
+                return window.ui.renderArchiveItem(item);
+            }
+        }).join('');
+
+        const container = document.getElementById('pendingList');
+        if (container) {
+            container.innerHTML = html;
+        }
+        
+        window.ui.hideLoading('pendingList', items.length > 0);
+    }
+
+    // Load processing items
+    async loadProcessingItems() {
+        window.ui.showLoading('processingList');
+        
+        try {
+            const [videosResponse, archivesResponse] = await Promise.all([
+                window.api.getProcessingVideos(),
+                window.api.getProcessingArchives()
+            ]);
+
+            const videos = videosResponse.success ? videosResponse.data : [];
+            const archives = archivesResponse.success ? archivesResponse.data : [];
+
+            // Combine and sort
+            const allItems = [
+                ...videos.map(v => ({...v, type: 'video'})),
+                ...archives.map(a => ({...a, type: 'archive'}))
+            ].sort((a, b) => b.detected_at - a.detected_at);
+
+            this.currentData.processingItems = allItems;
+
+            // Render items
+            this.renderProcessingItems(allItems);
+
+            // Update badges
+            window.ui.updateBadges({
+                processing: videos.length + archives.length
+            });
+
+        } catch (error) {
+            console.error('Failed to load processing items:', error);
+            window.ui.hideLoading('processingList', false);
+            window.ui.showToast('Error', 'Failed to load processing items', 'error');
+        }
+    }
+
+    renderProcessingItems(items) {
+        const html = items.map(item => {
+            if (item.type === 'video') {
+                return window.ui.renderVideoItem(item);
+            } else {
+                return window.ui.renderArchiveItem(item);
+            }
+        }).join('');
+
+        const container = document.getElementById('processingList');
+        if (container) {
+            container.innerHTML = html;
+        }
+        
+        window.ui.hideLoading('processingList', items.length > 0);
+    }
+
+    // Load completed items
+    async loadCompletedItems() {
+        window.ui.showLoading('completedList');
+        
+        try {
+            const [videosResponse, archivesResponse] = await Promise.all([
+                window.api.getCompletedVideos(),
+                window.api.getCompletedArchives()
+            ]);
+
+            const videos = videosResponse.success ? videosResponse.data : [];
+            const archives = archivesResponse.success ? archivesResponse.data : [];
+
+            // Combine and sort
+            const allItems = [
+                ...videos.map(v => ({...v, type: 'video'})),
+                ...archives.map(a => ({...a, type: 'archive'}))
+            ].sort((a, b) => b.detected_at - a.detected_at);
+
+            this.currentData.completedItems = allItems;
+
+            // Render items
+            this.renderCompletedItems(allItems);
+
+            // Update badges
+            window.ui.updateBadges({
+                completed: videos.length + archives.length
+            });
+
+        } catch (error) {
+            console.error('Failed to load completed items:', error);
+            window.ui.hideLoading('completedList', false);
+            window.ui.showToast('Error', 'Failed to load completed items', 'error');
+        }
+    }
+
+    renderCompletedItems(items) {
+        const html = items.map(item => {
+            if (item.type === 'video') {
+                return window.ui.renderVideoItem(item);
+            } else {
+                return window.ui.renderArchiveItem(item);
+            }
+        }).join('');
+
+        const container = document.getElementById('completedList');
+        if (container) {
+            container.innerHTML = html;
+        }
+        
+        window.ui.hideLoading('completedList', items.length > 0);
+    }
+
+    // Load cleanup candidates
+    async loadCleanupCandidates() {
+        window.ui.showLoading('cleanupList');
+        
+        try {
+            const response = await window.api.getStartupCleanupCandidates();
+            const candidates = response.success ? response.data : [];
+
+            this.currentData.cleanupCandidates = candidates;
+
+            // Render items
+            this.renderCleanupCandidates(candidates);
+
+            // Update badges
+            window.ui.updateBadges({
+                cleanup: candidates.length
+            });
+
+        } catch (error) {
+            console.error('Failed to load cleanup candidates:', error);
+            window.ui.hideLoading('cleanupList', false);
+            window.ui.showToast('Error', 'Failed to load cleanup candidates', 'error');
+        }
+    }
+
+    renderCleanupCandidates(candidates) {
+        const html = candidates.map(candidate => 
+            window.ui.renderCleanupItem(candidate)
+        ).join('');
+
+        const container = document.getElementById('cleanupList');
+        if (container) {
+            container.innerHTML = html;
+        }
+        
+        window.ui.hideLoading('cleanupList', candidates.length > 0);
+    }
+
+    // Load target folders for dropdowns
+    async loadTargetFolders() {
+        try {
+            const response = await window.api.getConfig();
+            if (response.success) {
+                this.currentData.targetFolders = response.data.target_folders || [];
+                this.currentData.config = response.data;
+                this.updateTargetFolderSelects();
+            }
+        } catch (error) {
+            console.error('Failed to load target folders:', error);
+        }
+    }
+
+    updateTargetFolderSelects() {
+        const selects = document.querySelectorAll('select[id*="TargetFolder"], select[id*="targetFolder"]');
+        selects.forEach(select => {
+            // Keep current value
+            const currentValue = select.value;
             
-            if (badge) {
-                badge.textContent = count > 0 ? count : '';
-                badge.style.display = count > 0 ? 'inline-flex' : 'none';
+            // Clear and repopulate
+            select.innerHTML = '<option value="">Select target folder...</option>';
+            
+            this.currentData.targetFolders.forEach(folder => {
+                if (folder.enabled) {
+                    const option = document.createElement('option');
+                    option.value = folder.path;
+                    option.textContent = `${folder.name} (${folder.path})`;
+                    select.appendChild(option);
+                }
+            });
+            
+            // Restore value if still valid
+            if (currentValue) {
+                select.value = currentValue;
             }
         });
     }
 
-    // ===== CONNECTION STATUS =====
-
-    updateConnectionStatus(connected, data = null) {
-        const statusEl = document.getElementById('connectionStatus');
-        const icon = statusEl.querySelector('i');
-        const text = statusEl.querySelector('span');
-
-        if (connected) {
-            statusEl.className = 'connection-status connected';
-            text.textContent = 'Connected';
-            icon.className = 'fas fa-circle';
-        } else {
-            statusEl.className = 'connection-status disconnected';
-            text.textContent = 'Disconnected';
-            icon.className = 'fas fa-circle';
+    // Video Actions
+    async approveVideo(filepath) {
+        try {
+            const response = await window.api.approveVideo(filepath);
+            if (response.success) {
+                window.ui.showToast('Success', 'Video approved for processing', 'success');
+                await this.loadPendingItems();
+            } else {
+                window.ui.showToast('Error', response.error, 'error');
+            }
+        } catch (error) {
+            window.ui.showToast('Error', 'Failed to approve video', 'error');
         }
     }
 
-    // ===== FILE LIST RENDERING =====
+    async rejectVideo(filepath) {
+        if (!confirm('Are you sure you want to reject this video?')) return;
 
-    renderFileList(container, files, type = 'video') {
-        if (!container) return;
+        try {
+            const response = await window.api.rejectVideo(filepath);
+            if (response.success) {
+                window.ui.showToast('Success', 'Video rejected', 'success');
+                await this.loadPendingItems();
+            } else {
+                window.ui.showToast('Error', response.error, 'error');
+            }
+        } catch (error) {
+            window.ui.showToast('Error', 'Failed to reject video', 'error');
+        }
+    }
 
-        if (!files || files.length === 0) {
-            container.innerHTML = this.getEmptyState(type);
+    editVideo(filepath) {
+        // Find video in current data
+        const video = this.currentData.pendingVideos.find(v => v.filepath === filepath);
+        if (!video) {
+            window.ui.showToast('Error', 'Video not found', 'error');
             return;
         }
 
-        const html = files.map(file => this.renderFileItem(file, type)).join('');
-        container.innerHTML = html;
+        // Populate edit form
+        document.getElementById('editVideoPath').value = filepath;
+        document.getElementById('editSeriesName').value = video.series_name || '';
+        document.getElementById('editSeasonNumber').value = video.season_number || '';
+        document.getElementById('editEpisodeNumber').value = video.episode_number || '';
         
-        // Setup event listeners for file items
-        this.setupFileItemHandlers(container);
-    }
-
-    renderFileItem(file, type = 'video') {
-        const confidence = api.formatConfidence(file.confidence);
-        const fileSize = api.formatFileSize(file.file_size);
-        const icon = api.getFileTypeIcon(file.filename, type);
-        const statusClass = api.getStatusClass(file.status);
-        
-        // Determine if this needs manual review
-        const needsReview = type === 'video' && (!file.episode_number || file.confidence < 0.5);
-        
-        let actions = '';
-        if (file.status === 'pending') {
-            if (type === 'video') {
-                actions = `
-                    <button class="btn btn-sm btn-secondary" onclick="fileHandlers.editVideo('${file.filepath}')">
-                        <i class="fas fa-edit"></i> Edit
-                    </button>
-                    <button class="btn btn-sm btn-secondary" onclick="fileHandlers.customMove('${file.filepath}')">
-                        <i class="fas fa-folder-open"></i> Custom
-                    </button>
-                    <button class="btn btn-sm btn-success" onclick="fileHandlers.approveVideo('${file.filepath}')">
-                        <i class="fas fa-check"></i> Approve
-                    </button>
-                    <button class="btn btn-sm btn-danger" onclick="fileHandlers.rejectVideo('${file.filepath}')">
-                        <i class="fas fa-times"></i> Reject
-                    </button>
-                `;
-            } else if (type === 'archive') {
-                actions = `
-                    <button class="btn btn-sm btn-success" onclick="fileHandlers.approveArchive('${file.filepath}')">
-                        <i class="fas fa-check"></i> Approve
-                    </button>
-                    <button class="btn btn-sm btn-danger" onclick="fileHandlers.rejectArchive('${file.filepath}')">
-                        <i class="fas fa-times"></i> Reject
-                    </button>
-                `;
-            }
+        // Set target folder if available
+        const targetSelect = document.getElementById('editTargetFolder');
+        if (video.target_folder) {
+            targetSelect.value = video.target_folder;
         }
 
-        return `
-            <div class="file-item ${file.status}" data-filepath="${file.filepath}" data-type="${type}">
-                <div class="file-icon ${type}">
-                    <i class="${icon}"></i>
-                </div>
-                <div class="file-info">
-                    <div class="file-title">${file.series_name || file.filename}</div>
-                    <div class="file-details">
-                        ${file.episode_number ? 
-                            `<span class="file-meta"><i class="fas fa-tv"></i> Episode ${file.episode_number}</span>` : 
-                            ''
-                        }
-                        ${file.season_number ? 
-                            `<span class="file-meta"><i class="fas fa-layer-group"></i> Season ${file.season_number}</span>` : 
-                            ''
-                        }
-                        <span class="file-meta"><i class="fas fa-hdd"></i> ${fileSize}</span>
-                        ${confidence.text !== 'Unknown' ? 
-                            `<span class="confidence-score confidence-${confidence.level}">${confidence.text}</span>` : 
-                            ''
-                        }
-                        ${needsReview ? '<span class="confidence-score confidence-low">Needs Review</span>' : ''}
-                        <span class="file-meta"><i class="fas fa-file"></i> ${file.filename}</span>
-                    </div>
-                </div>
-                <div class="file-actions">
-                    ${actions}
-                </div>
-            </div>
-        `;
+        // Open modal
+        window.ui.openModal('editVideoModal');
     }
 
-    renderCleanupItem(candidate) {
-        const archiveSize = api.formatFileSize(candidate.archive_size_mb * 1024 * 1024);
-        const folderSize = api.formatFileSize(candidate.extracted_folder_size_mb * 1024 * 1024);
-        
-        return `
-            <div class="file-item" data-filepath="${candidate.archive_path}" data-type="cleanup">
-                <div class="file-icon archive">
-                    <i class="fas fa-file-archive"></i>
-                </div>
-                <div class="file-info">
-                    <div class="file-title">${candidate.archive_name}</div>
-                    <div class="file-details">
-                        <span class="file-meta"><i class="fas fa-archive"></i> Archive: ${archiveSize}</span>
-                        <span class="file-meta"><i class="fas fa-folder"></i> Extracted: ${folderSize} (${candidate.file_count_in_extracted} files)</span>
-                        <span class="file-meta"><i class="fas fa-info-circle"></i> Recommended: ${candidate.recommended_action}</span>
-                        <span class="file-meta"><i class="fas fa-folder-open"></i> ${candidate.extracted_folder_path}</span>
-                    </div>
-                </div>
-                <div class="file-actions">
-                    <button class="btn btn-sm btn-danger" onclick="fileHandlers.cleanupArchive('${candidate.archive_path}', 'delete')">
-                        <i class="fas fa-trash"></i> Delete Archive
-                    </button>
-                    <button class="btn btn-sm btn-secondary" onclick="fileHandlers.cleanupArchive('${candidate.archive_path}', 'extract')">
-                        <i class="fas fa-redo"></i> Re-extract
-                    </button>
-                </div>
-            </div>
-        `;
-    }
+    async saveVideoEdit() {
+        const filepath = document.getElementById('editVideoPath').value;
+        const seriesName = document.getElementById('editSeriesName').value.trim();
+        const seasonNumber = parseInt(document.getElementById('editSeasonNumber').value) || null;
+        const episodeNumber = parseInt(document.getElementById('editEpisodeNumber').value) || null;
+        const targetFolder = document.getElementById('editTargetFolder').value;
 
-    setupFileItemHandlers(container) {
-        // Setup context menu for file items
-        const fileItems = container.querySelectorAll('.file-item');
-        
-        fileItems.forEach(item => {
-            item.addEventListener('contextmenu', (e) => {
-                e.preventDefault();
-                this.showFileContextMenu(e, item);
+        if (!seriesName) {
+            window.ui.showToast('Error', 'Series name is required', 'error');
+            return;
+        }
+
+        try {
+            const response = await window.api.updateVideoMetadata(filepath, {
+                series_name: seriesName,
+                season_number: seasonNumber,
+                episode_number: episodeNumber
             });
 
-            // Double-click to edit videos
-            item.addEventListener('dblclick', () => {
-                const filepath = item.dataset.filepath;
-                const type = item.dataset.type;
+            if (response.success) {
+                window.ui.showToast('Success', 'Video metadata updated', 'success');
+                window.ui.closeModal('editVideoModal');
                 
-                if (type === 'video') {
-                    fileHandlers.editVideo(filepath);
+                // If target folder is selected, approve with that folder
+                if (targetFolder) {
+                    await this.approveVideoWithTarget(filepath, targetFolder);
+                } else {
+                    await this.loadPendingItems();
                 }
-            });
-        });
-    }
-
-    showFileContextMenu(event, fileItem) {
-        const filepath = fileItem.dataset.filepath;
-        const type = fileItem.dataset.type;
-        
-        // Create context menu (simplified - in a real app you might want a proper context menu library)
-        const actions = [
-            { label: 'Show in Folder', action: () => this.showInFolder(filepath) },
-        ];
-
-        if (type === 'video') {
-            actions.unshift(
-                { label: 'Edit Details', action: () => fileHandlers.editVideo(filepath) },
-                { label: 'Custom Move', action: () => fileHandlers.customMove(filepath) }
-            );
-        }
-
-        // For now, just show in folder on right-click
-        this.showInFolder(filepath);
-    }
-
-    async showInFolder(filepath) {
-        if (typeof ipcRenderer !== 'undefined') {
-            await ipcRenderer.invoke('show-item-in-folder', filepath);
-        }
-    }
-
-    getEmptyState(type) {
-        const states = {
-            video: {
-                icon: 'fas fa-video',
-                title: 'No pending videos',
-                description: 'New videos will appear here when detected'
-            },
-            archive: {
-                icon: 'fas fa-file-archive', 
-                title: 'No pending archives',
-                description: 'Archives will appear here for extraction'
-            },
-            processing: {
-                icon: 'fas fa-cogs',
-                title: 'No files processing',
-                description: 'Files being processed will appear here'
-            },
-            completed: {
-                icon: 'fas fa-check-circle',
-                title: 'No completed files',
-                description: 'Successfully processed files will appear here'
-            },
-            cleanup: {
-                icon: 'fas fa-broom',
-                title: 'No cleanup needed',
-                description: 'Already extracted archives will appear here'
+            } else {
+                window.ui.showToast('Error', response.error, 'error');
             }
-        };
+        } catch (error) {
+            window.ui.showToast('Error', 'Failed to update video metadata', 'error');
+        }
+    }
 
-        const state = states[type] || states.video;
-        
-        return `
-            <div class="empty-state">
-                <i class="${state.icon}"></i>
-                <h3>${state.title}</h3>
-                <p>${state.description}</p>
+    async approveVideoWithTarget(filepath, targetFolder) {
+        try {
+            const response = await window.api.approveVideo(filepath, targetFolder);
+            if (response.success) {
+                window.ui.showToast('Success', 'Video approved with target folder', 'success');
+                await this.loadPendingItems();
+            } else {
+                window.ui.showToast('Error', response.error, 'error');
+            }
+        } catch (error) {
+            window.ui.showToast('Error', 'Failed to approve video with target', 'error');
+        }
+    }
+
+    // Archive Actions
+    async approveArchive(filepath) {
+        try {
+            const response = await window.api.approveArchive(filepath);
+            if (response.success) {
+                window.ui.showToast('Success', 'Archive approved for extraction', 'success');
+                await this.loadPendingItems();
+            } else {
+                window.ui.showToast('Error', response.error, 'error');
+            }
+        } catch (error) {
+            window.ui.showToast('Error', 'Failed to approve archive', 'error');
+        }
+    }
+
+    async rejectArchive(filepath) {
+        if (!confirm('Are you sure you want to reject this archive?')) return;
+
+        try {
+            const response = await window.api.rejectArchive(filepath);
+            if (response.success) {
+                window.ui.showToast('Success', 'Archive rejected', 'success');
+                await this.loadPendingItems();
+            } else {
+                window.ui.showToast('Error', response.error, 'error');
+            }
+        } catch (error) {
+            window.ui.showToast('Error', 'Failed to reject archive', 'error');
+        }
+    }
+
+    // Cleanup Actions
+    async cleanupArchive(archivePath, action) {
+        const actionText = action === 'delete' ? 'delete' : 're-extract';
+        if (!confirm(`Are you sure you want to ${actionText} this archive?`)) return;
+
+        try {
+            const response = await window.api.approveCleanupCandidate(archivePath, action);
+            if (response.success) {
+                window.ui.showToast('Success', `Archive ${actionText}d successfully`, 'success');
+                await this.loadCleanupCandidates();
+            } else {
+                window.ui.showToast('Error', response.error, 'error');
+            }
+        } catch (error) {
+            window.ui.showToast('Error', `Failed to ${actionText} archive`, 'error');
+        }
+    }
+
+    // Settings Management
+    async loadSettings() {
+        try {
+            const response = await window.api.getConfig();
+            if (response.success) {
+                const config = response.data;
+                this.currentData.config = config;
+                this.populateSettingsForm(config);
+            }
+        } catch (error) {
+            console.error('Failed to load settings:', error);
+            window.ui.showToast('Error', 'Failed to load settings', 'error');
+        }
+    }
+
+    populateSettingsForm(config) {
+        // Archive settings
+        document.getElementById('autoExtractArchives').checked = config.settings?.auto_extract_archives ?? true;
+        document.getElementById('deleteArchivesAfterExtract').checked = config.settings?.delete_archives_after_extract ?? true;
+        document.getElementById('autoCleanupExtracted').checked = config.settings?.auto_cleanup_extracted_archives ?? false;
+
+        // System settings
+        document.getElementById('minFileSize').value = config.settings?.min_file_size_mb ?? 10;
+        document.getElementById('stabilitySeconds').value = config.settings?.download_stability_seconds ?? 30;
+
+        // Populate folder lists
+        this.populateWatchFoldersList(config.watch_folders || []);
+        this.populateTargetFoldersList(config.target_folders || []);
+    }
+
+    populateWatchFoldersList(folders) {
+        const container = document.getElementById('watchFoldersList');
+        if (!container) return;
+
+        const html = folders.map((folder, index) => `
+            <div class="folder-item">
+                <div class="folder-info">
+                    <strong>${window.ui.escapeHtml(folder.name)}</strong>
+                    <span class="folder-path">${window.ui.escapeHtml(folder.path)}</span>
+                    <div class="folder-options">
+                        <label><input type="checkbox" ${folder.watch_videos ? 'checked' : ''}> Videos</label>
+                        <label><input type="checkbox" ${folder.watch_archives ? 'checked' : ''}> Archives</label>
+                        <label><input type="checkbox" ${folder.enabled ? 'checked' : ''}> Enabled</label>
+                    </div>
+                </div>
+                <button class="btn btn-danger btn-sm" onclick="fileHandlers.removeWatchFolder(${index})">Remove</button>
             </div>
-        `;
+        `).join('');
+
+        container.innerHTML = html;
     }
 
-    // ===== ELECTRON HANDLERS =====
+    populateTargetFoldersList(folders) {
+        const container = document.getElementById('targetFoldersList');
+        if (!container) return;
 
-    setupElectronHandlers() {
-        if (typeof ipcRenderer === 'undefined') return;
+        const html = folders.map((folder, index) => `
+            <div class="folder-item">
+                <div class="folder-info">
+                    <strong>${window.ui.escapeHtml(folder.name)}</strong>
+                    <span class="folder-path">${window.ui.escapeHtml(folder.path)}</span>
+                    <div class="folder-options">
+                        <label>Priority: <input type="number" value="${folder.priority || 0}" min="0" max="10"></label>
+                        <label><input type="checkbox" ${folder.enabled ? 'checked' : ''}> Enabled</label>
+                    </div>
+                </div>
+                <button class="btn btn-danger btn-sm" onclick="fileHandlers.removeTargetFolder(${index})">Remove</button>
+            </div>
+        `).join('');
 
-        // Handle backend connection updates
-        ipcRenderer.on('backend-connected', (event, data) => {
-            this.updateConnectionStatus(true, data);
-            this.showToast('Connected', 'Successfully connected to backend', 'success');
-        });
-
-        ipcRenderer.on('backend-disconnected', (event, error) => {
-            this.updateConnectionStatus(false);
-            this.showToast('Disconnected', 'Lost connection to backend', 'error');
-        });
-
-        // Handle pending updates from main process
-        ipcRenderer.on('pending-updates', (event, counts) => {
-            this.updateBadges(counts);
-        });
-
-        // Window controls
-        document.getElementById('minimizeBtn')?.addEventListener('click', () => {
-            ipcRenderer.send('minimize-to-tray');
-        });
-
-        document.getElementById('settingsBtn')?.addEventListener('click', () => {
-            // Settings will be handled in a separate window
-            this.openSettingsWindow();
-        });
-
-        document.getElementById('refreshBtn')?.addEventListener('click', () => {
-            this.refreshCurrentTab();
-        });
+        container.innerHTML = html;
     }
 
-    async openSettingsWindow() {
-        // This will be handled by the main process
-        if (typeof ipcRenderer !== 'undefined') {
-            // The main process will handle opening the settings window
-            // For now, we'll show a toast
-            this.showToast('Settings', 'Settings window will open in a separate window', 'info');
+    async saveSettings() {
+        try {
+            const settings = {
+                settings: {
+                    auto_extract_archives: document.getElementById('autoExtractArchives').checked,
+                    delete_archives_after_extract: document.getElementById('deleteArchivesAfterExtract').checked,
+                    auto_cleanup_extracted_archives: document.getElementById('autoCleanupExtracted').checked,
+                    min_file_size_mb: parseInt(document.getElementById('minFileSize').value) || 10,
+                    download_stability_seconds: parseInt(document.getElementById('stabilitySeconds').value) || 30
+                }
+            };
+
+            const response = await window.api.updateConfig(settings);
+            if (response.success) {
+                window.ui.showToast('Success', 'Settings saved successfully', 'success');
+                window.ui.closeModal('settingsModal');
+            } else {
+                window.ui.showToast('Error', response.error, 'error');
+            }
+        } catch (error) {
+            window.ui.showToast('Error', 'Failed to save settings', 'error');
         }
     }
 
-    refreshCurrentTab() {
-        api.clearCache();
-        this.onTabChanged(this.currentTab);
-        this.showToast('Refreshed', 'Data refreshed successfully', 'success');
+    // Folder Management
+    async addWatchFolder() {
+        const path = await this.selectFolder();
+        if (!path) return;
+
+        const name = prompt('Enter a name for this watch folder:', path.split(/[/\\]/).pop());
+        if (!name) return;
+
+        try {
+            const response = await window.api.addWatchFolder({
+                path: path,
+                name: name,
+                watch_videos: true,
+                watch_archives: true,
+                enabled: true
+            });
+
+            if (response.success) {
+                window.ui.showToast('Success', 'Watch folder added', 'success');
+                await this.loadSettings();
+            } else {
+                window.ui.showToast('Error', response.error, 'error');
+            }
+        } catch (error) {
+            window.ui.showToast('Error', 'Failed to add watch folder', 'error');
+        }
     }
 
-    // ===== UTILITY METHODS =====
+    async addTargetFolder() {
+        const path = await this.selectFolder();
+        if (!path) return;
 
-    escapeHtml(text) {
-        const div = document.createElement('div');
-        div.textContent = text;
-        return div.innerHTML;
+        const name = prompt('Enter a name for this target folder:', path.split(/[/\\]/).pop());
+        if (!name) return;
+
+        try {
+            const response = await window.api.addTargetFolder({
+                path: path,
+                name: name,
+                priority: 1,
+                enabled: true
+            });
+
+            if (response.success) {
+                window.ui.showToast('Success', 'Target folder added', 'success');
+                await this.loadSettings();
+                await this.loadTargetFolders();
+            } else {
+                window.ui.showToast('Error', response.error, 'error');
+            }
+        } catch (error) {
+            window.ui.showToast('Error', 'Failed to add target folder', 'error');
+        }
     }
 
-    formatPath(path) {
-        if (!path) return '';
-        
-        // Truncate long paths
-        if (path.length > 60) {
-            const parts = path.split(/[/\\]/);
-            if (parts.length > 2) {
-                return parts[0] + '/.../' + parts[parts.length - 1];
+    async selectFolder() {
+        // Use Electron dialog if available
+        if (window.electronAPI) {
+            try {
+                const result = await window.electronAPI.showOpenDialog({
+                    properties: ['openDirectory'],
+                    title: 'Select Folder'
+                });
+
+                if (!result.canceled && result.filePaths.length > 0) {
+                    return result.filePaths[0];
+                }
+            } catch (error) {
+                console.error('Electron dialog failed:', error);
             }
         }
-        
-        return path;
+
+        // Fallback to prompt
+        return prompt('Enter folder path:');
     }
 
-    copyToClipboard(text) {
-        if (navigator.clipboard) {
-            navigator.clipboard.writeText(text).then(() => {
-                this.showToast('Copied', 'Text copied to clipboard', 'success');
-            });
-        }
+    removeWatchFolder(index) {
+        if (!confirm('Remove this watch folder?')) return;
+        // Implementation would require backend support
+        window.ui.showToast('Info', 'Remove functionality not yet implemented', 'info');
+    }
+
+    removeTargetFolder(index) {
+        if (!confirm('Remove this target folder?')) return;
+        // Implementation would require backend support
+        window.ui.showToast('Info', 'Remove functionality not yet implemented', 'info');
     }
 }
 
-// Create global UI instance
-const ui = new UIManager();
+// Add CSS for folder items
+const folderCSS = `
+.folder-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    background: var(--bg-tertiary);
+    border-radius: var(--radius-md);
+    margin-bottom: var(--spacing-sm);
+}
+
+.folder-info {
+    flex: 1;
+}
+
+.folder-info strong {
+    display: block;
+    color: var(--text-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.folder-path {
+    display: block;
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-sm);
+}
+
+.folder-options {
+    display: flex;
+    gap: var(--spacing-md);
+}
+
+.folder-options label {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+}
+
+.folder-options input[type="checkbox"] {
+    width: auto;
+    margin: 0;
+}
+
+.folder-options input[type="number"] {
+    width: 60px;
+    padding: 2px 6px;
+    margin: 0;
+}
+
+.btn-sm {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: 0.75rem;
+}
+
+.settings-section {
+    margin-bottom: var(--spacing-xl);
+}
+
+.settings-section h4 {
+    margin-bottom: var(--spacing-md);
+    color: var(--text-primary);
+    font-size: 1.1rem;
+}
+
+.setting-item {
+    margin-bottom: var(--spacing-md);
+}
+`;
+
+// Inject folder CSS
+const folderStyle = document.createElement('style');
+folderStyle.textContent = folderCSS;
+document.head.appendChild(folderStyle);
+
+// Create global file handlers instance
+window.fileHandlers = new FileHandlers();
+
+console.log('File Handlers initialized');

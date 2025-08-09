@@ -1,0 +1,20 @@
+# Raw URLs for Project Files
+## Root Files
+https://raw.githubusercontent.com/LinkDarkshire/api.js
+https://raw.githubusercontent.com/LinkDarkshire/archive_handler.py
+https://raw.githubusercontent.com/LinkDarkshire/base.py
+https://raw.githubusercontent.com/LinkDarkshire/file-handler.js
+https://raw.githubusercontent.com/LinkDarkshire/file_monitor.py
+https://raw.githubusercontent.com/LinkDarkshire/index.html
+https://raw.githubusercontent.com/LinkDarkshire/main.css
+https://raw.githubusercontent.com/LinkDarkshire/main.js
+https://raw.githubusercontent.com/LinkDarkshire/main.py
+https://raw.githubusercontent.com/LinkDarkshire/package.json
+https://raw.githubusercontent.com/LinkDarkshire/raw-urls.txt
+https://raw.githubusercontent.com/LinkDarkshire/requirements.txt
+https://raw.githubusercontent.com/LinkDarkshire/settings.html
+https://raw.githubusercontent.com/LinkDarkshire/settings.js
+https://raw.githubusercontent.com/LinkDarkshire/ui.js
+https://raw.githubusercontent.com/LinkDarkshire/video_handler.py
+https://raw.githubusercontent.com/LinkDarkshire/video_pattern_analyzer.py
+

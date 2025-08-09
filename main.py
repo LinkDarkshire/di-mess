@@ -9,6 +9,7 @@ import sys
 import time
 import logging
 import threading
+import locale
 from typing import Dict, List, Optional, Callable
 from pathlib import Path
 
@@ -23,6 +24,12 @@ from video_pattern_analyzer import VideoPatternAnalyzer
 from file_monitor import FileMonitor
 from archive_handler import SmartArchiveHandler
 from video_handler import SmartVideoHandler
+
+# Unicode-Encoding fix für Windows
+if sys.platform == 'win32':
+    import codecs
+    sys.stdout = codecs.getwriter('utf-8')(sys.stdout.detach())
+    sys.stderr = codecs.getwriter('utf-8')(sys.stderr.detach())
 
 
 class FileManagerAPI:
@@ -781,12 +788,12 @@ class FileManager:
             
             # Startup Archive-Cleanup ausführen
             if self.config.cleanup_extracted_archives_on_startup:
-                self.logger.info("Führe Startup Archive-Cleanup durch...")
+                self.logger.info("Starting Archive Startup-Cleanup...")
                 cleanup_result = self.archive_handler.perform_startup_cleanup()
                 
                 if cleanup_result.get('success'):
                     if cleanup_result.get('needs_user_confirmation', 0) > 0:
-                        self.logger.info(f"Startup-Cleanup: {cleanup_result['needs_user_confirmation']} Archive benötigen Benutzer-Bestätigung")
+                        self.logger.info(f"Startup-Cleanup: {cleanup_result['needs_user_confirmation']} archives need user confirmation")
                         
                         # Benachrichtigung für Frontend
                         self.notification_manager.notify_cleanup_candidates(
@@ -794,9 +801,9 @@ class FileManager:
                         )
                     
                     if cleanup_result.get('auto_cleaned', 0) > 0:
-                        self.logger.info(f"Startup-Cleanup: {cleanup_result['auto_cleaned']} Archive automatisch bereinigt")
+                        self.logger.info(f"Startup-Cleanup: {cleanup_result['auto_cleaned']} archives auto-cleaned")
                 else:
-                    self.logger.error(f"Startup-Cleanup fehlgeschlagen: {cleanup_result.get('error')}")
+                    self.logger.error(f"Startup-Cleanup failed: {cleanup_result.get('error')}")
             
             self.logger.info("File Manager gestartet")
             
@@ -829,7 +836,7 @@ class FileManager:
             self.file_monitor.stop()
             time.sleep(1)
             self.file_monitor.start()
-            self.logger.info("Überwachung neu gestartet")
+            self.logger.info("Monitoring restarted")
     
     def get_system_status(self) -> Dict:
         """Gibt aktuellen System-Status zurück"""

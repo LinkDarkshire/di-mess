@@ -1,410 +1,263 @@
-// api.js - API Communication Layer
-const { ipcRenderer } = require('electron');
+// api.js - Backend API Communication
 
-class FileManagerAPI {
+class APIManager {
     constructor() {
-        this.isElectron = typeof require !== 'undefined';
+        this.baseURL = 'http://localhost:8080/api';
         this.cache = new Map();
         this.cacheTimeout = 30000; // 30 seconds
-    }
-
-    /**
-     * Make API call through Electron IPC or direct HTTP
-     */
-    async apiCall(method, endpoint, data = null, useCache = false) {
-        const cacheKey = `${method}:${endpoint}:${JSON.stringify(data)}`;
         
-        // Check cache for GET requests
-        if (useCache && method === 'GET' && this.cache.has(cacheKey)) {
-            const cached = this.cache.get(cacheKey);
-            if (Date.now() - cached.timestamp < this.cacheTimeout) {
-                return cached.data;
+        // Initialize with Electron API config if available
+        this.initializeConfig();
+    }
+
+    async initializeConfig() {
+        if (window.electronAPI) {
+            try {
+                const config = await window.electronAPI.getApiConfig();
+                this.baseURL = config.API_BASE;
+            } catch (error) {
+                console.warn('Could not get API config from Electron:', error);
             }
-        }
-
-        try {
-            let response;
-
-            if (this.isElectron) {
-                // Use Electron IPC
-                response = await ipcRenderer.invoke('api-call', method, endpoint, data);
-            } else {
-                // Direct HTTP call (fallback for development)
-                const config = {
-                    method: method.toLowerCase(),
-                    headers: {
-                        'Content-Type': 'application/json'
-                    }
-                };
-
-                if (data) {
-                    if (method === 'GET') {
-                        const params = new URLSearchParams(data);
-                        endpoint += `?${params}`;
-                    } else {
-                        config.body = JSON.stringify(data);
-                    }
-                }
-
-                const fetchResponse = await fetch(`http://localhost:8080/api${endpoint}`, config);
-                const responseData = await fetchResponse.json();
-                
-                response = {
-                    success: fetchResponse.ok,
-                    data: responseData
-                };
-            }
-
-            // Cache successful GET responses
-            if (useCache && method === 'GET' && response.success) {
-                this.cache.set(cacheKey, {
-                    data: response,
-                    timestamp: Date.now()
-                });
-            }
-
-            return response;
-
-        } catch (error) {
-            console.error(`API call failed: ${method} ${endpoint}`, error);
-            return {
-                success: false,
-                error: error.message
-            };
         }
     }
 
-    /**
-     * Clear API cache
-     */
+    // Cache management
+    getCacheKey(url, params = {}) {
+        return `${url}?${JSON.stringify(params)}`;
+    }
+
+    getFromCache(key) {
+        const cached = this.cache.get(key);
+        if (cached && Date.now() - cached.timestamp < this.cacheTimeout) {
+            return cached.data;
+        }
+        return null;
+    }
+
+    setCache(key, data) {
+        this.cache.set(key, {
+            data,
+            timestamp: Date.now()
+        });
+    }
+
     clearCache() {
         this.cache.clear();
     }
 
-    // ===== SYSTEM ENDPOINTS =====
+    // HTTP Request wrapper
+    async request(endpoint, options = {}) {
+        const url = `${this.baseURL}${endpoint}`;
+        const cacheKey = this.getCacheKey(url, options.params);
 
+        // Check cache for GET requests
+        if (!options.method || options.method === 'GET') {
+            const cached = this.getFromCache(cacheKey);
+            if (cached) {
+                return cached;
+            }
+        }
+
+        try {
+            const config = {
+                method: options.method || 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    ...options.headers
+                }
+            };
+
+            if (options.body) {
+                config.body = JSON.stringify(options.body);
+            }
+
+            const response = await fetch(url, config);
+            const data = await response.json();
+
+            // Cache successful GET requests
+            if (response.ok && (!options.method || options.method === 'GET')) {
+                this.setCache(cacheKey, data);
+            }
+
+            return data;
+
+        } catch (error) {
+            console.error(`API Request failed: ${endpoint}`, error);
+            return {
+                success: false,
+                error: error.message || 'Network error'
+            };
+        }
+    }
+
+    // System APIs
     async getStatus() {
-        return this.apiCall('GET', '/status', null, true);
+        return this.request('/status');
     }
 
     async getStatistics() {
-        return this.apiCall('GET', '/statistics', null, true);
+        return this.request('/statistics');
     }
 
-    async startMonitoring() {
-        return this.apiCall('POST', '/system/start');
-    }
-
-    async stopMonitoring() {
-        return this.apiCall('POST', '/system/stop');
-    }
-
-    // ===== CONFIG ENDPOINTS =====
-
+    // Configuration APIs
     async getConfig() {
-        return this.apiCall('GET', '/config', null, true);
+        return this.request('/config');
     }
 
-    async updateConfig(settings) {
-        this.clearCache(); // Clear cache after config changes
-        return this.apiCall('POST', '/config', { settings });
+    async updateConfig(config) {
+        this.clearCache(); // Clear cache when config changes
+        return this.request('/config', {
+            method: 'POST',
+            body: config
+        });
     }
 
     async addWatchFolder(folderData) {
         this.clearCache();
-        return this.apiCall('POST', '/config/folders/watch', folderData);
+        return this.request('/config/folders/watch', {
+            method: 'POST',
+            body: folderData
+        });
     }
 
     async addTargetFolder(folderData) {
         this.clearCache();
-        return this.apiCall('POST', '/config/folders/target', folderData);
+        return this.request('/config/folders/target', {
+            method: 'POST',
+            body: folderData
+        });
     }
 
-    // ===== VIDEO ENDPOINTS =====
-
+    // Video APIs
     async getPendingVideos() {
-        return this.apiCall('GET', '/videos/pending', null, true);
+        return this.request('/videos/pending');
     }
 
     async getProcessingVideos() {
-        return this.apiCall('GET', '/videos/processing', null, true);
+        return this.request('/videos/processing');
     }
 
     async getCompletedVideos() {
-        return this.apiCall('GET', '/videos/completed', null, true);
+        return this.request('/videos/completed');
     }
 
     async getSeriesOverview() {
-        return this.apiCall('GET', '/videos/series', null, true);
+        return this.request('/videos/series');
     }
 
     async approveVideo(filepath, targetFolder = null) {
-        this.clearCache();
-        const data = targetFolder ? { target_folder: targetFolder } : null;
-        return this.apiCall('POST', `/videos/${encodeURIComponent(filepath)}/approve`, data);
+        return this.request(`/videos/${encodeURIComponent(filepath)}/approve`, {
+            method: 'POST',
+            body: { target_folder: targetFolder }
+        });
     }
 
     async rejectVideo(filepath) {
-        this.clearCache();
-        return this.apiCall('POST', `/videos/${encodeURIComponent(filepath)}/reject`);
+        return this.request(`/videos/${encodeURIComponent(filepath)}/reject`, {
+            method: 'POST'
+        });
     }
 
-    async updateVideoMetadata(filepath, seriesName, episodeNumber, seasonNumber) {
-        this.clearCache();
-        return this.apiCall('POST', `/videos/${encodeURIComponent(filepath)}/update`, {
-            series_name: seriesName,
-            episode_number: episodeNumber,
-            season_number: seasonNumber
+    async updateVideoMetadata(filepath, metadata) {
+        return this.request(`/videos/${encodeURIComponent(filepath)}/update`, {
+            method: 'POST',
+            body: metadata
         });
     }
 
     async moveVideoCustom(filepath, targetFolder, customFilename = null) {
-        this.clearCache();
-        return this.apiCall('POST', `/videos/${encodeURIComponent(filepath)}/move-custom`, {
-            target_folder: targetFolder,
-            custom_filename: customFilename
+        return this.request(`/videos/${encodeURIComponent(filepath)}/move-custom`, {
+            method: 'POST',
+            body: {
+                target_folder: targetFolder,
+                custom_filename: customFilename
+            }
         });
     }
 
     async approveAllVideos() {
-        this.clearCache();
-        return this.apiCall('POST', '/videos/approve-all');
-    }
-
-    async processSeriesBatch(seriesName, targetFolder) {
-        this.clearCache();
-        return this.apiCall('POST', `/videos/series/${encodeURIComponent(seriesName)}/batch`, {
-            target_folder: targetFolder
+        return this.request('/videos/approve-all', {
+            method: 'POST'
         });
     }
 
-    // ===== ARCHIVE ENDPOINTS =====
+    async processSeriesBatch(seriesName, targetFolder) {
+        return this.request(`/videos/series/${encodeURIComponent(seriesName)}/batch`, {
+            method: 'POST',
+            body: { target_folder: targetFolder }
+        });
+    }
 
+    // Archive APIs
     async getPendingArchives() {
-        return this.apiCall('GET', '/archives/pending', null, true);
+        return this.request('/archives/pending');
     }
 
     async getProcessingArchives() {
-        return this.apiCall('GET', '/archives/processing', null, true);
+        return this.request('/archives/processing');
     }
 
     async getCompletedArchives() {
-        return this.apiCall('GET', '/archives/completed', null, true);
+        return this.request('/archives/completed');
     }
 
     async approveArchive(filepath) {
-        this.clearCache();
-        return this.apiCall('POST', `/archives/${encodeURIComponent(filepath)}/approve`);
+        return this.request(`/archives/${encodeURIComponent(filepath)}/approve`, {
+            method: 'POST'
+        });
     }
 
     async rejectArchive(filepath) {
-        this.clearCache();
-        return this.apiCall('POST', `/archives/${encodeURIComponent(filepath)}/reject`);
+        return this.request(`/archives/${encodeURIComponent(filepath)}/reject`, {
+            method: 'POST'
+        });
     }
 
-    // ===== CLEANUP ENDPOINTS =====
-
+    // Cleanup APIs
     async getStartupCleanupStatus() {
-        return this.apiCall('GET', '/archives/startup-cleanup/status', null, true);
+        return this.request('/archives/startup-cleanup/status');
     }
 
     async getStartupCleanupCandidates() {
-        return this.apiCall('GET', '/archives/startup-cleanup/candidates', null, true);
+        return this.request('/archives/startup-cleanup/candidates');
     }
 
     async approveCleanupCandidate(filepath, action) {
-        this.clearCache();
-        return this.apiCall('POST', `/archives/startup-cleanup/${encodeURIComponent(filepath)}/approve`, {
-            action: action // 'delete' or 'extract'
+        return this.request(`/archives/startup-cleanup/${encodeURIComponent(filepath)}/approve`, {
+            method: 'POST',
+            body: { action }
         });
     }
 
     async approveAllCleanupCandidates(action) {
-        this.clearCache();
-        return this.apiCall('POST', '/archives/startup-cleanup/approve-all', {
-            action: action
+        return this.request('/archives/startup-cleanup/approve-all', {
+            method: 'POST',
+            body: { action }
         });
     }
 
-    // ===== UTILITY METHODS =====
-
-    /**
-     * Format file size in human readable format
-     */
-    formatFileSize(bytes) {
-        if (!bytes) return '0 B';
-        
-        const sizes = ['B', 'KB', 'MB', 'GB', 'TB'];
-        const i = Math.floor(Math.log(bytes) / Math.log(1024));
-        
-        return Math.round(bytes / Math.pow(1024, i) * 100) / 100 + ' ' + sizes[i];
+    // System Control APIs
+    async startMonitoring() {
+        return this.request('/system/start', {
+            method: 'POST'
+        });
     }
 
-    /**
-     * Format confidence score
-     */
-    formatConfidence(confidence) {
-        if (confidence === undefined || confidence === null) return 'Unknown';
-        
-        const percentage = Math.round(confidence * 100);
-        
-        if (percentage >= 80) return { level: 'high', text: `${percentage}%` };
-        if (percentage >= 50) return { level: 'medium', text: `${percentage}%` };
-        return { level: 'low', text: `${percentage}%` };
+    async stopMonitoring() {
+        return this.request('/system/stop', {
+            method: 'POST'
+        });
     }
 
-    /**
-     * Format timestamp
-     */
-    formatTime(timestamp) {
-        if (!timestamp) return 'Unknown';
-        
-        const date = new Date(timestamp * 1000);
-        return date.toLocaleString();
-    }
-
-    /**
-     * Get file extension
-     */
-    getFileExtension(filename) {
-        return filename.split('.').pop().toLowerCase();
-    }
-
-    /**
-     * Get file type icon
-     */
-    getFileTypeIcon(filename, type) {
-        if (type === 'video') {
-            return 'fas fa-play-circle';
-        } else if (type === 'archive') {
-            return 'fas fa-file-archive';
-        } else {
-            const ext = this.getFileExtension(filename);
-            
-            // Video extensions
-            if (['mp4', 'mkv', 'avi', 'mov', 'wmv', 'flv', 'webm', 'm4v', 'mpg', 'mpeg'].includes(ext)) {
-                return 'fas fa-play-circle';
-            }
-            
-            // Archive extensions  
-            if (['zip', 'rar', '7z', 'tar', 'gz', 'bz2'].includes(ext)) {
-                return 'fas fa-file-archive';
-            }
-            
-            return 'fas fa-file';
-        }
-    }
-
-    /**
-     * Validate episode number
-     */
-    validateEpisode(episode) {
-        if (!episode) return false;
-        const num = parseInt(episode);
-        return !isNaN(num) && num > 0 && num <= 9999;
-    }
-
-    /**
-     * Validate season number
-     */
-    validateSeason(season) {
-        if (!season) return true; // Season is optional
-        const num = parseInt(season);
-        return !isNaN(num) && num > 0 && num <= 99;
-    }
-
-    /**
-     * Clean series name
-     */
-    cleanSeriesName(name) {
-        if (!name) return '';
-        
-        return name
-            .trim()
-            .replace(/[<>:"/\\|?*]/g, ' ') // Replace invalid filename chars
-            .replace(/\s+/g, ' ') // Replace multiple spaces
-            .trim();
-    }
-
-    /**
-     * Generate suggested filename
-     */
-    generateFilename(seriesName, episodeNumber, seasonNumber = 1, extension = 'mkv') {
-        const cleanSeries = this.cleanSeriesName(seriesName);
-        const season = seasonNumber.toString().padStart(2, '0');
-        const episode = episodeNumber.toString().padStart(2, '0');
-        
-        return `${cleanSeries} - S${season}E${episode}.${extension}`;
-    }
-
-    /**
-     * Get status color class
-     */
-    getStatusClass(status) {
-        const statusColors = {
-            'pending': 'warning',
-            'approved': 'info', 
-            'processing': 'warning',
-            'completed': 'success',
-            'error': 'danger',
-            'rejected': 'secondary'
-        };
-        
-        return statusColors[status] || 'secondary';
-    }
-
-    /**
-     * Debounce function for search/filter inputs
-     */
-    debounce(func, wait) {
-        let timeout;
-        return function executedFunction(...args) {
-            const later = () => {
-                clearTimeout(timeout);
-                func(...args);
-            };
-            clearTimeout(timeout);
-            timeout = setTimeout(later, wait);
-        };
-    }
-
-    /**
-     * Check if path is valid
-     */
-    isValidPath(path) {
-        if (!path || typeof path !== 'string') return false;
-        
-        // Basic path validation
-        const invalidChars = /[<>:"|?*]/;
-        return !invalidChars.test(path) && path.length > 0;
-    }
-
-    /**
-     * Extract series name from filename
-     */
-    extractSeriesFromFilename(filename) {
-        if (!filename) return '';
-        
-        // Remove extension
-        const nameWithoutExt = filename.replace(/\.[^/.]+$/, '');
-        
-        // Remove common patterns
-        let seriesName = nameWithoutExt
-            .replace(/[_\-\.]/g, ' ') // Replace separators with spaces
-            .replace(/\b\d{1,4}[px]\b/gi, '') // Remove resolution (720p, 1080p, etc)
-            .replace(/\b(bluray|webrip|webdl|hdtv|dvdrip)\b/gi, '') // Remove source
-            .replace(/\b\d{1,4}\b/g, '') // Remove standalone numbers
-            .replace(/\s+/g, ' ') // Normalize spaces
-            .trim();
-        
-        return seriesName;
+    async cleanupOldEntries(maxAgeHours = 24) {
+        return this.request('/system/cleanup', {
+            method: 'POST',
+            body: { max_age_hours: maxAgeHours }
+        });
     }
 }
 
 // Create global API instance
-const api = new FileManagerAPI();
+window.api = new APIManager();
 
-// Export for use in other modules
-if (typeof module !== 'undefined' && module.exports) {
-    module.exports = api;
-}
+console.log('API Manager initialized');

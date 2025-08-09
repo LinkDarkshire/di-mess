@@ -1,0 +1,9 @@
+echo Starting Python Backend...
+start "Backend" cmd /k "python main.py"
+echo Backend started in separate window.
+echo.
+echo Waiting 5 seconds for backend to initialize...
+timeout /t 5 /nobreak > nul
+echo.
+echo Starting Electron Frontend...
+npm start

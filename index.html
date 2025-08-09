@@ -1,290 +1,327 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>File Manager</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
-    <link href="styles/main.css" rel="stylesheet">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; connect-src 'self' http://localhost:8080;">
+    <title>Di-Mess File Manager</title>
+    <link rel="stylesheet" href="main.css">
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="header-content">
-            <div class="header-left">
-                <i class="fas fa-folder-open header-icon"></i>
-                <h1>File Manager</h1>
-                <div class="connection-status" id="connectionStatus">
-                    <i class="fas fa-circle"></i>
-                    <span>Connecting...</span>
-                </div>
-            </div>
-            <div class="header-right">
-                <button class="btn btn-icon" id="refreshBtn" title="Refresh">
-                    <i class="fas fa-sync-alt"></i>
-                </button>
-                <button class="btn btn-icon" id="settingsBtn" title="Settings">
-                    <i class="fas fa-cog"></i>
-                </button>
-                <button class="btn btn-icon" id="minimizeBtn" title="Minimize to Tray">
-                    <i class="fas fa-window-minimize"></i>
-                </button>
-            </div>
-        </div>
-    </header>
-
-    <!-- Navigation Tabs -->
-    <nav class="nav-tabs">
-        <button class="nav-tab active" data-tab="pending">
-            <i class="fas fa-clock"></i>
-            <span>Pending Items</span>
-            <span class="badge" id="pendingBadge">0</span>
-        </button>
-        <button class="nav-tab" data-tab="processing">
-            <i class="fas fa-cogs"></i>
-            <span>Processing</span>
-            <span class="badge" id="processingBadge">0</span>
-        </button>
-        <button class="nav-tab" data-tab="completed">
-            <i class="fas fa-check-circle"></i>
-            <span>Completed</span>
-            <span class="badge" id="completedBadge">0</span>
-        </button>
-        <button class="nav-tab" data-tab="cleanup">
-            <i class="fas fa-trash-alt"></i>
-            <span>Cleanup</span>
-            <span class="badge cleanup-badge" id="cleanupBadge">0</span>
-        </button>
-    </nav>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        
-        <!-- Pending Tab -->
-        <section class="tab-content active" id="pendingTab">
-            <div class="tab-header">
-                <div class="tab-title">
-                    <h2>Items Requiring Decision</h2>
-                    <p class="tab-description">Review and approve files for processing</p>
-                </div>
-                <div class="tab-actions">
-                    <button class="btn btn-secondary" id="approveAllBtn">
-                        <i class="fas fa-check-double"></i>
-                        Approve All
-                    </button>
-                    <select class="select" id="bulkTargetSelect">
-                        <option value="">Select Target Folder...</option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Filter and Search -->
-            <div class="filters">
-                <div class="filter-group">
-                    <label>Filter by Type:</label>
-                    <select class="select" id="typeFilter">
-                        <option value="all">All Files</option>
-                        <option value="video">Videos</option>
-                        <option value="archive">Archives</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label>Filter by Series:</label>
-                    <select class="select" id="seriesFilter">
-                        <option value="all">All Series</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <input type="text" class="input" id="searchInput" placeholder="Search files...">
-                </div>
-            </div>
-
-            <!-- File List -->
-            <div class="file-list" id="pendingFileList">
-                <!-- Files will be dynamically loaded here -->
-            </div>
-        </section>
-
-        <!-- Processing Tab -->
-        <section class="tab-content" id="processingTab">
-            <div class="tab-header">
-                <h2>Currently Processing</h2>
-                <p class="tab-description">Files being moved or extracted</p>
-            </div>
-            <div class="file-list" id="processingFileList">
-                <!-- Processing files will be shown here -->
-            </div>
-        </section>
-
-        <!-- Completed Tab -->
-        <section class="tab-content" id="completedTab">
-            <div class="tab-header">
-                <h2>Completed Operations</h2>
-                <p class="tab-description">Successfully processed files</p>
-            </div>
-            <div class="file-list" id="completedFileList">
-                <!-- Completed files will be shown here -->
-            </div>
-        </section>
-
-        <!-- Cleanup Tab -->
-        <section class="tab-content" id="cleanupTab">
-            <div class="tab-header">
-                <div class="tab-title">
-                    <h2>Archive Cleanup</h2>
-                    <p class="tab-description">Already extracted archives that can be removed</p>
-                </div>
-                <div class="tab-actions">
-                    <button class="btn btn-danger" id="deleteAllArchivesBtn">
-                        <i class="fas fa-trash"></i>
-                        Delete All Archives
-                    </button>
-                    <button class="btn btn-secondary" id="extractAllArchivesBtn">
-                        <i class="fas fa-file-archive"></i>
-                        Re-extract All
+    <div id="app">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-content">
+                <h1 class="app-title">
+                    <span class="icon">📁</span>
+                    Di-Mess File Manager
+                </h1>
+                <div class="header-controls">
+                    <div class="connection-status" id="connectionStatus">
+                        <span class="status-dot"></span>
+                        <span class="status-text">Connecting...</span>
+                    </div>
+                    <button class="btn btn-ghost" id="settingsBtn">
+                        <span class="icon">⚙️</span>
+                        Settings
                     </button>
                 </div>
             </div>
-            <div class="file-list" id="cleanupFileList">
-                <!-- Cleanup candidates will be shown here -->
+        </header>
+
+        <!-- Main Content -->
+        <main class="app-main">
+            <!-- Tab Navigation -->
+            <nav class="tab-nav">
+                <button class="tab-btn active" data-tab="pending">
+                    <span class="icon">⏳</span>
+                    Pending
+                    <span class="badge" id="pendingBadge">0</span>
+                </button>
+                <button class="tab-btn" data-tab="processing">
+                    <span class="icon">⚡</span>
+                    Processing
+                    <span class="badge" id="processingBadge">0</span>
+                </button>
+                <button class="tab-btn" data-tab="completed">
+                    <span class="icon">✅</span>
+                    Completed
+                    <span class="badge" id="completedBadge">0</span>
+                </button>
+                <button class="tab-btn" data-tab="cleanup">
+                    <span class="icon">🧹</span>
+                    Cleanup
+                    <span class="badge" id="cleanupBadge">0</span>
+                </button>
+            </nav>
+
+            <!-- Tab Content -->
+            <div class="tab-content">
+                <!-- Pending Tab -->
+                <div class="tab-pane active" id="pendingTab">
+                    <div class="tab-header">
+                        <h2>Pending Items</h2>
+                        <div class="tab-actions">
+                            <button class="btn btn-primary" id="approveAllBtn">
+                                <span class="icon">✅</span>
+                                Approve All
+                            </button>
+                            <button class="btn btn-ghost" id="refreshBtn">
+                                <span class="icon">🔄</span>
+                                Refresh
+                            </button>
+                        </div>
+                    </div>
+                    <div class="content-area">
+                        <div class="loading-spinner" id="pendingLoading">
+                            <div class="spinner"></div>
+                            <p>Loading pending items...</p>
+                        </div>
+                        <div class="empty-state" id="pendingEmpty" style="display: none;">
+                            <span class="icon">📭</span>
+                            <h3>No pending items</h3>
+                            <p>All files have been processed or no new files detected.</p>
+                        </div>
+                        <div class="items-list" id="pendingList"></div>
+                    </div>
+                </div>
+
+                <!-- Processing Tab -->
+                <div class="tab-pane" id="processingTab">
+                    <div class="tab-header">
+                        <h2>Processing Items</h2>
+                        <div class="tab-actions">
+                            <button class="btn btn-ghost" id="refreshProcessingBtn">
+                                <span class="icon">🔄</span>
+                                Refresh
+                            </button>
+                        </div>
+                    </div>
+                    <div class="content-area">
+                        <div class="loading-spinner" id="processingLoading">
+                            <div class="spinner"></div>
+                            <p>Loading processing items...</p>
+                        </div>
+                        <div class="empty-state" id="processingEmpty" style="display: none;">
+                            <span class="icon">⚡</span>
+                            <h3>No items processing</h3>
+                            <p>No files are currently being processed.</p>
+                        </div>
+                        <div class="items-list" id="processingList"></div>
+                    </div>
+                </div>
+
+                <!-- Completed Tab -->
+                <div class="tab-pane" id="completedTab">
+                    <div class="tab-header">
+                        <h2>Completed Items</h2>
+                        <div class="tab-actions">
+                            <button class="btn btn-secondary" id="clearCompletedBtn">
+                                <span class="icon">🗑️</span>
+                                Clear Old
+                            </button>
+                            <button class="btn btn-ghost" id="refreshCompletedBtn">
+                                <span class="icon">🔄</span>
+                                Refresh
+                            </button>
+                        </div>
+                    </div>
+                    <div class="content-area">
+                        <div class="loading-spinner" id="completedLoading">
+                            <div class="spinner"></div>
+                            <p>Loading completed items...</p>
+                        </div>
+                        <div class="empty-state" id="completedEmpty" style="display: none;">
+                            <span class="icon">📂</span>
+                            <h3>No completed items</h3>
+                            <p>No files have been processed yet.</p>
+                        </div>
+                        <div class="items-list" id="completedList"></div>
+                    </div>
+                </div>
+
+                <!-- Cleanup Tab -->
+                <div class="tab-pane" id="cleanupTab">
+                    <div class="tab-header">
+                        <h2>Archive Cleanup</h2>
+                        <div class="tab-actions">
+                            <button class="btn btn-danger" id="deleteAllArchivesBtn">
+                                <span class="icon">🗑️</span>
+                                Delete All
+                            </button>
+                            <button class="btn btn-primary" id="extractAllArchivesBtn">
+                                <span class="icon">📦</span>
+                                Extract All
+                            </button>
+                            <button class="btn btn-ghost" id="refreshCleanupBtn">
+                                <span class="icon">🔄</span>
+                                Refresh
+                            </button>
+                        </div>
+                    </div>
+                    <div class="content-area">
+                        <div class="loading-spinner" id="cleanupLoading">
+                            <div class="spinner"></div>
+                            <p>Loading cleanup candidates...</p>
+                        </div>
+                        <div class="empty-state" id="cleanupEmpty" style="display: none;">
+                            <span class="icon">🧹</span>
+                            <h3>No cleanup needed</h3>
+                            <p>No already extracted archives found.</p>
+                        </div>
+                        <div class="items-list" id="cleanupList"></div>
+                    </div>
+                </div>
             </div>
-        </section>
-
-    </main>
-
-    <!-- Loading Overlay -->
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-spinner">
-            <i class="fas fa-spinner fa-spin"></i>
-            <p>Loading...</p>
-        </div>
+        </main>
     </div>
 
     <!-- Modals -->
-    
-    <!-- Video Edit Modal -->
-    <div class="modal" id="videoEditModal">
+    <!-- Edit Video Modal -->
+    <div class="modal" id="editVideoModal">
+        <div class="modal-overlay" onclick="ui.closeModal('editVideoModal')"></div>
         <div class="modal-content">
             <div class="modal-header">
-                <h3>Edit Video Information</h3>
-                <button class="btn btn-icon modal-close">
-                    <i class="fas fa-times"></i>
-                </button>
+                <h3>Edit Video Details</h3>
+                <button class="modal-close" onclick="ui.closeModal('editVideoModal')">×</button>
             </div>
             <div class="modal-body">
-                <form id="videoEditForm">
+                <form id="editVideoForm">
                     <input type="hidden" id="editVideoPath">
                     
                     <div class="form-group">
-                        <label>Original Filename:</label>
-                        <p class="filename-display" id="originalFilename"></p>
-                    </div>
-                    
-                    <div class="form-group">
-                        <label for="seriesName">Series Name:</label>
-                        <input type="text" id="seriesName" class="input" required>
+                        <label for="editSeriesName">Series Name</label>
+                        <input type="text" id="editSeriesName" required>
                     </div>
                     
                     <div class="form-row">
                         <div class="form-group">
-                            <label for="episodeNumber">Episode:</label>
-                            <input type="number" id="episodeNumber" class="input" min="1" max="9999">
+                            <label for="editSeasonNumber">Season</label>
+                            <input type="number" id="editSeasonNumber" min="1" max="99">
                         </div>
                         <div class="form-group">
-                            <label for="seasonNumber">Season:</label>
-                            <input type="number" id="seasonNumber" class="input" min="1" max="99" value="1">
+                            <label for="editEpisodeNumber">Episode</label>
+                            <input type="number" id="editEpisodeNumber" min="1" max="999">
                         </div>
                     </div>
                     
                     <div class="form-group">
-                        <label for="targetFolder">Target Folder:</label>
-                        <select id="targetFolder" class="select" required>
-                            <option value="">Select folder...</option>
+                        <label for="editTargetFolder">Target Folder</label>
+                        <select id="editTargetFolder" required>
+                            <option value="">Select target folder...</option>
                         </select>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary modal-close">Cancel</button>
-                <button type="submit" form="videoEditForm" class="btn btn-primary">
-                    <i class="fas fa-save"></i>
-                    Save & Approve
-                </button>
+                <button type="button" class="btn btn-ghost" onclick="ui.closeModal('editVideoModal')">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="fileHandlers.saveVideoEdit()">Save Changes</button>
             </div>
         </div>
     </div>
 
-    <!-- Custom Move Modal -->
-    <div class="modal" id="customMoveModal">
-        <div class="modal-content">
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+        <div class="modal-overlay" onclick="ui.closeModal('settingsModal')"></div>
+        <div class="modal-content large">
             <div class="modal-header">
-                <h3>Custom Move</h3>
-                <button class="btn btn-icon modal-close">
-                    <i class="fas fa-times"></i>
-                </button>
+                <h3>Settings</h3>
+                <button class="modal-close" onclick="ui.closeModal('settingsModal')">×</button>
             </div>
             <div class="modal-body">
-                <form id="customMoveForm">
-                    <input type="hidden" id="customMoveVideoPath">
-                    
-                    <div class="form-group">
-                        <label>File:</label>
-                        <p class="filename-display" id="customMoveFilename"></p>
+                <div class="settings-content">
+                    <div class="settings-section">
+                        <h4>Watch Folders</h4>
+                        <div id="watchFoldersList"></div>
+                        <button class="btn btn-primary" onclick="fileHandlers.addWatchFolder()">
+                            <span class="icon">➕</span>
+                            Add Watch Folder
+                        </button>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="customTargetFolder">Target Folder:</label>
-                        <div class="input-group">
-                            <input type="text" id="customTargetFolder" class="input" required>
-                            <button type="button" class="btn btn-secondary" id="browseFolderBtn">
-                                <i class="fas fa-folder-open"></i>
-                                Browse
-                            </button>
+                    <div class="settings-section">
+                        <h4>Target Folders</h4>
+                        <div id="targetFoldersList"></div>
+                        <button class="btn btn-primary" onclick="fileHandlers.addTargetFolder()">
+                            <span class="icon">➕</span>
+                            Add Target Folder
+                        </button>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <h4>Archive Settings</h4>
+                        <div class="setting-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="autoExtractArchives">
+                                <span class="checkmark"></span>
+                                Auto-extract archives
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="deleteArchivesAfterExtract">
+                                <span class="checkmark"></span>
+                                Delete archives after extraction
+                            </label>
+                        </div>
+                        <div class="setting-item">
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="autoCleanupExtracted">
+                                <span class="checkmark"></span>
+                                Auto-cleanup already extracted archives
+                            </label>
                         </div>
                     </div>
                     
-                    <div class="form-group">
-                        <label for="customFilename">Custom Filename (optional):</label>
-                        <input type="text" id="customFilename" class="input">
-                        <small class="form-help">Leave empty to keep original filename</small>
+                    <div class="settings-section">
+                        <h4>System Settings</h4>
+                        <div class="setting-item">
+                            <label for="minFileSize">Minimum file size (MB)</label>
+                            <input type="number" id="minFileSize" min="1" max="10000">
+                        </div>
+                        <div class="setting-item">
+                            <label for="stabilitySeconds">Download stability time (seconds)</label>
+                            <input type="number" id="stabilitySeconds" min="5" max="300">
+                        </div>
                     </div>
-                </form>
+                </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary modal-close">Cancel</button>
-                <button type="submit" form="customMoveForm" class="btn btn-primary">
-                    <i class="fas fa-arrow-right"></i>
-                    Move File
-                </button>
+                <button type="button" class="btn btn-ghost" onclick="ui.closeModal('settingsModal')">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="fileHandlers.saveSettings()">Save Settings</button>
             </div>
         </div>
     </div>
 
-    <!-- Confirmation Modal -->
-    <div class="modal" id="confirmationModal">
-        <div class="modal-content modal-sm">
+    <!-- Folder Browser Modal -->
+    <div class="modal" id="folderBrowserModal">
+        <div class="modal-overlay" onclick="ui.closeModal('folderBrowserModal')"></div>
+        <div class="modal-content">
             <div class="modal-header">
-                <h3 id="confirmTitle">Confirm Action</h3>
+                <h3>Select Folder</h3>
+                <button class="modal-close" onclick="ui.closeModal('folderBrowserModal')">×</button>
             </div>
             <div class="modal-body">
-                <p id="confirmMessage">Are you sure?</p>
+                <div class="folder-browser">
+                    <input type="text" id="folderPath" placeholder="Enter folder path..." readonly>
+                    <button class="btn btn-secondary" id="browseFolderBtn">Browse...</button>
+                </div>
+                <p class="help-text">Select a folder for file operations</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="confirmCancel">Cancel</button>
-                <button type="button" class="btn btn-danger" id="confirmOk">OK</button>
+                <button type="button" class="btn btn-ghost" onclick="ui.closeModal('folderBrowserModal')">Cancel</button>
+                <button type="button" class="btn btn-primary" onclick="fileHandlers.confirmFolderSelection()">Select</button>
             </div>
         </div>
     </div>
 
     <!-- Toast Notifications -->
-    <div class="toast-container" id="toastContainer">
-        <!-- Toast notifications will be dynamically added here -->
-    </div>
+    <div class="toast-container" id="toastContainer"></div>
 
     <!-- Scripts -->
-    <script src="js/api.js"></script>
-    <script src="js/ui.js"></script>
-    <script src="js/file-handlers.js"></script>
-    <script src="js/main.js"></script>
+    <script src="api.js"></script>
+    <script src="ui.js"></script>
+    <script src="file-handler.js"></script>
+    <script src="renderer.js"></script>
 </body>
 </html>
