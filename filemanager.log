@@ -1140,3 +1140,834 @@
 2025-08-09 16:36:56,379 - archive_handler - INFO - Archive erfolgreich verarbeitet: CorruptANun-1.1-pc.zip
 2025-08-09 16:36:56,379 - archive_handler - INFO - Beginne Verarbeitung von: Daily Lives of My Countryside v0.3.1 (PC).7z
 2025-08-09 16:36:56,381 - archive_handler - INFO - Entpacke Archive: Daily Lives of My Countryside v0.3.1 (PC).7z -> K:\Download\Mega\Daily Lives of My Countryside v0.3.1 (PC)
+2025-08-09 16:38:42,159 - archive_handler - INFO - Archive-Cleanup Scan abgeschlossen: 138 Archive gefunden, 98 Cleanup-Kandidaten, 0 automatisch bereinigt
+2025-08-09 16:38:42,159 - __main__ - INFO - Startup-Cleanup: 98 archives need user confirmation
+2025-08-09 16:38:42,159 - __main__ - INFO - File Manager gestartet
+2025-08-09 16:38:42,160 - __main__ - INFO - Starte API-Server auf 127.0.0.1:8080
+2025-08-09 16:38:42,184 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on http://127.0.0.1:8080
+2025-08-09 16:38:42,184 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-08-09 16:39:03,602 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:39:03] "GET /api/videos/pending HTTP/1.1" 200 -
+2025-08-09 16:39:03,603 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:39:03] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 16:39:03,604 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:39:03] "GET /api/status HTTP/1.1" 200 -
+2025-08-09 16:39:16,669 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:39:16] "GET /api/videos/pending HTTP/1.1" 200 -
+2025-08-09 16:39:16,981 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:39:16] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 16:39:18,680 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:39:18] "GET /api/videos/pending HTTP/1.1" 200 -
+2025-08-09 16:39:18,682 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:39:18] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 16:39:33,303 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:39:33] "GET /api/status HTTP/1.1" 200 -
+2025-08-09 16:39:37,465 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:39:37] "[33mPOST /api/videos/K:DownloadMegaYuusha-chan_no_Bouken_wa_Owatteshimatta_02_ENG_www.UnderHentai.net.mp4/approve HTTP/1.1[0m" 404 -
+2025-08-09 16:39:41,965 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:39:41] "[33mPOST /api/videos/K:DownloadMegaYuusha-chan_no_Bouken_wa_Owatteshimatta_01_ENG_www.UnderHentai.net.mp4/approve HTTP/1.1[0m" 404 -
+2025-08-09 16:39:57,568 - archive_handler - INFO - Archive erfolgreich entpackt: 7000 Dateien in K:\Download\Mega\Daily Lives of My Countryside v0.3.1 (PC)
+2025-08-09 16:39:57,711 - archive_handler - INFO - Archive-Datei gelÃ¶scht: Daily Lives of My Countryside v0.3.1 (PC).7z
+2025-08-09 16:39:57,712 - archive_handler - INFO - Archive erfolgreich verarbeitet: Daily Lives of My Countryside v0.3.1 (PC).7z
+2025-08-09 16:39:57,712 - archive_handler - INFO - Beginne Verarbeitung von: DECENSOR_PATCH (Country Chicks).zip
+2025-08-09 16:39:57,714 - archive_handler - INFO - Archive-Datei gelÃ¶scht: DECENSOR_PATCH (Country Chicks).zip
+2025-08-09 16:39:57,714 - archive_handler - INFO - Archive erfolgreich verarbeitet: DECENSOR_PATCH (Country Chicks).zip
+2025-08-09 16:39:57,714 - archive_handler - INFO - Beginne Verarbeitung von: Delivery Source Channel o!.rar
+2025-08-09 16:39:57,716 - archive_handler - INFO - Entpacke Archive: Delivery Source Channel o!.rar -> K:\Download\Mega\Delivery Source Channel o!
+2025-08-09 16:40:00,580 - archive_handler - ERROR - Archive-Verarbeitung fehlgeschlagen: Delivery Source Channel o!.rar - Unsicherer Pfad in Archive: Delivery Source Channel o!/...readme.txt
+2025-08-09 16:40:00,580 - archive_handler - INFO - Beginne Verarbeitung von: DohnaDohna_eng_Cracked_Patch_1.02.7z
+2025-08-09 16:40:00,582 - archive_handler - INFO - Archive-Datei gelÃ¶scht: DohnaDohna_eng_Cracked_Patch_1.02.7z
+2025-08-09 16:40:00,582 - archive_handler - INFO - Archive erfolgreich verarbeitet: DohnaDohna_eng_Cracked_Patch_1.02.7z
+2025-08-09 16:40:00,582 - archive_handler - INFO - Beginne Verarbeitung von: Dohna_Dohna_Patch_1.02.zip
+2025-08-09 16:40:00,583 - archive_handler - INFO - Entpacke Archive: Dohna_Dohna_Patch_1.02.zip -> K:\Download\Mega\Dohna_Dohna_Patch_1.02
+2025-08-09 16:40:01,201 - archive_handler - INFO - Archive erfolgreich entpackt: 10 Dateien in K:\Download\Mega\Dohna_Dohna_Patch_1.02
+2025-08-09 16:40:01,203 - archive_handler - INFO - Archive-Datei gelÃ¶scht: Dohna_Dohna_Patch_1.02.zip
+2025-08-09 16:40:01,203 - archive_handler - INFO - Archive erfolgreich verarbeitet: Dohna_Dohna_Patch_1.02.zip
+2025-08-09 16:40:01,204 - archive_handler - INFO - Beginne Verarbeitung von: Encode Encore v1.25.zip
+2025-08-09 16:40:01,205 - archive_handler - INFO - Archive-Datei gelÃ¶scht: Encode Encore v1.25.zip
+2025-08-09 16:40:01,205 - archive_handler - INFO - Archive erfolgreich verarbeitet: Encode Encore v1.25.zip
+2025-08-09 16:40:01,205 - archive_handler - INFO - Beginne Verarbeitung von: FAPNAF_ARCADE_v0.2.8.zip
+2025-08-09 16:40:01,207 - archive_handler - INFO - Archive-Datei gelÃ¶scht: FAPNAF_ARCADE_v0.2.8.zip
+2025-08-09 16:40:01,207 - archive_handler - INFO - Archive erfolgreich verarbeitet: FAPNAF_ARCADE_v0.2.8.zip
+2025-08-09 16:40:01,207 - archive_handler - INFO - Beginne Verarbeitung von: Fap_Nights_at_Frennis_Night_Club_-_V0.2.2_Storymode.zip
+2025-08-09 16:40:01,208 - archive_handler - INFO - Archive-Datei gelÃ¶scht: Fap_Nights_at_Frennis_Night_Club_-_V0.2.2_Storymode.zip
+2025-08-09 16:40:01,209 - archive_handler - INFO - Archive erfolgreich verarbeitet: Fap_Nights_at_Frennis_Night_Club_-_V0.2.2_Storymode.zip
+2025-08-09 16:40:01,209 - archive_handler - INFO - Beginne Verarbeitung von: FIVE_NIGHTS_OF_PASSION_v1 (1).rar
+2025-08-09 16:40:01,210 - archive_handler - INFO - Archive-Datei gelÃ¶scht: FIVE_NIGHTS_OF_PASSION_v1 (1).rar
+2025-08-09 16:40:01,210 - archive_handler - INFO - Archive erfolgreich verarbeitet: FIVE_NIGHTS_OF_PASSION_v1 (1).rar
+2025-08-09 16:40:01,210 - archive_handler - INFO - Beginne Verarbeitung von: Five_nights_of_passion_V1.7.rar
+2025-08-09 16:40:01,211 - archive_handler - INFO - Archive-Datei gelÃ¶scht: Five_nights_of_passion_V1.7.rar
+2025-08-09 16:40:01,212 - archive_handler - INFO - Archive erfolgreich verarbeitet: Five_nights_of_passion_V1.7.rar
+2025-08-09 16:40:01,212 - archive_handler - INFO - Beginne Verarbeitung von: FIVE_NIGHTS_OF_PASSION_v1.rar
+2025-08-09 16:40:01,213 - archive_handler - INFO - Archive-Datei gelÃ¶scht: FIVE_NIGHTS_OF_PASSION_v1.rar
+2025-08-09 16:40:01,213 - archive_handler - INFO - Archive erfolgreich verarbeitet: FIVE_NIGHTS_OF_PASSION_v1.rar
+2025-08-09 16:40:01,213 - archive_handler - INFO - Beginne Verarbeitung von: FriendHarem-0.63-pc-full.zip
+2025-08-09 16:40:01,215 - archive_handler - INFO - Entpacke Archive: FriendHarem-0.63-pc-full.zip -> K:\Download\Mega\FriendHarem-0.63-pc-full
+2025-08-09 16:40:01,355 - archive_handler - ERROR - Archive-Verarbeitung fehlgeschlagen: FriendHarem-0.63-pc-full.zip - Unsicherer Pfad in Archive: FriendHarem-0.63-pc/game/images/scenes/v60/1...It's just me.jpg
+2025-08-09 16:40:01,355 - archive_handler - INFO - Beginne Verarbeitung von: FurryBangTown-0.7.5b-pc.zip
+2025-08-09 16:40:01,357 - archive_handler - INFO - Archive-Datei gelÃ¶scht: FurryBangTown-0.7.5b-pc.zip
+2025-08-09 16:40:01,357 - archive_handler - INFO - Archive erfolgreich verarbeitet: FurryBangTown-0.7.5b-pc.zip
+2025-08-09 16:40:01,358 - archive_handler - INFO - Beginne Verarbeitung von: Game-RJ01144186-Ver1.02.rar
+2025-08-09 16:40:01,382 - archive_handler - INFO - Archive-Datei gelÃ¶scht: Game-RJ01144186-Ver1.02.rar
+2025-08-09 16:40:01,383 - archive_handler - INFO - Archive erfolgreich verarbeitet: Game-RJ01144186-Ver1.02.rar
+2025-08-09 16:40:01,383 - archive_handler - INFO - Beginne Verarbeitung von: Hazel_the_Bartender_0.3.0.zip
+2025-08-09 16:40:01,385 - archive_handler - INFO - Archive-Datei gelÃ¶scht: Hazel_the_Bartender_0.3.0.zip
+2025-08-09 16:40:01,385 - archive_handler - INFO - Archive erfolgreich verarbeitet: Hazel_the_Bartender_0.3.0.zip
+2025-08-09 16:40:01,385 - archive_handler - INFO - Beginne Verarbeitung von: Heart-pounding_Sexual_Harassment_Health_Checkup_v1.0.1.7z
+2025-08-09 16:40:01,387 - archive_handler - INFO - Archive-Datei gelÃ¶scht: Heart-pounding_Sexual_Harassment_Health_Checkup_v1.0.1.7z
+2025-08-09 16:40:01,387 - archive_handler - INFO - Archive erfolgreich verarbeitet: Heart-pounding_Sexual_Harassment_Health_Checkup_v1.0.1.7z
+2025-08-09 16:40:01,387 - archive_handler - INFO - Beginne Verarbeitung von: Heat_0.6.0.2_crack.rar
+2025-08-09 16:40:01,388 - archive_handler - INFO - Archive-Datei gelÃ¶scht: Heat_0.6.0.2_crack.rar
+2025-08-09 16:40:01,388 - archive_handler - INFO - Archive erfolgreich verarbeitet: Heat_0.6.0.2_crack.rar
+2025-08-09 16:40:01,389 - archive_handler - INFO - Beginne Verarbeitung von: HoneySun_Amelia_-_Basic_Version.zip
+2025-08-09 16:40:01,390 - archive_handler - INFO - Archive-Datei gelÃ¶scht: HoneySun_Amelia_-_Basic_Version.zip
+2025-08-09 16:40:01,390 - archive_handler - INFO - Archive erfolgreich verarbeitet: HoneySun_Amelia_-_Basic_Version.zip
+2025-08-09 16:40:01,390 - archive_handler - INFO - Beginne Verarbeitung von: Housewives Pay You Rent With Their Bodies 1.07 TL1.7z
+2025-08-09 16:40:01,392 - archive_handler - INFO - Archive-Datei gelÃ¶scht: Housewives Pay You Rent With Their Bodies 1.07 TL1.7z
+2025-08-09 16:40:01,392 - archive_handler - INFO - Archive erfolgreich verarbeitet: Housewives Pay You Rent With Their Bodies 1.07 TL1.7z
+2025-08-09 16:40:01,392 - archive_handler - INFO - Beginne Verarbeitung von: hypnoApp_ver1.1.0_Win.7z
+2025-08-09 16:40:01,393 - archive_handler - INFO - Archive-Datei gelÃ¶scht: hypnoApp_ver1.1.0_Win.7z
+2025-08-09 16:40:01,393 - archive_handler - INFO - Archive erfolgreich verarbeitet: hypnoApp_ver1.1.0_Win.7z
+2025-08-09 16:40:01,394 - archive_handler - INFO - Beginne Verarbeitung von: IjirareSyoujyo(win)translated.zip
+2025-08-09 16:40:01,395 - archive_handler - INFO - Archive-Datei gelÃ¶scht: IjirareSyoujyo(win)translated.zip
+2025-08-09 16:40:01,395 - archive_handler - INFO - Archive erfolgreich verarbeitet: IjirareSyoujyo(win)translated.zip
+2025-08-09 16:40:01,395 - archive_handler - INFO - Beginne Verarbeitung von: Imperial_Harem_1.31_Eng.zip
+2025-08-09 16:40:01,397 - archive_handler - INFO - Archive-Datei gelÃ¶scht: Imperial_Harem_1.31_Eng.zip
+2025-08-09 16:40:01,398 - archive_handler - INFO - Archive erfolgreich verarbeitet: Imperial_Harem_1.31_Eng.zip
+2025-08-09 16:40:01,398 - archive_handler - INFO - Beginne Verarbeitung von: Impregnated Heroines.zip
+2025-08-09 16:40:01,399 - archive_handler - INFO - Entpacke Archive: Impregnated Heroines.zip -> K:\Download\Mega\Impregnated Heroines
+2025-08-09 16:40:01,550 - archive_handler - ERROR - Archive-Verarbeitung fehlgeschlagen: Impregnated Heroines.zip - File <ZipInfo filename='Full Save/common.rpgsave' compress_type=99 external_attr=0x20 file_size=536 compress_size=454> is encrypted, password required for extraction
+2025-08-09 16:40:01,550 - archive_handler - INFO - Beginne Verarbeitung von: INSULT_ORDER_ver.1.04_English-Uncen.rar
+2025-08-09 16:40:01,552 - archive_handler - INFO - Archive-Datei gelÃ¶scht: INSULT_ORDER_ver.1.04_English-Uncen.rar
+2025-08-09 16:40:01,553 - archive_handler - INFO - Archive erfolgreich verarbeitet: INSULT_ORDER_ver.1.04_English-Uncen.rar
+2025-08-09 16:40:01,553 - archive_handler - INFO - Beginne Verarbeitung von: In_Heat_Lustful_Nights-win-U0.2.6.zip
+2025-08-09 16:40:01,555 - archive_handler - INFO - Archive-Datei gelÃ¶scht: In_Heat_Lustful_Nights-win-U0.2.6.zip
+2025-08-09 16:40:01,555 - archive_handler - INFO - Archive erfolgreich verarbeitet: In_Heat_Lustful_Nights-win-U0.2.6.zip
+2025-08-09 16:40:01,555 - archive_handler - INFO - Beginne Verarbeitung von: IVAV2_ver.1.1.0.zip
+2025-08-09 16:40:01,557 - archive_handler - INFO - Archive-Datei gelÃ¶scht: IVAV2_ver.1.1.0.zip
+2025-08-09 16:40:01,557 - archive_handler - INFO - Archive erfolgreich verarbeitet: IVAV2_ver.1.1.0.zip
+2025-08-09 16:40:01,557 - archive_handler - INFO - Beginne Verarbeitung von: IVAV2_ver.1.2.0.zip
+2025-08-09 16:40:01,558 - archive_handler - INFO - Archive-Datei gelÃ¶scht: IVAV2_ver.1.2.0.zip
+2025-08-09 16:40:01,558 - archive_handler - INFO - Archive erfolgreich verarbeitet: IVAV2_ver.1.2.0.zip
+2025-08-09 16:40:01,559 - archive_handler - INFO - Beginne Verarbeitung von: Knightess_VS_Tentacle_Monster_pc.zip
+2025-08-09 16:40:01,560 - archive_handler - INFO - Archive-Datei gelÃ¶scht: Knightess_VS_Tentacle_Monster_pc.zip
+2025-08-09 16:40:01,560 - archive_handler - INFO - Archive erfolgreich verarbeitet: Knightess_VS_Tentacle_Monster_pc.zip
+2025-08-09 16:40:01,560 - archive_handler - INFO - Beginne Verarbeitung von: KunoichiSekiren 0.0.7.rar
+2025-08-09 16:40:01,562 - archive_handler - INFO - Entpacke Archive: KunoichiSekiren 0.0.7.rar -> K:\Download\Mega\KunoichiSekiren 0.0.7
+2025-08-09 16:40:01,918 - archive_handler - ERROR - Archive-Verarbeitung fehlgeschlagen: KunoichiSekiren 0.0.7.rar - Cannot find working tool
+2025-08-09 16:40:01,918 - archive_handler - INFO - Beginne Verarbeitung von: Life_on_the_Breeding_Committee.7z
+2025-08-09 16:40:01,920 - archive_handler - INFO - Archive-Datei gelÃ¶scht: Life_on_the_Breeding_Committee.7z
+2025-08-09 16:40:01,920 - archive_handler - INFO - Archive erfolgreich verarbeitet: Life_on_the_Breeding_Committee.7z
+2025-08-09 16:40:01,920 - archive_handler - INFO - Beginne Verarbeitung von: LOOK.hac.zip
+2025-08-09 16:40:01,923 - archive_handler - INFO - Entpacke Archive: LOOK.hac.zip -> K:\Download\Mega\LOOK.hac
+2025-08-09 16:40:03,599 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:40:03] "GET /api/videos/pending HTTP/1.1" 200 -
+2025-08-09 16:40:03,601 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:40:03] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 16:40:33,362 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:40:33] "GET /api/status HTTP/1.1" 200 -
+2025-08-09 16:41:03,608 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:41:03] "GET /api/videos/pending HTTP/1.1" 200 -
+2025-08-09 16:41:03,610 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:41:03] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 16:41:33,364 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:41:33] "GET /api/status HTTP/1.1" 200 -
+2025-08-09 16:42:03,608 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:42:03] "GET /api/videos/pending HTTP/1.1" 200 -
+2025-08-09 16:42:03,610 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:42:03] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 16:42:16,652 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:42:16] "GET /api/videos/pending HTTP/1.1" 200 -
+2025-08-09 16:42:16,961 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:42:16] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 16:42:18,342 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:42:18] "[33mPOST /api/videos/K:DownloadMegaYuusha-chan_no_Bouken_wa_Owatteshimatta_02_ENG_www.UnderHentai.net.mp4/approve HTTP/1.1[0m" 404 -
+2025-08-09 16:42:24,085 - archive_handler - INFO - Archive erfolgreich entpackt: 217 Dateien in K:\Download\Mega\LOOK.hac
+2025-08-09 16:42:24,242 - archive_handler - INFO - Archive-Datei gelÃ¶scht: LOOK.hac.zip
+2025-08-09 16:42:24,243 - archive_handler - INFO - Archive erfolgreich verarbeitet: LOOK.hac.zip
+2025-08-09 16:42:24,243 - archive_handler - INFO - Beginne Verarbeitung von: LoonaIWmod1.1.zip
+2025-08-09 16:42:24,244 - archive_handler - INFO - Entpacke Archive: LoonaIWmod1.1.zip -> K:\Download\Mega\LoonaIWmod1.1
+2025-08-09 16:42:25,666 - archive_handler - INFO - Archive erfolgreich entpackt: 25 Dateien in K:\Download\Mega\LoonaIWmod1.1
+2025-08-09 16:42:25,669 - archive_handler - INFO - Archive-Datei gelÃ¶scht: LoonaIWmod1.1.zip
+2025-08-09 16:42:25,670 - archive_handler - INFO - Archive erfolgreich verarbeitet: LoonaIWmod1.1.zip
+2025-08-09 16:42:25,670 - archive_handler - INFO - Beginne Verarbeitung von: LovelyCraftPistonTrap v.0.2.zip
+2025-08-09 16:42:25,672 - archive_handler - INFO - Archive-Datei gelÃ¶scht: LovelyCraftPistonTrap v.0.2.zip
+2025-08-09 16:42:25,673 - archive_handler - INFO - Archive erfolgreich verarbeitet: LovelyCraftPistonTrap v.0.2.zip
+2025-08-09 16:42:25,673 - archive_handler - INFO - Beginne Verarbeitung von: luckyshipper-1.1-win.7z
+2025-08-09 16:42:25,674 - archive_handler - INFO - Archive-Datei gelÃ¶scht: luckyshipper-1.1-win.7z
+2025-08-09 16:42:25,674 - archive_handler - INFO - Archive erfolgreich verarbeitet: luckyshipper-1.1-win.7z
+2025-08-09 16:42:25,674 - archive_handler - INFO - Beginne Verarbeitung von: Magical_Monstergirls_Academy_v3.0.2.zip
+2025-08-09 16:42:25,675 - archive_handler - INFO - Entpacke Archive: Magical_Monstergirls_Academy_v3.0.2.zip -> K:\Download\Mega\Magical_Monstergirls_Academy_v3.0.2
+2025-08-09 16:42:33,360 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:42:33] "GET /api/status HTTP/1.1" 200 -
+2025-08-09 16:42:36,751 - archive_handler - INFO - Archive erfolgreich entpackt: 142 Dateien in K:\Download\Mega\Magical_Monstergirls_Academy_v3.0.2
+2025-08-09 16:42:36,763 - archive_handler - INFO - Archive-Datei gelÃ¶scht: Magical_Monstergirls_Academy_v3.0.2.zip
+2025-08-09 16:42:36,764 - archive_handler - INFO - Archive erfolgreich verarbeitet: Magical_Monstergirls_Academy_v3.0.2.zip
+2025-08-09 16:42:36,764 - archive_handler - INFO - Beginne Verarbeitung von: Mahou_Shojo_Mystic_Lune_0.3.0.zip
+2025-08-09 16:42:36,766 - archive_handler - INFO - Entpacke Archive: Mahou_Shojo_Mystic_Lune_0.3.0.zip -> K:\Download\Mega\Mahou_Shojo_Mystic_Lune_0.3.0
+2025-08-09 16:42:50,851 - archive_handler - INFO - Archive erfolgreich entpackt: 70 Dateien in K:\Download\Mega\Mahou_Shojo_Mystic_Lune_0.3.0
+2025-08-09 16:42:50,861 - archive_handler - INFO - Archive-Datei gelÃ¶scht: Mahou_Shojo_Mystic_Lune_0.3.0.zip
+2025-08-09 16:42:50,862 - archive_handler - INFO - Archive erfolgreich verarbeitet: Mahou_Shojo_Mystic_Lune_0.3.0.zip
+2025-08-09 16:42:50,862 - archive_handler - INFO - Beginne Verarbeitung von: Mahou_Shojo_Mystic_Lune_0.4.0.rar
+2025-08-09 16:42:50,864 - archive_handler - INFO - Archive-Datei gelÃ¶scht: Mahou_Shojo_Mystic_Lune_0.4.0.rar
+2025-08-09 16:42:50,864 - archive_handler - INFO - Archive erfolgreich verarbeitet: Mahou_Shojo_Mystic_Lune_0.4.0.rar
+2025-08-09 16:42:50,864 - archive_handler - INFO - Beginne Verarbeitung von: MalO_Interactive_V2.00_Full.7z
+2025-08-09 16:42:50,865 - archive_handler - INFO - Archive-Datei gelÃ¶scht: MalO_Interactive_V2.00_Full.7z
+2025-08-09 16:42:50,865 - archive_handler - INFO - Archive erfolgreich verarbeitet: MalO_Interactive_V2.00_Full.7z
+2025-08-09 16:42:50,866 - archive_handler - INFO - Beginne Verarbeitung von: Meisproject-13.0-pc.zip
+2025-08-09 16:42:50,868 - archive_handler - INFO - Archive-Datei gelÃ¶scht: Meisproject-13.0-pc.zip
+2025-08-09 16:42:50,868 - archive_handler - INFO - Archive erfolgreich verarbeitet: Meisproject-13.0-pc.zip
+2025-08-09 16:42:50,868 - archive_handler - INFO - Beginne Verarbeitung von: Meisproject-6.0-pc.zip
+2025-08-09 16:42:50,869 - archive_handler - INFO - Entpacke Archive: Meisproject-6.0-pc.zip -> K:\Download\Mega\Meisproject-6.0-pc
+2025-08-09 16:43:00,521 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:43:00] "GET /api/videos/pending HTTP/1.1" 200 -
+2025-08-09 16:43:00,522 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:43:00] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 16:43:01,512 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:43:01] "[33mPOST /api/videos/K:DownloadMegaYuusha-chan_no_Bouken_wa_Owatteshimatta_02_ENG_www.UnderHentai.net.mp4/approve HTTP/1.1[0m" 404 -
+2025-08-09 16:43:03,672 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:43:03] "GET /api/status HTTP/1.1" 200 -
+2025-08-09 16:43:07,431 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:43:07] "[33mPOST /api/videos/K:DownloadMegaYuusha-chan_no_Bouken_wa_Owatteshimatta_01_ENG_www.UnderHentai.net.mp4/approve HTTP/1.1[0m" 404 -
+2025-08-09 16:43:09,755 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:43:09] "[33mPOST /api/videos/K:DownloadMegaYuusha-chan_no_Bouken_wa_Owatteshimatta_01_ENG_www.UnderHentai.net%20(1).mp4/approve HTTP/1.1[0m" 404 -
+2025-08-09 16:43:15,592 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:43:15] "[33mPOST /api/videos/K:DownloadMegaYuusha-chan_no_Bouken_wa_Owatteshimatta_01_ENG_www.UnderHentai.net%20(1).mp4/reject HTTP/1.1[0m" 404 -
+2025-08-09 16:43:33,597 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:43:33] "GET /api/videos/pending HTTP/1.1" 200 -
+2025-08-09 16:43:33,598 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:43:33] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 16:43:42,501 - archive_handler - INFO - Archive erfolgreich entpackt: 1475 Dateien in K:\Download\Mega\Meisproject-6.0-pc
+2025-08-09 16:43:42,551 - archive_handler - INFO - Archive-Datei gelÃ¶scht: Meisproject-6.0-pc.zip
+2025-08-09 16:43:42,551 - archive_handler - INFO - Archive erfolgreich verarbeitet: Meisproject-6.0-pc.zip
+2025-08-09 16:43:42,552 - archive_handler - INFO - Beginne Verarbeitung von: My_Jazzy_Lolly_Crush_v1.4.1_Win.zip
+2025-08-09 16:43:42,553 - archive_handler - INFO - Archive-Datei gelÃ¶scht: My_Jazzy_Lolly_Crush_v1.4.1_Win.zip
+2025-08-09 16:43:42,553 - archive_handler - INFO - Archive erfolgreich verarbeitet: My_Jazzy_Lolly_Crush_v1.4.1_Win.zip
+2025-08-09 16:43:42,553 - archive_handler - INFO - Beginne Verarbeitung von: My_Mysterious_Rule_v2.15.7z
+2025-08-09 16:43:42,554 - archive_handler - INFO - Entpacke Archive: My_Mysterious_Rule_v2.15.7z -> K:\Download\Mega\My_Mysterious_Rule_v2.15
+2025-08-09 16:43:48,277 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:43:48] "GET /api/videos/pending HTTP/1.1" 200 -
+2025-08-09 16:43:48,588 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:43:48] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 16:43:50,761 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:43:50] "[33mPOST /api/videos/K:DownloadMegaYuusha-chan_no_Bouken_wa_Owatteshimatta_02_ENG_www.UnderHentai.net.mp4/approve HTTP/1.1[0m" 404 -
+2025-08-09 16:44:03,370 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:44:03] "GET /api/status HTTP/1.1" 200 -
+2025-08-09 16:44:23,223 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:44:23] "GET /api/videos/pending HTTP/1.1" 200 -
+2025-08-09 16:44:23,224 - werkzeug - INFO - 127.0.0.1 - - [09/Aug/2025 16:44:23] "GET /api/archives/pending HTTP/1.1" 200 -
+2025-08-09 17:11:09,220 - __main__ - INFO - File Manager initialisiert
+2025-08-09 17:11:09,223 - file_monitor - INFO - Download Monitor started
+2025-08-09 17:11:09,223 - file_monitor - INFO - Watching folder: K:\Download\Mega (recursive: True)
+2025-08-09 17:11:09,224 - file_monitor - INFO - Starte initialen Ordner-Scan...
+2025-08-09 17:11:09,228 - file_monitor - INFO - Archive-Datei bereit: Delivery Source Channel o!.rar
+2025-08-09 17:11:09,228 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Delivery Source Channel o!.rar
+2025-08-09 17:11:09,235 - archive_handler - INFO - Archive-Worker gestartet
+2025-08-09 17:11:09,235 - archive_handler - INFO - Archive genehmigt: Delivery Source Channel o!.rar
+2025-08-09 17:11:09,235 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Delivery Source Channel o!.rar
+2025-08-09 17:11:09,237 - file_monitor - INFO - Archive-Datei bereit: FriendHarem-0.63-pc-full.zip
+2025-08-09 17:11:09,237 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: FriendHarem-0.63-pc-full.zip
+2025-08-09 17:11:09,240 - archive_handler - INFO - Archive genehmigt: FriendHarem-0.63-pc-full.zip
+2025-08-09 17:11:09,240 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: FriendHarem-0.63-pc-full.zip
+2025-08-09 17:11:09,242 - file_monitor - INFO - Archive-Datei bereit: Impregnated Heroines.zip
+2025-08-09 17:11:09,242 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Impregnated Heroines.zip
+2025-08-09 17:11:09,246 - archive_handler - INFO - Archive genehmigt: Impregnated Heroines.zip
+2025-08-09 17:11:09,246 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Impregnated Heroines.zip
+2025-08-09 17:11:09,248 - file_monitor - INFO - Archive-Datei bereit: KunoichiSekiren 0.0.7.rar
+2025-08-09 17:11:09,248 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: KunoichiSekiren 0.0.7.rar
+2025-08-09 17:11:09,251 - archive_handler - INFO - Archive genehmigt: KunoichiSekiren 0.0.7.rar
+2025-08-09 17:11:09,251 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: KunoichiSekiren 0.0.7.rar
+2025-08-09 17:11:09,254 - file_monitor - INFO - Archive-Datei bereit: My_Mysterious_Rule_v2.15.7z
+2025-08-09 17:11:09,254 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: My_Mysterious_Rule_v2.15.7z
+2025-08-09 17:11:09,257 - archive_handler - INFO - Archive genehmigt: My_Mysterious_Rule_v2.15.7z
+2025-08-09 17:11:09,258 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: My_Mysterious_Rule_v2.15.7z
+2025-08-09 17:11:09,258 - file_monitor - INFO - Archive-Datei bereit: Natsu-Search--main.zip
+2025-08-09 17:11:09,258 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Natsu-Search--main.zip
+2025-08-09 17:11:09,261 - archive_handler - INFO - Archive genehmigt: Natsu-Search--main.zip
+2025-08-09 17:11:09,261 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Natsu-Search--main.zip
+2025-08-09 17:11:09,262 - file_monitor - INFO - Archive-Datei bereit: NoMercy-1.03a-pc.zip
+2025-08-09 17:11:09,262 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: NoMercy-1.03a-pc.zip
+2025-08-09 17:11:09,264 - archive_handler - INFO - Archive genehmigt: NoMercy-1.03a-pc.zip
+2025-08-09 17:11:09,264 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: NoMercy-1.03a-pc.zip
+2025-08-09 17:11:09,265 - file_monitor - INFO - Archive-Datei bereit: Nope_Nope_Nurses.7z
+2025-08-09 17:11:09,265 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Nope_Nope_Nurses.7z
+2025-08-09 17:11:09,268 - archive_handler - INFO - Archive genehmigt: Nope_Nope_Nurses.7z
+2025-08-09 17:11:09,268 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Nope_Nope_Nurses.7z
+2025-08-09 17:11:09,268 - file_monitor - INFO - Archive-Datei bereit: NostalgiaAndLust_v1.12_windows_bugfix.zip
+2025-08-09 17:11:09,268 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: NostalgiaAndLust_v1.12_windows_bugfix.zip
+2025-08-09 17:11:09,271 - archive_handler - INFO - Archive genehmigt: NostalgiaAndLust_v1.12_windows_bugfix.zip
+2025-08-09 17:11:09,271 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: NostalgiaAndLust_v1.12_windows_bugfix.zip
+2025-08-09 17:11:09,271 - file_monitor - INFO - Archive-Datei bereit: No_matter_how_i_look_at_it_erotic_streaming_must_make_me_popular.zip
+2025-08-09 17:11:09,272 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: No_matter_how_i_look_at_it_erotic_streaming_must_make_me_popular.zip
+2025-08-09 17:11:09,274 - archive_handler - INFO - Archive genehmigt: No_matter_how_i_look_at_it_erotic_streaming_must_make_me_popular.zip
+2025-08-09 17:11:09,275 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: No_matter_how_i_look_at_it_erotic_streaming_must_make_me_popular.zip
+2025-08-09 17:11:09,275 - file_monitor - INFO - Archive-Datei bereit: NSaFN0.4release.zip
+2025-08-09 17:11:09,275 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: NSaFN0.4release.zip
+2025-08-09 17:11:09,278 - archive_handler - INFO - Archive genehmigt: NSaFN0.4release.zip
+2025-08-09 17:11:09,278 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: NSaFN0.4release.zip
+2025-08-09 17:11:09,279 - file_monitor - INFO - Archive-Datei bereit: NSSItchPaidBuild.zip
+2025-08-09 17:11:09,279 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: NSSItchPaidBuild.zip
+2025-08-09 17:11:09,282 - archive_handler - INFO - Archive genehmigt: NSSItchPaidBuild.zip
+2025-08-09 17:11:09,282 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: NSSItchPaidBuild.zip
+2025-08-09 17:11:09,283 - file_monitor - INFO - Archive-Datei bereit: Onigotchi ver.1.04.rar
+2025-08-09 17:11:09,283 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Onigotchi ver.1.04.rar
+2025-08-09 17:11:09,285 - archive_handler - INFO - Archive genehmigt: Onigotchi ver.1.04.rar
+2025-08-09 17:11:09,285 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Onigotchi ver.1.04.rar
+2025-08-09 17:11:09,286 - file_monitor - INFO - Archive-Datei bereit: PonyWaifuSim_ver1.2.rar
+2025-08-09 17:11:09,286 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: PonyWaifuSim_ver1.2.rar
+2025-08-09 17:11:09,288 - archive_handler - INFO - Archive genehmigt: PonyWaifuSim_ver1.2.rar
+2025-08-09 17:11:09,289 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: PonyWaifuSim_ver1.2.rar
+2025-08-09 17:11:09,289 - file_monitor - INFO - Archive-Datei bereit: project_elera_hotel.202308101830.zip
+2025-08-09 17:11:09,289 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: project_elera_hotel.202308101830.zip
+2025-08-09 17:11:09,291 - archive_handler - INFO - Archive genehmigt: project_elera_hotel.202308101830.zip
+2025-08-09 17:11:09,291 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: project_elera_hotel.202308101830.zip
+2025-08-09 17:11:09,292 - file_monitor - INFO - Archive-Datei bereit: project_elera_hotel.202408081254.zip
+2025-08-09 17:11:09,292 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: project_elera_hotel.202408081254.zip
+2025-08-09 17:11:09,295 - archive_handler - INFO - Archive genehmigt: project_elera_hotel.202408081254.zip
+2025-08-09 17:11:09,295 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: project_elera_hotel.202408081254.zip
+2025-08-09 17:11:09,295 - file_monitor - INFO - Archive-Datei bereit: Raspberyl_Castle (1).zip
+2025-08-09 17:11:09,295 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Raspberyl_Castle (1).zip
+2025-08-09 17:11:09,297 - archive_handler - INFO - Archive genehmigt: Raspberyl_Castle (1).zip
+2025-08-09 17:11:09,298 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Raspberyl_Castle (1).zip
+2025-08-09 17:11:09,298 - file_monitor - INFO - Archive-Datei bereit: Raspberyl_Castle.zip
+2025-08-09 17:11:09,298 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Raspberyl_Castle.zip
+2025-08-09 17:11:09,300 - archive_handler - INFO - Archive genehmigt: Raspberyl_Castle.zip
+2025-08-09 17:11:09,301 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Raspberyl_Castle.zip
+2025-08-09 17:11:09,301 - file_monitor - INFO - Archive-Datei bereit: Raspberyl_Castle_2_v1.10_ENG_full_TLv1.zip
+2025-08-09 17:11:09,301 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Raspberyl_Castle_2_v1.10_ENG_full_TLv1.zip
+2025-08-09 17:11:09,303 - archive_handler - INFO - Archive genehmigt: Raspberyl_Castle_2_v1.10_ENG_full_TLv1.zip
+2025-08-09 17:11:09,303 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Raspberyl_Castle_2_v1.10_ENG_full_TLv1.zip
+2025-08-09 17:11:09,304 - file_monitor - INFO - Archive-Datei bereit: RJ01036558-FemaleBratTrain (1).7z
+2025-08-09 17:11:09,304 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: RJ01036558-FemaleBratTrain (1).7z
+2025-08-09 17:11:09,306 - archive_handler - INFO - Archive genehmigt: RJ01036558-FemaleBratTrain (1).7z
+2025-08-09 17:11:09,307 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: RJ01036558-FemaleBratTrain (1).7z
+2025-08-09 17:11:09,307 - file_monitor - INFO - Archive-Datei bereit: RJ01036558-FemaleBratTrain.7z
+2025-08-09 17:11:09,307 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: RJ01036558-FemaleBratTrain.7z
+2025-08-09 17:11:09,310 - archive_handler - INFO - Archive genehmigt: RJ01036558-FemaleBratTrain.7z
+2025-08-09 17:11:09,310 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: RJ01036558-FemaleBratTrain.7z
+2025-08-09 17:11:09,311 - file_monitor - INFO - Archive-Datei bereit: RJ01077453-Magical Reventia Channel 1.0.5.7z
+2025-08-09 17:11:09,311 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: RJ01077453-Magical Reventia Channel 1.0.5.7z
+2025-08-09 17:11:09,314 - archive_handler - INFO - Archive genehmigt: RJ01077453-Magical Reventia Channel 1.0.5.7z
+2025-08-09 17:11:09,314 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: RJ01077453-Magical Reventia Channel 1.0.5.7z
+2025-08-09 17:11:09,315 - file_monitor - INFO - Archive-Datei bereit: RJ01185015_-_Hypnosis_Family_Planning_S_v1.03tanedukeitinengo.7z
+2025-08-09 17:11:09,315 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: RJ01185015_-_Hypnosis_Family_Planning_S_v1.03tanedukeitinengo.7z
+2025-08-09 17:11:09,317 - archive_handler - INFO - Archive genehmigt: RJ01185015_-_Hypnosis_Family_Planning_S_v1.03tanedukeitinengo.7z
+2025-08-09 17:11:09,317 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: RJ01185015_-_Hypnosis_Family_Planning_S_v1.03tanedukeitinengo.7z
+2025-08-09 17:11:09,318 - file_monitor - INFO - Archive-Datei bereit: RJ01185015_Hypnosis_Family_Planning_S_full_patch_v2.3.7z
+2025-08-09 17:11:09,318 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: RJ01185015_Hypnosis_Family_Planning_S_full_patch_v2.3.7z
+2025-08-09 17:11:09,320 - archive_handler - INFO - Archive genehmigt: RJ01185015_Hypnosis_Family_Planning_S_full_patch_v2.3.7z
+2025-08-09 17:11:09,320 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: RJ01185015_Hypnosis_Family_Planning_S_full_patch_v2.3.7z
+2025-08-09 17:11:09,320 - file_monitor - INFO - Archive-Datei bereit: RJ01187104-Sakura_Gozen.7z
+2025-08-09 17:11:09,321 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: RJ01187104-Sakura_Gozen.7z
+2025-08-09 17:11:09,323 - archive_handler - INFO - Archive genehmigt: RJ01187104-Sakura_Gozen.7z
+2025-08-09 17:11:09,323 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: RJ01187104-Sakura_Gozen.7z
+2025-08-09 17:11:09,324 - file_monitor - INFO - Archive-Datei bereit: RJ370402-Natsu's Lost Items.7z
+2025-08-09 17:11:09,324 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: RJ370402-Natsu's Lost Items.7z
+2025-08-09 17:11:09,327 - archive_handler - INFO - Archive genehmigt: RJ370402-Natsu's Lost Items.7z
+2025-08-09 17:11:09,327 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: RJ370402-Natsu's Lost Items.7z
+2025-08-09 17:11:09,328 - file_monitor - INFO - Archive-Datei bereit: Rouge_Rig_v1.5.1.rar
+2025-08-09 17:11:09,328 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Rouge_Rig_v1.5.1.rar
+2025-08-09 17:11:09,331 - archive_handler - INFO - Archive genehmigt: Rouge_Rig_v1.5.1.rar
+2025-08-09 17:11:09,331 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Rouge_Rig_v1.5.1.rar
+2025-08-09 17:11:09,331 - file_monitor - INFO - Archive-Datei bereit: RoxanneGame_0.2.rar
+2025-08-09 17:11:09,332 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: RoxanneGame_0.2.rar
+2025-08-09 17:11:09,334 - archive_handler - INFO - Archive genehmigt: RoxanneGame_0.2.rar
+2025-08-09 17:11:09,334 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: RoxanneGame_0.2.rar
+2025-08-09 17:11:09,335 - file_monitor - INFO - Archive-Datei bereit: Roxannes_ENF_Exhibitionist_Game_0.5.1.zip
+2025-08-09 17:11:09,335 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Roxannes_ENF_Exhibitionist_Game_0.5.1.zip
+2025-08-09 17:11:09,337 - archive_handler - INFO - Archive genehmigt: Roxannes_ENF_Exhibitionist_Game_0.5.1.zip
+2025-08-09 17:11:09,337 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Roxannes_ENF_Exhibitionist_Game_0.5.1.zip
+2025-08-09 17:11:09,337 - file_monitor - INFO - Archive-Datei bereit: Rural_school_life-Eng.7z
+2025-08-09 17:11:09,337 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Rural_school_life-Eng.7z
+2025-08-09 17:11:09,339 - archive_handler - INFO - Archive genehmigt: Rural_school_life-Eng.7z
+2025-08-09 17:11:09,340 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Rural_school_life-Eng.7z
+2025-08-09 17:11:09,340 - file_monitor - INFO - Archive-Datei bereit: Samantha_v205a.rar
+2025-08-09 17:11:09,340 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Samantha_v205a.rar
+2025-08-09 17:11:09,342 - archive_handler - INFO - Archive genehmigt: Samantha_v205a.rar
+2025-08-09 17:11:09,342 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Samantha_v205a.rar
+2025-08-09 17:11:09,343 - file_monitor - INFO - Archive-Datei bereit: Sapphire_Safari_v0.23.hf1.rar
+2025-08-09 17:11:09,343 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Sapphire_Safari_v0.23.hf1.rar
+2025-08-09 17:11:09,345 - archive_handler - INFO - Archive genehmigt: Sapphire_Safari_v0.23.hf1.rar
+2025-08-09 17:11:09,345 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Sapphire_Safari_v0.23.hf1.rar
+2025-08-09 17:11:09,346 - file_monitor - INFO - Archive-Datei bereit: schoolrpgenglish.rar
+2025-08-09 17:11:09,346 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: schoolrpgenglish.rar
+2025-08-09 17:11:09,348 - archive_handler - INFO - Archive genehmigt: schoolrpgenglish.rar
+2025-08-09 17:11:09,348 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: schoolrpgenglish.rar
+2025-08-09 17:11:09,349 - file_monitor - INFO - Archive-Datei bereit: Sleeping_Children_Grow.zip
+2025-08-09 17:11:09,349 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Sleeping_Children_Grow.zip
+2025-08-09 17:11:09,351 - archive_handler - INFO - Archive genehmigt: Sleeping_Children_Grow.zip
+2025-08-09 17:11:09,352 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Sleeping_Children_Grow.zip
+2025-08-09 17:11:09,352 - file_monitor - INFO - Archive-Datei bereit: Sleep_rape_Simulation_Suiminkan_3.rar
+2025-08-09 17:11:09,352 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Sleep_rape_Simulation_Suiminkan_3.rar
+2025-08-09 17:11:09,355 - archive_handler - INFO - Archive genehmigt: Sleep_rape_Simulation_Suiminkan_3.rar
+2025-08-09 17:11:09,355 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Sleep_rape_Simulation_Suiminkan_3.rar
+2025-08-09 17:11:09,356 - file_monitor - INFO - Archive-Datei bereit: Sleep_rape_Simulation_Suiminkan_4.rar
+2025-08-09 17:11:09,356 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Sleep_rape_Simulation_Suiminkan_4.rar
+2025-08-09 17:11:09,359 - archive_handler - INFO - Archive genehmigt: Sleep_rape_Simulation_Suiminkan_4.rar
+2025-08-09 17:11:09,359 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Sleep_rape_Simulation_Suiminkan_4.rar
+2025-08-09 17:11:09,360 - file_monitor - INFO - Archive-Datei bereit: Sleep_rape_Simulation_Suiminkan_5.rar
+2025-08-09 17:11:09,360 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Sleep_rape_Simulation_Suiminkan_5.rar
+2025-08-09 17:11:09,363 - archive_handler - INFO - Archive genehmigt: Sleep_rape_Simulation_Suiminkan_5.rar
+2025-08-09 17:11:09,363 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Sleep_rape_Simulation_Suiminkan_5.rar
+2025-08-09 17:11:09,363 - file_monitor - INFO - Archive-Datei bereit: SL_Awakening_0.1_-_win.zip
+2025-08-09 17:11:09,364 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: SL_Awakening_0.1_-_win.zip
+2025-08-09 17:11:09,365 - archive_handler - INFO - Archive genehmigt: SL_Awakening_0.1_-_win.zip
+2025-08-09 17:11:09,365 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: SL_Awakening_0.1_-_win.zip
+2025-08-09 17:11:09,366 - file_monitor - INFO - Archive-Datei bereit: Snapshot! V0931p.zip
+2025-08-09 17:11:09,366 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Snapshot! V0931p.zip
+2025-08-09 17:11:09,368 - archive_handler - INFO - Archive genehmigt: Snapshot! V0931p.zip
+2025-08-09 17:11:09,368 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Snapshot! V0931p.zip
+2025-08-09 17:11:09,368 - file_monitor - INFO - Archive-Datei bereit: Snapshot_V0913.zip
+2025-08-09 17:11:09,370 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Snapshot_V0913.zip
+2025-08-09 17:11:09,372 - archive_handler - INFO - Archive genehmigt: Snapshot_V0913.zip
+2025-08-09 17:11:09,373 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Snapshot_V0913.zip
+2025-08-09 17:11:09,373 - file_monitor - INFO - Archive-Datei bereit: Spending_a_Month_with_My_Sister_v2023.12-Final2D-Eng-Mod.7z
+2025-08-09 17:11:09,373 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Spending_a_Month_with_My_Sister_v2023.12-Final2D-Eng-Mod.7z
+2025-08-09 17:11:09,376 - archive_handler - INFO - Archive genehmigt: Spending_a_Month_with_My_Sister_v2023.12-Final2D-Eng-Mod.7z
+2025-08-09 17:11:09,376 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Spending_a_Month_with_My_Sister_v2023.12-Final2D-Eng-Mod.7z
+2025-08-09 17:11:09,377 - file_monitor - INFO - Archive-Datei bereit: Stalking_the_Sisters_-_The_Voyeurs_Duplicate_Key.7z
+2025-08-09 17:11:09,377 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Stalking_the_Sisters_-_The_Voyeurs_Duplicate_Key.7z
+2025-08-09 17:11:09,380 - archive_handler - INFO - Archive genehmigt: Stalking_the_Sisters_-_The_Voyeurs_Duplicate_Key.7z
+2025-08-09 17:11:09,380 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Stalking_the_Sisters_-_The_Voyeurs_Duplicate_Key.7z
+2025-08-09 17:11:09,381 - file_monitor - INFO - Archive-Datei bereit: StarTrainer-0.8.0-pc.zip
+2025-08-09 17:11:09,381 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: StarTrainer-0.8.0-pc.zip
+2025-08-09 17:11:09,383 - archive_handler - INFO - Archive genehmigt: StarTrainer-0.8.0-pc.zip
+2025-08-09 17:11:09,383 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: StarTrainer-0.8.0-pc.zip
+2025-08-09 17:11:09,384 - file_monitor - INFO - Archive-Datei bereit: Step_Sis_Is_Kinda_Horny-0.2-win.zip
+2025-08-09 17:11:09,384 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Step_Sis_Is_Kinda_Horny-0.2-win.zip
+2025-08-09 17:11:09,386 - archive_handler - INFO - Archive genehmigt: Step_Sis_Is_Kinda_Horny-0.2-win.zip
+2025-08-09 17:11:09,387 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Step_Sis_Is_Kinda_Horny-0.2-win.zip
+2025-08-09 17:11:09,387 - file_monitor - INFO - Archive-Datei bereit: Streaming_ON_VTuber_Training_v1.0.0.7z
+2025-08-09 17:11:09,387 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Streaming_ON_VTuber_Training_v1.0.0.7z
+2025-08-09 17:11:09,390 - archive_handler - INFO - Archive genehmigt: Streaming_ON_VTuber_Training_v1.0.0.7z
+2025-08-09 17:11:09,390 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Streaming_ON_VTuber_Training_v1.0.0.7z
+2025-08-09 17:11:09,390 - file_monitor - INFO - Archive-Datei bereit: Subway_Tentacles-0.2.zip
+2025-08-09 17:11:09,390 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Subway_Tentacles-0.2.zip
+2025-08-09 17:11:09,393 - archive_handler - INFO - Archive genehmigt: Subway_Tentacles-0.2.zip
+2025-08-09 17:11:09,393 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Subway_Tentacles-0.2.zip
+2025-08-09 17:11:09,394 - file_monitor - INFO - Archive-Datei bereit: Suiminkan_6.rar
+2025-08-09 17:11:09,394 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Suiminkan_6.rar
+2025-08-09 17:11:09,397 - archive_handler - INFO - Archive genehmigt: Suiminkan_6.rar
+2025-08-09 17:11:09,397 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Suiminkan_6.rar
+2025-08-09 17:11:09,398 - file_monitor - INFO - Archive-Datei bereit: Summer_Pick-up_Beach_1.00.rar
+2025-08-09 17:11:09,398 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Summer_Pick-up_Beach_1.00.rar
+2025-08-09 17:11:09,400 - archive_handler - INFO - Archive genehmigt: Summer_Pick-up_Beach_1.00.rar
+2025-08-09 17:11:09,400 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Summer_Pick-up_Beach_1.00.rar
+2025-08-09 17:11:09,401 - file_monitor - INFO - Archive-Datei bereit: TentaclesUnderMyBedv1.1S.zip
+2025-08-09 17:11:09,401 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: TentaclesUnderMyBedv1.1S.zip
+2025-08-09 17:11:09,403 - archive_handler - INFO - Archive genehmigt: TentaclesUnderMyBedv1.1S.zip
+2025-08-09 17:11:09,404 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: TentaclesUnderMyBedv1.1S.zip
+2025-08-09 17:11:09,404 - file_monitor - INFO - Archive-Datei bereit: Tentacle_Locker_2-v1.3.0-PC64.zip
+2025-08-09 17:11:09,404 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Tentacle_Locker_2-v1.3.0-PC64.zip
+2025-08-09 17:11:09,407 - archive_handler - INFO - Archive genehmigt: Tentacle_Locker_2-v1.3.0-PC64.zip
+2025-08-09 17:11:09,407 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Tentacle_Locker_2-v1.3.0-PC64.zip
+2025-08-09 17:11:09,408 - file_monitor - INFO - Archive-Datei bereit: touchthegirl.zip
+2025-08-09 17:11:09,408 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: touchthegirl.zip
+2025-08-09 17:11:09,410 - archive_handler - INFO - Archive genehmigt: touchthegirl.zip
+2025-08-09 17:11:09,410 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: touchthegirl.zip
+2025-08-09 17:11:09,411 - file_monitor - INFO - Archive-Datei bereit: Train_Capacity_300_3-v0.25.03.26-RJ01347095.7z
+2025-08-09 17:11:09,411 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Train_Capacity_300_3-v0.25.03.26-RJ01347095.7z
+2025-08-09 17:11:09,413 - archive_handler - INFO - Archive genehmigt: Train_Capacity_300_3-v0.25.03.26-RJ01347095.7z
+2025-08-09 17:11:09,413 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Train_Capacity_300_3-v0.25.03.26-RJ01347095.7z
+2025-08-09 17:11:09,414 - file_monitor - INFO - Archive-Datei bereit: Under_the_Witch-v1.8.zip
+2025-08-09 17:11:09,414 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Under_the_Witch-v1.8.zip
+2025-08-09 17:11:09,416 - archive_handler - INFO - Archive genehmigt: Under_the_Witch-v1.8.zip
+2025-08-09 17:11:09,416 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Under_the_Witch-v1.8.zip
+2025-08-09 17:11:09,416 - file_monitor - INFO - Archive-Datei bereit: Update Art Enjoyer.zip
+2025-08-09 17:11:09,417 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Update Art Enjoyer.zip
+2025-08-09 17:11:09,419 - archive_handler - INFO - Archive genehmigt: Update Art Enjoyer.zip
+2025-08-09 17:11:09,419 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Update Art Enjoyer.zip
+2025-08-09 17:11:09,420 - file_monitor - INFO - Archive-Datei bereit: UrgeToMolestRework-TL-v2025-03-11.rar
+2025-08-09 17:11:09,420 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: UrgeToMolestRework-TL-v2025-03-11.rar
+2025-08-09 17:11:09,423 - archive_handler - INFO - Archive genehmigt: UrgeToMolestRework-TL-v2025-03-11.rar
+2025-08-09 17:11:09,423 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: UrgeToMolestRework-TL-v2025-03-11.rar
+2025-08-09 17:11:09,424 - file_monitor - INFO - Archive-Datei bereit: Waifu Dreams City Build 29.zip
+2025-08-09 17:11:09,424 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Waifu Dreams City Build 29.zip
+2025-08-09 17:11:09,426 - archive_handler - INFO - Archive genehmigt: Waifu Dreams City Build 29.zip
+2025-08-09 17:11:09,426 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Waifu Dreams City Build 29.zip
+2025-08-09 17:11:09,427 - file_monitor - INFO - Archive-Datei bereit: Whorehouse_Manager-0.5.0.zip
+2025-08-09 17:11:09,427 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Whorehouse_Manager-0.5.0.zip
+2025-08-09 17:11:09,429 - archive_handler - INFO - Archive genehmigt: Whorehouse_Manager-0.5.0.zip
+2025-08-09 17:11:09,429 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Whorehouse_Manager-0.5.0.zip
+2025-08-09 17:11:09,430 - file_monitor - INFO - Archive-Datei bereit: WIN64.zip
+2025-08-09 17:11:09,430 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: WIN64.zip
+2025-08-09 17:11:09,432 - archive_handler - INFO - Archive genehmigt: WIN64.zip
+2025-08-09 17:11:09,432 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: WIN64.zip
+2025-08-09 17:11:09,432 - file_monitor - INFO - Archive-Datei bereit: Windows_Nymphomania_Idle_Brothel_v1.7_Public.zip
+2025-08-09 17:11:09,433 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Windows_Nymphomania_Idle_Brothel_v1.7_Public.zip
+2025-08-09 17:11:09,434 - archive_handler - INFO - Archive genehmigt: Windows_Nymphomania_Idle_Brothel_v1.7_Public.zip
+2025-08-09 17:11:09,434 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Windows_Nymphomania_Idle_Brothel_v1.7_Public.zip
+2025-08-09 17:11:09,435 - file_monitor - INFO - Archive-Datei bereit: With_a_Bewitching_Girl_v1.06.7z
+2025-08-09 17:11:09,435 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: With_a_Bewitching_Girl_v1.06.7z
+2025-08-09 17:11:09,437 - archive_handler - INFO - Archive genehmigt: With_a_Bewitching_Girl_v1.06.7z
+2025-08-09 17:11:09,437 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: With_a_Bewitching_Girl_v1.06.7z
+2025-08-09 17:11:09,438 - file_monitor - INFO - Archive-Datei bereit: Yamamoto_Bulma_Adventure_3_-_Uncensored_Version_BULMA_ADVENTURE_3_ENGLISH_FAKKU.zip
+2025-08-09 17:11:09,438 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: Yamamoto_Bulma_Adventure_3_-_Uncensored_Version_BULMA_ADVENTURE_3_ENGLISH_FAKKU.zip
+2025-08-09 17:11:09,441 - archive_handler - INFO - Archive genehmigt: Yamamoto_Bulma_Adventure_3_-_Uncensored_Version_BULMA_ADVENTURE_3_ENGLISH_FAKKU.zip
+2025-08-09 17:11:09,441 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: Yamamoto_Bulma_Adventure_3_-_Uncensored_Version_BULMA_ADVENTURE_3_ENGLISH_FAKKU.zip
+2025-08-09 17:11:09,442 - file_monitor - INFO - Archive-Datei bereit: [G20240109].zip
+2025-08-09 17:11:09,442 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: [G20240109].zip
+2025-08-09 17:11:09,444 - archive_handler - INFO - Archive genehmigt: [G20240109].zip
+2025-08-09 17:11:09,444 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: [G20240109].zip
+2025-08-09 17:11:09,444 - file_monitor - INFO - Archive-Datei bereit: [Kimochi] 18T-1.4.0-pc.rar
+2025-08-09 17:11:09,445 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: [Kimochi] 18T-1.4.0-pc.rar
+2025-08-09 17:11:09,447 - archive_handler - INFO - Archive genehmigt: [Kimochi] 18T-1.4.0-pc.rar
+2025-08-09 17:11:09,447 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: [Kimochi] 18T-1.4.0-pc.rar
+2025-08-09 17:11:09,448 - file_monitor - INFO - Archive-Datei bereit: [Kimochi] BG(1).rar
+2025-08-09 17:11:09,448 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: [Kimochi] BG(1).rar
+2025-08-09 17:11:09,451 - archive_handler - INFO - Archive genehmigt: [Kimochi] BG(1).rar
+2025-08-09 17:11:09,451 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: [Kimochi] BG(1).rar
+2025-08-09 17:11:09,451 - file_monitor - INFO - Archive-Datei bereit: [Kimochi] LV.rar
+2025-08-09 17:11:09,451 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: [Kimochi] LV.rar
+2025-08-09 17:11:09,454 - archive_handler - INFO - Archive genehmigt: [Kimochi] LV.rar
+2025-08-09 17:11:09,454 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: [Kimochi] LV.rar
+2025-08-09 17:11:09,455 - file_monitor - INFO - Archive-Datei bereit: [Kimochi] Naughty School Ghost Stories.rar
+2025-08-09 17:11:09,455 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: [Kimochi] Naughty School Ghost Stories.rar
+2025-08-09 17:11:09,458 - archive_handler - INFO - Archive genehmigt: [Kimochi] Naughty School Ghost Stories.rar
+2025-08-09 17:11:09,458 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: [Kimochi] Naughty School Ghost Stories.rar
+2025-08-09 17:11:09,458 - file_monitor - INFO - Archive-Datei bereit: [Kimochi] PCP v1.0.rar
+2025-08-09 17:11:09,458 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: [Kimochi] PCP v1.0.rar
+2025-08-09 17:11:09,462 - archive_handler - INFO - Archive genehmigt: [Kimochi] PCP v1.0.rar
+2025-08-09 17:11:09,462 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: [Kimochi] PCP v1.0.rar
+2025-08-09 17:11:09,462 - file_monitor - INFO - Archive-Datei bereit: [Kimochi] PS 1.2.rar
+2025-08-09 17:11:09,463 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: [Kimochi] PS 1.2.rar
+2025-08-09 17:11:09,465 - archive_handler - INFO - Archive genehmigt: [Kimochi] PS 1.2.rar
+2025-08-09 17:11:09,465 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: [Kimochi] PS 1.2.rar
+2025-08-09 17:11:09,466 - file_monitor - INFO - Archive-Datei bereit: [Kimochi] RJ01125123.rar
+2025-08-09 17:11:09,466 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: [Kimochi] RJ01125123.rar
+2025-08-09 17:11:09,469 - archive_handler - INFO - Archive genehmigt: [Kimochi] RJ01125123.rar
+2025-08-09 17:11:09,469 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: [Kimochi] RJ01125123.rar
+2025-08-09 17:11:09,470 - file_monitor - INFO - Archive-Datei bereit: [Kimochi] The NPC Sex.rar
+2025-08-09 17:11:09,470 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: [Kimochi] The NPC Sex.rar
+2025-08-09 17:11:09,471 - archive_handler - INFO - Archive genehmigt: [Kimochi] The NPC Sex.rar
+2025-08-09 17:11:09,472 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: [Kimochi] The NPC Sex.rar
+2025-08-09 17:11:09,472 - file_monitor - INFO - Archive-Datei bereit: [Kimochi] YM_0.1.0-windows.rar
+2025-08-09 17:11:09,472 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: [Kimochi] YM_0.1.0-windows.rar
+2025-08-09 17:11:09,475 - archive_handler - INFO - Archive genehmigt: [Kimochi] YM_0.1.0-windows.rar
+2025-08-09 17:11:09,475 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: [Kimochi] YM_0.1.0-windows.rar
+2025-08-09 17:11:09,475 - file_monitor - INFO - Archive-Datei bereit: [Kimochi] [RJ01110285] ‚æ‚¤‚±‚»!Ž©‰ä‚ðŽ‚Â‚Æ‹tƒŒ›ƒv‚µ‚Ä‚­‚éNPC–º‚Î‚©‚è‚Ì‘º.rar
+2025-08-09 17:11:09,477 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: [Kimochi] [RJ01110285] ‚æ‚¤‚±‚»!Ž©‰ä‚ðŽ‚Â‚Æ‹tƒŒ›ƒv‚µ‚Ä‚­‚éNPC–º‚Î‚©‚è‚Ì‘º.rar
+2025-08-09 17:11:09,479 - archive_handler - INFO - Archive genehmigt: [Kimochi] [RJ01110285] ‚æ‚¤‚±‚»!Ž©‰ä‚ðŽ‚Â‚Æ‹tƒŒ›ƒv‚µ‚Ä‚­‚éNPC–º‚Î‚©‚è‚Ì‘º.rar
+2025-08-09 17:11:09,479 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: [Kimochi] [RJ01110285] ‚æ‚¤‚±‚»!Ž©‰ä‚ðŽ‚Â‚Æ‹tƒŒ›ƒv‚µ‚Ä‚­‚éNPC–º‚Î‚©‚è‚Ì‘º.rar
+2025-08-09 17:11:09,488 - file_monitor - INFO - Archive-Datei bereit: [Kimochi] [RJ01204507] ƒMƒ“ƒMƒ“Œö‰€™‹“ûƒMƒƒƒ‹x“¶’åƒ{[ƒCƒY`‰ßŒƒ!˜Io‚Å‹tƒiƒ“ƒpŽw—ß`ƒŠƒAƒ‹ƒ^ƒCƒ€3DƒQ[ƒ€.rar
+2025-08-09 17:11:09,488 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: [Kimochi] [RJ01204507] ƒMƒ“ƒMƒ“Œö‰€™‹“ûƒMƒƒƒ‹x“¶’åƒ{[ƒCƒY`‰ßŒƒ!˜Io‚Å‹tƒiƒ“ƒpŽw—ß`ƒŠƒAƒ‹ƒ^ƒCƒ€3DƒQ[ƒ€.rar
+2025-08-09 17:11:09,491 - archive_handler - INFO - Archive genehmigt: [Kimochi] [RJ01204507] ƒMƒ“ƒMƒ“Œö‰€™‹“ûƒMƒƒƒ‹x“¶’åƒ{[ƒCƒY`‰ßŒƒ!˜Io‚Å‹tƒiƒ“ƒpŽw—ß`ƒŠƒAƒ‹ƒ^ƒCƒ€3DƒQ[ƒ€.rar
+2025-08-09 17:11:09,491 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: [Kimochi] [RJ01204507] ƒMƒ“ƒMƒ“Œö‰€™‹“ûƒMƒƒƒ‹x“¶’åƒ{[ƒCƒY`‰ßŒƒ!˜Io‚Å‹tƒiƒ“ƒpŽw—ß`ƒŠƒAƒ‹ƒ^ƒCƒ€3DƒQ[ƒ€.rar
+2025-08-09 17:11:09,492 - file_monitor - INFO - Archive-Datei bereit: [Kimochi] [RJ01217938] Super Idol.rar
+2025-08-09 17:11:09,492 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: [Kimochi] [RJ01217938] Super Idol.rar
+2025-08-09 17:11:09,497 - archive_handler - INFO - Archive genehmigt: [Kimochi] [RJ01217938] Super Idol.rar
+2025-08-09 17:11:09,497 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: [Kimochi] [RJ01217938] Super Idol.rar
+2025-08-09 17:11:09,498 - file_monitor - INFO - Archive-Datei bereit: [Kimochi] [RJ01233894] ŠïŠïã©ã©`ƒGƒƒgƒ‰ƒbƒv ƒzƒ‰[’EoƒQ[ƒ€`.rar
+2025-08-09 17:11:09,498 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: [Kimochi] [RJ01233894] ŠïŠïã©ã©`ƒGƒƒgƒ‰ƒbƒv ƒzƒ‰[’EoƒQ[ƒ€`.rar
+2025-08-09 17:11:09,502 - archive_handler - INFO - Archive genehmigt: [Kimochi] [RJ01233894] ŠïŠïã©ã©`ƒGƒƒgƒ‰ƒbƒv ƒzƒ‰[’EoƒQ[ƒ€`.rar
+2025-08-09 17:11:09,502 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: [Kimochi] [RJ01233894] ŠïŠïã©ã©`ƒGƒƒgƒ‰ƒbƒv ƒzƒ‰[’EoƒQ[ƒ€`.rar
+2025-08-09 17:11:09,503 - file_monitor - INFO - Archive-Datei bereit: [Kimochi] [RJ01246594] ¬‚³‚È‚ ‚¸‚Ý.rar
+2025-08-09 17:11:09,503 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: [Kimochi] [RJ01246594] ¬‚³‚È‚ ‚¸‚Ý.rar
+2025-08-09 17:11:09,506 - archive_handler - INFO - Archive genehmigt: [Kimochi] [RJ01246594] ¬‚³‚È‚ ‚¸‚Ý.rar
+2025-08-09 17:11:09,506 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: [Kimochi] [RJ01246594] ¬‚³‚È‚ ‚¸‚Ý.rar
+2025-08-09 17:11:09,507 - file_monitor - INFO - Archive-Datei bereit: [Kimochi] [RJ249115] momo!‚ÌASEXB.rar
+2025-08-09 17:11:09,507 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: [Kimochi] [RJ249115] momo!‚ÌASEXB.rar
+2025-08-09 17:11:09,510 - archive_handler - INFO - Archive genehmigt: [Kimochi] [RJ249115] momo!‚ÌASEXB.rar
+2025-08-09 17:11:09,510 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: [Kimochi] [RJ249115] momo!‚ÌASEXB.rar
+2025-08-09 17:11:09,510 - file_monitor - INFO - Archive-Datei bereit: [Kimochi] [RJ256315] ƒcƒCƒ“ƒe[ƒ‹‚Ì›ƒŠ­— `‚ ‚Ì–º‚ÆŠÃ‚¦‚ñ–VƒGƒbƒ``.rar
+2025-08-09 17:11:09,510 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: [Kimochi] [RJ256315] ƒcƒCƒ“ƒe[ƒ‹‚Ì›ƒŠ­— `‚ ‚Ì–º‚ÆŠÃ‚¦‚ñ–VƒGƒbƒ``.rar
+2025-08-09 17:11:09,513 - archive_handler - INFO - Archive genehmigt: [Kimochi] [RJ256315] ƒcƒCƒ“ƒe[ƒ‹‚Ì›ƒŠ­— `‚ ‚Ì–º‚ÆŠÃ‚¦‚ñ–VƒGƒbƒ``.rar
+2025-08-09 17:11:09,513 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: [Kimochi] [RJ256315] ƒcƒCƒ“ƒe[ƒ‹‚Ì›ƒŠ­— `‚ ‚Ì–º‚ÆŠÃ‚¦‚ñ–VƒGƒbƒ``.rar
+2025-08-09 17:11:09,514 - file_monitor - INFO - Archive-Datei bereit: [Kimochi] [RJ337053] –²–‚Ì‘‚ÌƒAƒŠƒX `ƒŠƒ‡ƒi’EoƒQ[ƒ€`.rar
+2025-08-09 17:11:09,514 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: [Kimochi] [RJ337053] –²–‚Ì‘‚ÌƒAƒŠƒX `ƒŠƒ‡ƒi’EoƒQ[ƒ€`.rar
+2025-08-09 17:11:09,517 - archive_handler - INFO - Archive genehmigt: [Kimochi] [RJ337053] –²–‚Ì‘‚ÌƒAƒŠƒX `ƒŠƒ‡ƒi’EoƒQ[ƒ€`.rar
+2025-08-09 17:11:09,517 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: [Kimochi] [RJ337053] –²–‚Ì‘‚ÌƒAƒŠƒX `ƒŠƒ‡ƒi’EoƒQ[ƒ€`.rar
+2025-08-09 17:11:09,518 - file_monitor - INFO - Archive-Datei bereit: [Kimochi] [RJ440384] [Live2D Animated] My Unique Skill is Nakadashi Leveling ~Isekai Hentai Match 3 Puzzle RPG~.rar
+2025-08-09 17:11:09,518 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: [Kimochi] [RJ440384] [Live2D Animated] My Unique Skill is Nakadashi Leveling ~Isekai Hentai Match 3 Puzzle RPG~.rar
+2025-08-09 17:11:09,521 - archive_handler - INFO - Archive genehmigt: [Kimochi] [RJ440384] [Live2D Animated] My Unique Skill is Nakadashi Leveling ~Isekai Hentai Match 3 Puzzle RPG~.rar
+2025-08-09 17:11:09,521 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: [Kimochi] [RJ440384] [Live2D Animated] My Unique Skill is Nakadashi Leveling ~Isekai Hentai Match 3 Puzzle RPG~.rar
+2025-08-09 17:11:09,522 - file_monitor - INFO - Archive-Datei bereit: [kimochi]›ƒŠ “®‰æ 39.zip
+2025-08-09 17:11:09,522 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: [kimochi]›ƒŠ “®‰æ 39.zip
+2025-08-09 17:11:09,524 - archive_handler - INFO - Archive genehmigt: [kimochi]›ƒŠ “®‰æ 39.zip
+2025-08-09 17:11:09,525 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: [kimochi]›ƒŠ “®‰æ 39.zip
+2025-08-09 17:11:09,525 - file_monitor - INFO - Archive-Datei bereit: [kimochi]ƒƒ]ƒ“EdeEƒp[ƒ” 201 –xì”üç(1).zip
+2025-08-09 17:11:09,525 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: [kimochi]ƒƒ]ƒ“EdeEƒp[ƒ” 201 –xì”üç(1).zip
+2025-08-09 17:11:09,528 - archive_handler - INFO - Archive genehmigt: [kimochi]ƒƒ]ƒ“EdeEƒp[ƒ” 201 –xì”üç(1).zip
+2025-08-09 17:11:09,528 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: [kimochi]ƒƒ]ƒ“EdeEƒp[ƒ” 201 –xì”üç(1).zip
+2025-08-09 17:11:09,528 - file_monitor - INFO - Archive-Datei bereit: ”ª¯’é.rar
+2025-08-09 17:11:09,529 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: ”ª¯’é.rar
+2025-08-09 17:11:09,531 - archive_handler - INFO - Archive genehmigt: ”ª¯’é.rar
+2025-08-09 17:11:09,531 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: ”ª¯’é.rar
+2025-08-09 17:11:09,531 - file_monitor - INFO - Archive-Datei bereit: ‰ù‚¢‚Ä‚«‚½•ú’uŽq‚Ì˜Žg‚¢‚ªŒƒ‚µ‚·‚¬‚Ü‚µ‚½(F).zip
+2025-08-09 17:11:09,532 - __main__ - INFO - ACTIVITY: archive_found - Archive gefunden: ‰ù‚¢‚Ä‚«‚½•ú’uŽq‚Ì˜Žg‚¢‚ªŒƒ‚µ‚·‚¬‚Ü‚µ‚½(F).zip
+2025-08-09 17:11:09,534 - archive_handler - INFO - Archive genehmigt: ‰ù‚¢‚Ä‚«‚½•ú’uŽq‚Ì˜Žg‚¢‚ªŒƒ‚µ‚·‚¬‚Ü‚µ‚½(F).zip
+2025-08-09 17:11:09,535 - __main__ - INFO - ACTIVITY: archive_auto_approved - Archive automatisch genehmigt: ‰ù‚¢‚Ä‚«‚½•ú’uŽq‚Ì˜Žg‚¢‚ªŒƒ‚µ‚·‚¬‚Ü‚µ‚½(F).zip
+2025-08-09 17:11:09,543 - file_monitor - INFO - Video erkannt: 4k Yuffie E60 (Confidence: 0.90)
+2025-08-09 17:11:09,543 - file_monitor - INFO - Video-Datei bereit: 4k Yuffie E60
+2025-08-09 17:11:09,545 - video_handler - INFO - Video-Worker gestartet
+2025-08-09 17:11:09,545 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: 4k Yuffie E60
+2025-08-09 17:11:09,549 - file_monitor - INFO - Video-Datei bereit: 4k_Ada_Tentacle_Nest ENone
+2025-08-09 17:11:09,550 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: 4k_Ada_Tentacle_Nest ENone
+2025-08-09 17:11:09,552 - file_monitor - INFO - Video erkannt: 4k Eve no Male E60 (Confidence: 1.00)
+2025-08-09 17:11:09,552 - file_monitor - INFO - Video-Datei bereit: 4k Eve no Male E60
+2025-08-09 17:11:09,553 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: 4k Eve no Male E60
+2025-08-09 17:11:09,557 - file_monitor - INFO - Video-Datei bereit: 4k_Linkle_New_Audio ENone
+2025-08-09 17:11:09,558 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: 4k_Linkle_New_Audio ENone
+2025-08-09 17:11:09,562 - file_monitor - INFO - Video-Datei bereit: 4k_Tifa_Dress_Updated_Audio ENone
+2025-08-09 17:11:09,563 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: 4k_Tifa_Dress_Updated_Audio ENone
+2025-08-09 17:11:09,566 - file_monitor - INFO - Video-Datei bereit: 4k_Tifa_Mako_Updated_Audio ENone
+2025-08-09 17:11:09,568 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: 4k_Tifa_Mako_Updated_Audio ENone
+2025-08-09 17:11:09,571 - file_monitor - INFO - Video-Datei bereit: 4k_Velma Blowjob No Male No Overlay ENone
+2025-08-09 17:11:09,572 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: 4k_Velma Blowjob No Male No Overlay ENone
+2025-08-09 17:11:09,575 - file_monitor - INFO - Video-Datei bereit: 4k_Viper_Chamber_Full_Audio ENone
+2025-08-09 17:11:09,578 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: 4k_Viper_Chamber_Full_Audio ENone
+2025-08-09 17:11:09,580 - file_monitor - INFO - Video erkannt: Ajin ga Osuki Nan Desu Ne E1 (Confidence: 1.00)
+2025-08-09 17:11:09,580 - file_monitor - INFO - Video-Datei bereit: Ajin ga Osuki Nan Desu Ne E1
+2025-08-09 17:11:09,582 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Ajin ga Osuki Nan Desu Ne E1
+2025-08-09 17:11:09,585 - file_monitor - INFO - Video-Datei bereit: AKARI_Loop ENone
+2025-08-09 17:11:09,586 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: AKARI_Loop ENone
+2025-08-09 17:11:09,588 - file_monitor - INFO - Video erkannt: Akogare no Onna Joushi ga Aibeya Shucchou no Tonari no Bed de Zetsurin Otoko ni Netorarete Iru E1 (Confidence: 1.00)
+2025-08-09 17:11:09,588 - file_monitor - INFO - Video-Datei bereit: Akogare no Onna Joushi ga Aibeya Shucchou no Tonari no Bed de Zetsurin Otoko ni Netorarete Iru E1
+2025-08-09 17:11:09,590 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Akogare no Onna Joushi ga Aibeya Shucchou no Tonari no Bed de Zetsurin Otoko ni Netorarete Iru E1
+2025-08-09 17:11:09,594 - file_monitor - INFO - Video erkannt: Aunt's Hospitality ~aunt Cass~ E4 (Confidence: 1.00)
+2025-08-09 17:11:09,594 - file_monitor - INFO - Video-Datei bereit: Aunt's Hospitality ~aunt Cass~ E4
+2025-08-09 17:11:09,596 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Aunt's Hospitality ~aunt Cass~ E4
+2025-08-09 17:11:09,598 - file_monitor - INFO - Video erkannt: Beach Cowgirl E4 (Confidence: 0.90)
+2025-08-09 17:11:09,598 - file_monitor - INFO - Video-Datei bereit: Beach Cowgirl E4
+2025-08-09 17:11:09,599 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Beach Cowgirl E4
+2025-08-09 17:11:09,605 - file_monitor - INFO - Video-Datei bereit: Cass_Anal ENone
+2025-08-09 17:11:09,607 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Cass_Anal ENone
+2025-08-09 17:11:09,612 - file_monitor - INFO - Video-Datei bereit: Cass_Tags ENone
+2025-08-09 17:11:09,613 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Cass_Tags ENone
+2025-08-09 17:11:09,624 - file_monitor - INFO - Video erkannt: Elf ni Inmon O Tsukeru Hon the Animation E2 (Confidence: 1.00)
+2025-08-09 17:11:09,625 - file_monitor - INFO - Video-Datei bereit: Elf ni Inmon O Tsukeru Hon the Animation E2
+2025-08-09 17:11:09,627 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Elf ni Inmon O Tsukeru Hon the Animation E2
+2025-08-09 17:11:09,633 - file_monitor - INFO - Video-Datei bereit: fnaf_roxy_triple ENone
+2025-08-09 17:11:09,634 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: fnaf_roxy_triple ENone
+2025-08-09 17:11:09,637 - file_monitor - INFO - Video-Datei bereit: fnaf_roxy_triple ENone
+2025-08-09 17:11:09,638 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: fnaf_roxy_triple ENone
+2025-08-09 17:11:09,643 - file_monitor - INFO - Video erkannt: Hametsu no Yuuwaku E1 (Confidence: 1.00)
+2025-08-09 17:11:09,643 - file_monitor - INFO - Video-Datei bereit: Hametsu no Yuuwaku E1
+2025-08-09 17:11:09,645 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Hametsu no Yuuwaku E1
+2025-08-09 17:11:09,648 - file_monitor - INFO - Video erkannt: Hime-sama Love Life E1 (Confidence: 1.00)
+2025-08-09 17:11:09,648 - file_monitor - INFO - Video-Datei bereit: Hime-sama Love Life E1
+2025-08-09 17:11:09,649 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Hime-sama Love Life E1
+2025-08-09 17:11:09,651 - file_monitor - INFO - Video erkannt: Hime-sama Love Life E3 (Confidence: 1.00)
+2025-08-09 17:11:09,652 - file_monitor - INFO - Video-Datei bereit: Hime-sama Love Life E3
+2025-08-09 17:11:09,653 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Hime-sama Love Life E3
+2025-08-09 17:11:09,657 - file_monitor - INFO - Video-Datei bereit: HIMEMORI_Loop ENone
+2025-08-09 17:11:09,659 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: HIMEMORI_Loop ENone
+2025-08-09 17:11:09,661 - file_monitor - INFO - Video-Datei bereit: HQ1080_Synth_Project_Public_Final ENone
+2025-08-09 17:11:09,664 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: HQ1080_Synth_Project_Public_Final ENone
+2025-08-09 17:11:09,667 - file_monitor - INFO - Video erkannt: Ikuiku Succubus Saikyouiku E1 (Confidence: 1.00)
+2025-08-09 17:11:09,667 - file_monitor - INFO - Video-Datei bereit: Ikuiku Succubus Saikyouiku E1
+2025-08-09 17:11:09,668 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Ikuiku Succubus Saikyouiku E1
+2025-08-09 17:11:09,670 - file_monitor - INFO - Video erkannt: Ikuiku Succubus Saikyouiku E2 (Confidence: 1.00)
+2025-08-09 17:11:09,670 - file_monitor - INFO - Video-Datei bereit: Ikuiku Succubus Saikyouiku E2
+2025-08-09 17:11:09,671 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Ikuiku Succubus Saikyouiku E2
+2025-08-09 17:11:09,674 - file_monitor - INFO - Video erkannt: Ikusei E1 (Confidence: 1.00)
+2025-08-09 17:11:09,674 - file_monitor - INFO - Video-Datei bereit: Ikusei E1
+2025-08-09 17:11:09,675 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Ikusei E1
+2025-08-09 17:11:09,677 - file_monitor - INFO - Video erkannt: Ikusei E2 (Confidence: 1.00)
+2025-08-09 17:11:09,677 - file_monitor - INFO - Video-Datei bereit: Ikusei E2
+2025-08-09 17:11:09,679 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Ikusei E2
+2025-08-09 17:11:09,681 - file_monitor - INFO - Video erkannt: Immoral Routine the Animation E1 (Confidence: 1.00)
+2025-08-09 17:11:09,681 - file_monitor - INFO - Video-Datei bereit: Immoral Routine the Animation E1
+2025-08-09 17:11:09,683 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Immoral Routine the Animation E1
+2025-08-09 17:11:09,685 - file_monitor - INFO - Video erkannt: Inshoku Ou Demar E1 (Confidence: 1.00)
+2025-08-09 17:11:09,686 - file_monitor - INFO - Video-Datei bereit: Inshoku Ou Demar E1
+2025-08-09 17:11:09,688 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Inshoku Ou Demar E1
+2025-08-09 17:11:09,690 - file_monitor - INFO - Video erkannt: Inshoku Ou Demar E1 (Confidence: 1.00)
+2025-08-09 17:11:09,690 - file_monitor - INFO - Video-Datei bereit: Inshoku Ou Demar E1
+2025-08-09 17:11:09,691 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Inshoku Ou Demar E1
+2025-08-09 17:11:09,694 - file_monitor - INFO - Video erkannt: Isekai Kita no de Sukebe Skill de Zenryoku Ouka Shiyou to Omou the Animation E1 (Confidence: 1.00)
+2025-08-09 17:11:09,694 - file_monitor - INFO - Video-Datei bereit: Isekai Kita no de Sukebe Skill de Zenryoku Ouka Shiyou to Omou the Animation E1
+2025-08-09 17:11:09,696 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Isekai Kita no de Sukebe Skill de Zenryoku Ouka Shiyou to Omou the Animation E1
+2025-08-09 17:11:09,698 - file_monitor - INFO - Video erkannt: Isekai Kita no de Sukebe Skill de Zenryoku Ouka Shiyou to Omou the Animation E2 (Confidence: 1.00)
+2025-08-09 17:11:09,698 - file_monitor - INFO - Video-Datei bereit: Isekai Kita no de Sukebe Skill de Zenryoku Ouka Shiyou to Omou the Animation E2
+2025-08-09 17:11:09,700 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Isekai Kita no de Sukebe Skill de Zenryoku Ouka Shiyou to Omou the Animation E2
+2025-08-09 17:11:09,702 - file_monitor - INFO - Video erkannt: Isekai Kita no de Sukebe Skill de Zenryoku Ouka Shiyou to Omou the Animation E3 (Confidence: 1.00)
+2025-08-09 17:11:09,702 - file_monitor - INFO - Video-Datei bereit: Isekai Kita no de Sukebe Skill de Zenryoku Ouka Shiyou to Omou the Animation E3
+2025-08-09 17:11:09,704 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Isekai Kita no de Sukebe Skill de Zenryoku Ouka Shiyou to Omou the Animation E3
+2025-08-09 17:11:09,706 - file_monitor - INFO - Video erkannt: Isekai Kita no de Sukebe Skill de Zenryoku Ouka Shiyou to Omou the Animation E4 (Confidence: 1.00)
+2025-08-09 17:11:09,706 - file_monitor - INFO - Video-Datei bereit: Isekai Kita no de Sukebe Skill de Zenryoku Ouka Shiyou to Omou the Animation E4
+2025-08-09 17:11:09,708 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Isekai Kita no de Sukebe Skill de Zenryoku Ouka Shiyou to Omou the Animation E4
+2025-08-09 17:11:09,710 - file_monitor - INFO - Video erkannt: Isekai Kita no de Sukebe Skill de Zenryoku Ouka Shiyou to Omou the Animation E5 (Confidence: 1.00)
+2025-08-09 17:11:09,710 - file_monitor - INFO - Video-Datei bereit: Isekai Kita no de Sukebe Skill de Zenryoku Ouka Shiyou to Omou the Animation E5
+2025-08-09 17:11:09,712 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Isekai Kita no de Sukebe Skill de Zenryoku Ouka Shiyou to Omou the Animation E5
+2025-08-09 17:11:09,714 - file_monitor - INFO - Video erkannt: Isekai Kita no de Sukebe Skill de Zenryoku Ouka Shiyou to Omou the Animation E6 (Confidence: 1.00)
+2025-08-09 17:11:09,714 - file_monitor - INFO - Video-Datei bereit: Isekai Kita no de Sukebe Skill de Zenryoku Ouka Shiyou to Omou the Animation E6
+2025-08-09 17:11:09,715 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Isekai Kita no de Sukebe Skill de Zenryoku Ouka Shiyou to Omou the Animation E6
+2025-08-09 17:11:09,718 - file_monitor - INFO - Video erkannt: Kanochi X Netorare Kazoku the Animation E1 (Confidence: 1.00)
+2025-08-09 17:11:09,718 - file_monitor - INFO - Video-Datei bereit: Kanochi X Netorare Kazoku the Animation E1
+2025-08-09 17:11:09,719 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Kanochi X Netorare Kazoku the Animation E1
+2025-08-09 17:11:09,721 - file_monitor - INFO - Video erkannt: Kanochi X Netorare Kazoku the Animation E1 (Confidence: 1.00)
+2025-08-09 17:11:09,721 - file_monitor - INFO - Video-Datei bereit: Kanochi X Netorare Kazoku the Animation E1
+2025-08-09 17:11:09,723 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Kanochi X Netorare Kazoku the Animation E1
+2025-08-09 17:11:09,725 - file_monitor - INFO - Video erkannt: Kanochi X Netorare Kazoku the Animation E1 (Confidence: 1.00)
+2025-08-09 17:11:09,725 - file_monitor - INFO - Video-Datei bereit: Kanochi X Netorare Kazoku the Animation E1
+2025-08-09 17:11:09,726 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Kanochi X Netorare Kazoku the Animation E1
+2025-08-09 17:11:09,728 - file_monitor - INFO - Video erkannt: Kanochi X Netorare Kazoku the Animation E2 (Confidence: 1.00)
+2025-08-09 17:11:09,728 - file_monitor - INFO - Video-Datei bereit: Kanochi X Netorare Kazoku the Animation E2
+2025-08-09 17:11:09,731 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Kanochi X Netorare Kazoku the Animation E2
+2025-08-09 17:11:09,735 - file_monitor - INFO - Video erkannt: Kitty's Desperate Grind Part E2 (Confidence: 0.90)
+2025-08-09 17:11:09,735 - file_monitor - INFO - Video-Datei bereit: Kitty's Desperate Grind Part E2
+2025-08-09 17:11:09,736 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Kitty's Desperate Grind Part E2
+2025-08-09 17:11:09,739 - file_monitor - INFO - Video erkannt: Konomi Ja Nai Kedo Mukatsuku Ane to Aishou Batsugun Ecchi E2 (Confidence: 1.00)
+2025-08-09 17:11:09,739 - file_monitor - INFO - Video-Datei bereit: Konomi Ja Nai Kedo Mukatsuku Ane to Aishou Batsugun Ecchi E2
+2025-08-09 17:11:09,740 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Konomi Ja Nai Kedo Mukatsuku Ane to Aishou Batsugun Ecchi E2
+2025-08-09 17:11:09,742 - file_monitor - INFO - Video erkannt: Kuroinu Kedakaki Seijo wa Hakudaku ni Somaru E1 (Confidence: 1.00)
+2025-08-09 17:11:09,742 - file_monitor - INFO - Video-Datei bereit: Kuroinu Kedakaki Seijo wa Hakudaku ni Somaru E1
+2025-08-09 17:11:09,744 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Kuroinu Kedakaki Seijo wa Hakudaku ni Somaru E1
+2025-08-09 17:11:09,746 - file_monitor - INFO - Video erkannt: Kuroinu Kedakaki Seijo wa Hakudaku ni Somaru E2 (Confidence: 1.00)
+2025-08-09 17:11:09,746 - file_monitor - INFO - Video-Datei bereit: Kuroinu Kedakaki Seijo wa Hakudaku ni Somaru E2
+2025-08-09 17:11:09,747 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Kuroinu Kedakaki Seijo wa Hakudaku ni Somaru E2
+2025-08-09 17:11:09,750 - file_monitor - INFO - Video erkannt: Kuroinu Kedakaki Seijo wa Hakudaku ni Somaru E3 (Confidence: 1.00)
+2025-08-09 17:11:09,750 - file_monitor - INFO - Video-Datei bereit: Kuroinu Kedakaki Seijo wa Hakudaku ni Somaru E3
+2025-08-09 17:11:09,752 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Kuroinu Kedakaki Seijo wa Hakudaku ni Somaru E3
+2025-08-09 17:11:09,754 - file_monitor - INFO - Video erkannt: Kuroinu Kedakaki Seijo wa Hakudaku ni Somaru E4 (Confidence: 1.00)
+2025-08-09 17:11:09,754 - file_monitor - INFO - Video-Datei bereit: Kuroinu Kedakaki Seijo wa Hakudaku ni Somaru E4
+2025-08-09 17:11:09,756 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Kuroinu Kedakaki Seijo wa Hakudaku ni Somaru E4
+2025-08-09 17:11:09,758 - file_monitor - INFO - Video erkannt: Kuroinu Kedakaki Seijo wa Hakudaku ni Somaru E5 (Confidence: 1.00)
+2025-08-09 17:11:09,758 - file_monitor - INFO - Video-Datei bereit: Kuroinu Kedakaki Seijo wa Hakudaku ni Somaru E5
+2025-08-09 17:11:09,760 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Kuroinu Kedakaki Seijo wa Hakudaku ni Somaru E5
+2025-08-09 17:11:09,761 - file_monitor - INFO - Video erkannt: Kuroinu Kedakaki Seijo wa Hakudaku ni Somaru E6 (Confidence: 1.00)
+2025-08-09 17:11:09,761 - file_monitor - INFO - Video-Datei bereit: Kuroinu Kedakaki Seijo wa Hakudaku ni Somaru E6
+2025-08-09 17:11:09,763 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Kuroinu Kedakaki Seijo wa Hakudaku ni Somaru E6
+2025-08-09 17:11:09,765 - file_monitor - INFO - Video erkannt: Kuro Gal a La Carte E1 (Confidence: 1.00)
+2025-08-09 17:11:09,766 - file_monitor - INFO - Video-Datei bereit: Kuro Gal a La Carte E1
+2025-08-09 17:11:09,767 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Kuro Gal a La Carte E1
+2025-08-09 17:11:09,770 - file_monitor - INFO - Video erkannt: Kyonyuu Daikazoku Saimin E1 (Confidence: 1.00)
+2025-08-09 17:11:09,770 - file_monitor - INFO - Video-Datei bereit: Kyonyuu Daikazoku Saimin E1
+2025-08-09 17:11:09,771 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Kyonyuu Daikazoku Saimin E1
+2025-08-09 17:11:09,774 - file_monitor - INFO - Video erkannt: Kyonyuu Daikazoku Saimin E2 (Confidence: 1.00)
+2025-08-09 17:11:09,774 - file_monitor - INFO - Video-Datei bereit: Kyonyuu Daikazoku Saimin E2
+2025-08-09 17:11:09,775 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Kyonyuu Daikazoku Saimin E2
+2025-08-09 17:11:09,777 - file_monitor - INFO - Video erkannt: Kyonyuu Kazoku Saimin E1 (Confidence: 1.00)
+2025-08-09 17:11:09,778 - file_monitor - INFO - Video-Datei bereit: Kyonyuu Kazoku Saimin E1
+2025-08-09 17:11:09,780 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Kyonyuu Kazoku Saimin E1
+2025-08-09 17:11:09,782 - file_monitor - INFO - Video erkannt: Kyonyuu Kazoku Saimin E1 (Confidence: 1.00)
+2025-08-09 17:11:09,782 - file_monitor - INFO - Video-Datei bereit: Kyonyuu Kazoku Saimin E1
+2025-08-09 17:11:09,784 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Kyonyuu Kazoku Saimin E1
+2025-08-09 17:11:09,791 - file_monitor - INFO - Video erkannt: Mahou Touki Lilustear E3 (Confidence: 1.00)
+2025-08-09 17:11:09,792 - file_monitor - INFO - Video-Datei bereit: Mahou Touki Lilustear E3
+2025-08-09 17:11:09,793 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Mahou Touki Lilustear E3
+2025-08-09 17:11:09,796 - file_monitor - INFO - Video erkannt: Mahou Touki Lilustear E4 (Confidence: 1.00)
+2025-08-09 17:11:09,796 - file_monitor - INFO - Video-Datei bereit: Mahou Touki Lilustear E4
+2025-08-09 17:11:09,797 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Mahou Touki Lilustear E4
+2025-08-09 17:11:09,801 - file_monitor - INFO - Video erkannt: Meru the Succubus Part E4 (Confidence: 0.90)
+2025-08-09 17:11:09,802 - file_monitor - INFO - Video-Datei bereit: Meru the Succubus Part E4
+2025-08-09 17:11:09,803 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Meru the Succubus Part E4
+2025-08-09 17:11:09,806 - file_monitor - INFO - Video erkannt: Meru the Succubus Part E5 (Confidence: 0.90)
+2025-08-09 17:11:09,806 - file_monitor - INFO - Video-Datei bereit: Meru the Succubus Part E5
+2025-08-09 17:11:09,808 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Meru the Succubus Part E5
+2025-08-09 17:11:09,812 - file_monitor - INFO - Video-Datei bereit: Midna_gangbang1 ENone
+2025-08-09 17:11:09,815 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Midna_gangbang1 ENone
+2025-08-09 17:11:09,818 - file_monitor - INFO - Video-Datei bereit: MillieAnimationPublic ENone
+2025-08-09 17:11:09,820 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: MillieAnimationPublic ENone
+2025-08-09 17:11:09,824 - file_monitor - INFO - Video-Datei bereit: Mona's_part_time_job1_Loop ENone
+2025-08-09 17:11:09,826 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Mona's_part_time_job1_Loop ENone
+2025-08-09 17:11:09,831 - file_monitor - INFO - Video-Datei bereit: Mona's_part_time_job2_Loop ENone
+2025-08-09 17:11:09,833 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Mona's_part_time_job2_Loop ENone
+2025-08-09 17:11:09,836 - file_monitor - INFO - Video-Datei bereit: Mona's_way_of_marriage_Loop ENone
+2025-08-09 17:11:09,838 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Mona's_way_of_marriage_Loop ENone
+2025-08-09 17:11:09,843 - file_monitor - INFO - Video-Datei bereit: New-Chan_Beach_Loop ENone
+2025-08-09 17:11:09,845 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: New-Chan_Beach_Loop ENone
+2025-08-09 17:11:09,850 - file_monitor - INFO - Video-Datei bereit: NewChan Anal Fisting_Loop ENone
+2025-08-09 17:11:09,851 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: NewChan Anal Fisting_Loop ENone
+2025-08-09 17:11:09,854 - file_monitor - INFO - Video erkannt: Nikuen E1 (Confidence: 1.00)
+2025-08-09 17:11:09,855 - file_monitor - INFO - Video-Datei bereit: Nikuen E1
+2025-08-09 17:11:09,857 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Nikuen E1
+2025-08-09 17:11:09,859 - file_monitor - INFO - Video erkannt: Nikuen E2 (Confidence: 1.00)
+2025-08-09 17:11:09,860 - file_monitor - INFO - Video-Datei bereit: Nikuen E2
+2025-08-09 17:11:09,862 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Nikuen E2
+2025-08-09 17:11:09,867 - file_monitor - INFO - Video-Datei bereit: nyu-chan_pussy_rental_service_Loop ENone
+2025-08-09 17:11:09,869 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: nyu-chan_pussy_rental_service_Loop ENone
+2025-08-09 17:11:09,872 - file_monitor - INFO - Video erkannt: Oni Chichi Harem E1 (Confidence: 1.00)
+2025-08-09 17:11:09,872 - file_monitor - INFO - Video-Datei bereit: Oni Chichi Harem E1
+2025-08-09 17:11:09,874 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Oni Chichi Harem E1
+2025-08-09 17:11:09,877 - file_monitor - INFO - Video erkannt: Oni Chichi Harem E2 (Confidence: 1.00)
+2025-08-09 17:11:09,877 - file_monitor - INFO - Video-Datei bereit: Oni Chichi Harem E2
+2025-08-09 17:11:09,879 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Oni Chichi Harem E2
+2025-08-09 17:11:09,881 - file_monitor - INFO - Video erkannt: Oni Chichi Harem E2 (Confidence: 1.00)
+2025-08-09 17:11:09,881 - file_monitor - INFO - Video-Datei bereit: Oni Chichi Harem E2
+2025-08-09 17:11:09,883 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Oni Chichi Harem E2
+2025-08-09 17:11:09,885 - file_monitor - INFO - Video erkannt: Oni Chichi Harem E3 (Confidence: 1.00)
+2025-08-09 17:11:09,885 - file_monitor - INFO - Video-Datei bereit: Oni Chichi Harem E3
+2025-08-09 17:11:09,887 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Oni Chichi Harem E3
+2025-08-09 17:11:09,890 - file_monitor - INFO - Video erkannt: Oni Chichi Harem E4 (Confidence: 1.00)
+2025-08-09 17:11:09,890 - file_monitor - INFO - Video-Datei bereit: Oni Chichi Harem E4
+2025-08-09 17:11:09,892 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Oni Chichi Harem E4
+2025-08-09 17:11:09,895 - file_monitor - INFO - Video erkannt: Otaku ni Yasashii Gal Toka Kyonyuu no Osananajimi Toka E1 (Confidence: 1.00)
+2025-08-09 17:11:09,895 - file_monitor - INFO - Video-Datei bereit: Otaku ni Yasashii Gal Toka Kyonyuu no Osananajimi Toka E1
+2025-08-09 17:11:09,896 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Otaku ni Yasashii Gal Toka Kyonyuu no Osananajimi Toka E1
+2025-08-09 17:11:09,899 - file_monitor - INFO - Video erkannt: Otaku ni Yasashii Gal Toka Kyonyuu no Osananajimi Toka E2 (Confidence: 1.00)
+2025-08-09 17:11:09,899 - file_monitor - INFO - Video-Datei bereit: Otaku ni Yasashii Gal Toka Kyonyuu no Osananajimi Toka E2
+2025-08-09 17:11:09,900 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Otaku ni Yasashii Gal Toka Kyonyuu no Osananajimi Toka E2
+2025-08-09 17:11:09,909 - file_monitor - INFO - Video-Datei bereit: Render principal ENG ENone
+2025-08-09 17:11:09,911 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Render principal ENG ENone
+2025-08-09 17:11:09,914 - file_monitor - INFO - Video-Datei bereit: RIMURU_Loop ENone
+2025-08-09 17:11:09,915 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: RIMURU_Loop ENone
+2025-08-09 17:11:09,921 - file_monitor - INFO - Video-Datei bereit: rouge_doublegrope ENone
+2025-08-09 17:11:09,923 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: rouge_doublegrope ENone
+2025-08-09 17:11:09,927 - file_monitor - INFO - Video-Datei bereit: rouge_gangbang ENone
+2025-08-09 17:11:09,928 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: rouge_gangbang ENone
+2025-08-09 17:11:09,932 - file_monitor - INFO - Video-Datei bereit: rouge_gangbang_nude ENone
+2025-08-09 17:11:09,933 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: rouge_gangbang_nude ENone
+2025-08-09 17:11:09,937 - file_monitor - INFO - Video-Datei bereit: rouge_robotnik_dp ENone
+2025-08-09 17:11:09,938 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: rouge_robotnik_dp ENone
+2025-08-09 17:11:09,942 - file_monitor - INFO - Video erkannt: Secret Training ~rukia Kuchiki~ E108 (Confidence: 1.00)
+2025-08-09 17:11:09,942 - file_monitor - INFO - Video-Datei bereit: Secret Training ~rukia Kuchiki~ E108
+2025-08-09 17:11:09,943 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Secret Training ~rukia Kuchiki~ E108
+2025-08-09 17:11:09,946 - file_monitor - INFO - Video erkannt: Sex ga Suki de Suki de Daisuki Na Classmate no Ano Ko E2 (Confidence: 1.00)
+2025-08-09 17:11:09,946 - file_monitor - INFO - Video-Datei bereit: Sex ga Suki de Suki de Daisuki Na Classmate no Ano Ko E2
+2025-08-09 17:11:09,947 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Sex ga Suki de Suki de Daisuki Na Classmate no Ano Ko E2
+2025-08-09 17:11:09,950 - file_monitor - INFO - Video erkannt: Sex ga Suki de Suki de Daisuki Na Classmate no Ano Ko E4 (Confidence: 1.00)
+2025-08-09 17:11:09,950 - file_monitor - INFO - Video-Datei bereit: Sex ga Suki de Suki de Daisuki Na Classmate no Ano Ko E4
+2025-08-09 17:11:09,952 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Sex ga Suki de Suki de Daisuki Na Classmate no Ano Ko E4
+2025-08-09 17:11:09,954 - file_monitor - INFO - Video erkannt: Sex ga Suki de Suki de Daisuki Na Classmate no Ano Musume E1 (Confidence: 1.00)
+2025-08-09 17:11:09,954 - file_monitor - INFO - Video-Datei bereit: Sex ga Suki de Suki de Daisuki Na Classmate no Ano Musume E1
+2025-08-09 17:11:09,955 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Sex ga Suki de Suki de Daisuki Na Classmate no Ano Musume E1
+2025-08-09 17:11:09,958 - file_monitor - INFO - Video erkannt: Sex ga Suki de Suki de Daisuki Na Classmate no Ano Musume E3 (Confidence: 1.00)
+2025-08-09 17:11:09,958 - file_monitor - INFO - Video-Datei bereit: Sex ga Suki de Suki de Daisuki Na Classmate no Ano Musume E3
+2025-08-09 17:11:09,960 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Sex ga Suki de Suki de Daisuki Na Classmate no Ano Musume E3
+2025-08-09 17:11:09,964 - file_monitor - INFO - Video erkannt: Squish That Cat E4 (Confidence: 0.90)
+2025-08-09 17:11:09,964 - file_monitor - INFO - Video-Datei bereit: Squish That Cat E4
+2025-08-09 17:11:09,966 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Squish That Cat E4
+2025-08-09 17:11:09,973 - file_monitor - INFO - Video-Datei bereit: SUGUHA_Loop1 ENone
+2025-08-09 17:11:09,975 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: SUGUHA_Loop1 ENone
+2025-08-09 17:11:09,984 - file_monitor - INFO - Video erkannt: The Ghost of a Brothel Velma E4 (Confidence: 1.00)
+2025-08-09 17:11:09,984 - file_monitor - INFO - Video-Datei bereit: The Ghost of a Brothel Velma E4
+2025-08-09 17:11:09,986 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: The Ghost of a Brothel Velma E4
+2025-08-09 17:11:09,988 - file_monitor - INFO - Video erkannt: The Queen's Secret ~anna Frozen 2~ E4 (Confidence: 1.00)
+2025-08-09 17:11:09,988 - file_monitor - INFO - Video-Datei bereit: The Queen's Secret ~anna Frozen 2~ E4
+2025-08-09 17:11:09,991 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: The Queen's Secret ~anna Frozen 2~ E4
+2025-08-09 17:11:09,994 - file_monitor - INFO - Video-Datei bereit: There's_Something_Loose_in_Her_Head#09_Loop ENone
+2025-08-09 17:11:09,996 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: There's_Something_Loose_in_Her_Head#09_Loop ENone
+2025-08-09 17:11:09,999 - file_monitor - INFO - Video erkannt: Commission E23 (Confidence: 0.90)
+2025-08-09 17:11:09,999 - file_monitor - INFO - Video-Datei bereit: Commission E23
+2025-08-09 17:11:10,000 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Commission E23
+2025-08-09 17:11:10,002 - file_monitor - INFO - Video erkannt: Commission E23 (Confidence: 0.90)
+2025-08-09 17:11:10,003 - file_monitor - INFO - Video-Datei bereit: Commission E23
+2025-08-09 17:11:10,004 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Commission E23
+2025-08-09 17:11:10,011 - file_monitor - INFO - Video-Datei bereit: Espeon's Secret - Timelapse ENone
+2025-08-09 17:11:10,013 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Espeon's Secret - Timelapse ENone
+2025-08-09 17:11:10,020 - file_monitor - INFO - Video-Datei bereit: Greninja - Timelapse ENone
+2025-08-09 17:11:10,022 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Greninja - Timelapse ENone
+2025-08-09 17:11:10,028 - file_monitor - INFO - Video-Datei bereit: Queen Bee-lzebub - Timelapse ENone
+2025-08-09 17:11:10,031 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Queen Bee-lzebub - Timelapse ENone
+2025-08-09 17:11:10,038 - file_monitor - INFO - Video-Datei bereit: Tied Zoroark - Timelapse ENone
+2025-08-09 17:11:10,040 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Tied Zoroark - Timelapse ENone
+2025-08-09 17:11:10,049 - file_monitor - INFO - Video-Datei bereit: Trixie - Timelapse ENone
+2025-08-09 17:11:10,050 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Trixie - Timelapse ENone
+2025-08-09 17:11:10,057 - file_monitor - INFO - Video-Datei bereit: Wolf Zelda - Timelapse ENone
+2025-08-09 17:11:10,058 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Wolf Zelda - Timelapse ENone
+2025-08-09 17:11:10,064 - file_monitor - INFO - Video-Datei bereit: Tipsy_New-Chan_Loop ENone
+2025-08-09 17:11:10,065 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Tipsy_New-Chan_Loop ENone
+2025-08-09 17:11:10,069 - file_monitor - INFO - Video erkannt: Tonari Kanojo E1 (Confidence: 1.00)
+2025-08-09 17:11:10,069 - file_monitor - INFO - Video-Datei bereit: Tonari Kanojo E1
+2025-08-09 17:11:10,071 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Tonari Kanojo E1
+2025-08-09 17:11:10,076 - file_monitor - INFO - Video-Datei bereit: Velma_Gangbang ENone
+2025-08-09 17:11:10,078 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Velma_Gangbang ENone
+2025-08-09 17:11:10,082 - file_monitor - INFO - Video erkannt: Yogoreta Kanojo E1 (Confidence: 1.00)
+2025-08-09 17:11:10,082 - file_monitor - INFO - Video-Datei bereit: Yogoreta Kanojo E1
+2025-08-09 17:11:10,084 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Yogoreta Kanojo E1
+2025-08-09 17:11:10,087 - file_monitor - INFO - Video erkannt: Yuusha-chan no Bouken wa Owatteshimatta E1 (Confidence: 1.00)
+2025-08-09 17:11:10,087 - file_monitor - INFO - Video-Datei bereit: Yuusha-chan no Bouken wa Owatteshimatta E1
+2025-08-09 17:11:10,088 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Yuusha-chan no Bouken wa Owatteshimatta E1
+2025-08-09 17:11:10,091 - file_monitor - INFO - Video erkannt: Yuusha-chan no Bouken wa Owatteshimatta E1 (Confidence: 1.00)
+2025-08-09 17:11:10,091 - file_monitor - INFO - Video-Datei bereit: Yuusha-chan no Bouken wa Owatteshimatta E1
+2025-08-09 17:11:10,093 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Yuusha-chan no Bouken wa Owatteshimatta E1
+2025-08-09 17:11:10,096 - file_monitor - INFO - Video erkannt: Yuusha-chan no Bouken wa Owatteshimatta E2 (Confidence: 1.00)
+2025-08-09 17:11:10,096 - file_monitor - INFO - Video-Datei bereit: Yuusha-chan no Bouken wa Owatteshimatta E2
+2025-08-09 17:11:10,099 - __main__ - INFO - ACTIVITY: video_found - Video gefunden: Yuusha-chan no Bouken wa Owatteshimatta E2
+2025-08-09 17:11:10,106 - file_monitor - INFO - Initialer Ordner-Scan abgeschlossen
+2025-08-09 17:11:10,106 - file_monitor - INFO - File Monitor started
+2025-08-09 17:11:10,108 - archive_handler - INFO - Starte Archive Startup-Cleanup...
+2025-08-09 17:11:10,108 - archive_handler - INFO - Starte Startup Archive-Cleanup Scan...
+2025-08-09 17:11:11,235 - archive_handler - INFO - Beginne Verarbeitung von: Delivery Source Channel o!.rar
+2025-08-09 17:11:11,236 - archive_handler - INFO - Entpacke Archive: Delivery Source Channel o!.rar -> K:\Download\Mega\Delivery Source Channel o!
+2025-08-09 17:11:11,328 - archive_handler - ERROR - Archive-Verarbeitung fehlgeschlagen: Delivery Source Channel o!.rar - Unsicherer Pfad in Archive: Delivery Source Channel o!/...readme.txt
+2025-08-09 17:11:11,339 - archive_handler - INFO - Beginne Verarbeitung von: FriendHarem-0.63-pc-full.zip
+2025-08-09 17:11:11,340 - archive_handler - INFO - Entpacke Archive: FriendHarem-0.63-pc-full.zip -> K:\Download\Mega\FriendHarem-0.63-pc-full
+2025-08-09 17:11:11,415 - archive_handler - ERROR - Archive-Verarbeitung fehlgeschlagen: FriendHarem-0.63-pc-full.zip - Unsicherer Pfad in Archive: FriendHarem-0.63-pc/game/images/scenes/v60/1...It's just me.jpg
+2025-08-09 17:11:11,417 - archive_handler - INFO - Beginne Verarbeitung von: Impregnated Heroines.zip
+2025-08-09 17:11:11,443 - archive_handler - INFO - Archive erfolgreich verarbeitet: Impregnated Heroines.zip
+2025-08-09 17:11:11,445 - archive_handler - INFO - Beginne Verarbeitung von: KunoichiSekiren 0.0.7.rar
+2025-08-09 17:11:13,897 - archive_handler - INFO - Archive erfolgreich verarbeitet: KunoichiSekiren 0.0.7.rar
+2025-08-09 17:11:13,899 - archive_handler - INFO - Beginne Verarbeitung von: My_Mysterious_Rule_v2.15.7z
+2025-08-09 17:11:13,966 - archive_handler - INFO - Archive erfolgreich verarbeitet: My_Mysterious_Rule_v2.15.7z
+2025-08-09 17:11:13,968 - archive_handler - INFO - Beginne Verarbeitung von: Natsu-Search--main.zip
+2025-08-09 17:11:13,970 - archive_handler - INFO - Entpacke Archive: Natsu-Search--main.zip -> K:\Download\Mega\Natsu-Search--main
+2025-08-09 17:11:22,147 - archive_handler - INFO - Archive erfolgreich entpackt: 491 Dateien in K:\Download\Mega\Natsu-Search--main
+2025-08-09 17:11:22,177 - archive_handler - INFO - Archive erfolgreich verarbeitet: Natsu-Search--main.zip
+2025-08-09 17:11:22,179 - archive_handler - INFO - Beginne Verarbeitung von: NoMercy-1.03a-pc.zip
+2025-08-09 17:11:22,218 - archive_handler - INFO - Archive erfolgreich verarbeitet: NoMercy-1.03a-pc.zip
+2025-08-09 17:11:22,220 - archive_handler - INFO - Beginne Verarbeitung von: Nope_Nope_Nurses.7z
+2025-08-09 17:11:22,232 - archive_handler - INFO - Archive erfolgreich verarbeitet: Nope_Nope_Nurses.7z
+2025-08-09 17:11:22,234 - archive_handler - INFO - Beginne Verarbeitung von: NostalgiaAndLust_v1.12_windows_bugfix.zip
+2025-08-09 17:11:22,236 - archive_handler - INFO - Entpacke Archive: NostalgiaAndLust_v1.12_windows_bugfix.zip -> K:\Download\Mega\NostalgiaAndLust_v1.12_windows_bugfix
+2025-08-09 17:11:24,518 - archive_handler - INFO - Archive-Cleanup Scan abgeschlossen: 85 Archive gefunden, 57 Cleanup-Kandidaten, 0 automatisch bereinigt
+2025-08-09 17:11:24,521 - __main__ - INFO - File Manager gestartet
+2025-08-09 17:11:24,521 - __main__ - INFO - ACTIVITY: system_started - File Manager gestartet
+2025-08-09 17:11:24,521 - __main__ - INFO - Starte API-Server auf 127.0.0.1:8080
